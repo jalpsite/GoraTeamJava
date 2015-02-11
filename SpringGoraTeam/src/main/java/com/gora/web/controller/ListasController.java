@@ -127,9 +127,4 @@ public class ListasController {
 		return listasService.getLista(Long.parseLong("6"));
 	}
 	
-	@RequestMapping(value = ListasRestURIConstant.GET_TIPO_ARCHIVO, method = RequestMethod.GET,headers="Accept=application/json")
-	public List<Lista> getTipoArchivo() {
-		return listasService.getLista(Long.parseLong("7"));
-	}
-	
 }

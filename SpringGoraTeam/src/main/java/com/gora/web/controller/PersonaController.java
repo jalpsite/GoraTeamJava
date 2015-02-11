@@ -107,7 +107,8 @@ public class PersonaController {
 			inputStream = file.getInputStream();
 			// String filePath =
 			// request.getSession().getServletContext().getRealPath("/WEB-INF/files/");
-			String filePath = request.getSession().getServletContext().getRealPath("/");
+			String filePath = request.getSession().getServletContext()
+					.getRealPath("/");
 			System.out.print(filePath);
 			File newFile = new File(filePath + "\\" + fileName);
 			if (!newFile.exists()) {
@@ -136,8 +137,6 @@ public class PersonaController {
 		return retorno;
 
 	}
-		
-		
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_FOTOPERSONA, method = RequestMethod.GET)
 	public void getFoto(HttpServletResponse response) {
@@ -173,9 +172,7 @@ public class PersonaController {
 
 	}
 	
-	/*
-	 * VALIDACION LA EXISTENCIA DEL DOCUMENTO
-	 */
+	
 	
 	
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_VALIDA_DOCUMENTO, method = RequestMethod.GET, headers = "Accept=application/json")
@@ -213,16 +210,6 @@ public class PersonaController {
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_ATRIBUTOS, method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<Atributo> getAtributos(@PathVariable Long id) {
 		return perService.getAtributos(id);
-	}
-	
-	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_HABILIDADES_X_COMPETENCIA, method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Habilidades> getHabilidadesXCompetencia(@PathVariable Long idPersona, @PathVariable Long idCompetencia) {
-		return perService.getHabilidadesXCompetencia(idPersona, idCompetencia);
-	}
-	
-	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_ATRIBUTOS_X_HABIILIDAD, method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Atributo> getAtributosXHabilidad(@PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidad) {
-		return perService.getAtributosXHabilidad(idPersona, idCompetencia, idHabilidad);
 	}
 
 	/*
@@ -371,8 +358,6 @@ public class PersonaController {
 	public List<PersonaDireccion> getPersonaDireccion(@PathVariable Long id) {
 		return perService.getDireccion(id);
 	}
-	
-	
 	
 	
 	/* 	EXPERIENCIA 	*/

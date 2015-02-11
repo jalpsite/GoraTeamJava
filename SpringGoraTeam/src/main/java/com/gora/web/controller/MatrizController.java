@@ -63,10 +63,5 @@ public class MatrizController {
 		return this.matriz.findAll();		
 	}
 	
-	@RequestMapping(value=MatrizRestURIConstant.DESACTIVAR_MATRIZ_X_COMPETENCIA,method = RequestMethod.GET,headers="Accept=application/json")
-	public void desactivarMatriz(@PathVariable Long idCompetencia){
-		this.matriz.desactivarMatriz(idCompetencia);		
-	}
-	
 	
 }

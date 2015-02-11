@@ -47,8 +47,6 @@ public class Matriz implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idpersona")
 	private Persona persona;
-	
-	private String estado;
 
 	public Matriz() {
 	}
@@ -119,14 +117,6 @@ public class Matriz implements Serializable {
 
 	public void setPersona(Persona persona) {
 		this.persona = persona;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 }

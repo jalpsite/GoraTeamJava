@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -33,7 +32,6 @@ public class Atributos implements Serializable {
 	@JoinColumn(name="idatributo")
 	private Atributo atributo;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idhabilidad")
 	private Habilidad habilidad;

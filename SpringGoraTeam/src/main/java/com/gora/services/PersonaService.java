@@ -15,7 +15,6 @@ import com.gora.dominio.PersonaTelefono;
 
 
 
-
 import java.util.List;
 
 /**
@@ -50,9 +49,6 @@ public interface PersonaService {
 	public List<Competencia> getCompetencias(Long id);	
 	public List<Habilidades> getHabilidades(Long id);
 	public List<Atributo> getAtributos(Long id);
-	
-	public List<Habilidades> getHabilidadesXCompetencia(Long idPersona, Long idCompetencia);
-	public List<Atributo> getAtributosXHabilidad(Long idPersona, Long idCompetencia, Long idHabilidad);
 	
 	public Persona updateDatos(int opcion, Persona per);
 	

@@ -27,6 +27,5 @@ public class ListasRestURIConstant {
 	    public static final String GET_TIPO_DIRECCION = "/tipodireccion";
 	    public static final String GET_ESTADO_CIVIL = "/estadocivil";
 	    public static final String GET_NIVEL_ESTUDIO = "/nivelestudio";
-	    public static final String GET_TIPO_ARCHIVO = "/tipoarchivo";
 
 }

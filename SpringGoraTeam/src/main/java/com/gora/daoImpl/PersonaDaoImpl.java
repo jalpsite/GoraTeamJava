@@ -2,6 +2,7 @@ package com.gora.daoImpl;
 import java.util.List;
 
 
+
 import com.gora.dao.PersonaDao;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
@@ -101,7 +102,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		Query query=getCurrentSession().createQuery("Select a.persona.idpersona, a.persona.sexo, a.persona.apemat, a.persona.apepat,a.persona.nombres from PersonaEmail a where a.persona.numerodocidentidad= :dni and a.email=:ema and a.tipo='LABORAL'");
 		query.setParameter("dni", dni);
 		query.setParameter("ema", correo);		
-		return (Object)query.uniqueResult();
+		return (Object)query.list().get(0);
 	}
 
 	@Override
@@ -223,7 +224,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Competencia> getCompetencias(Long id) {
-		Query query=getCurrentSession().createQuery("Select a.competencia.idcompetencia, a.competencia from Matriz a where a.persona.idpersona=:id");
+		Query query=getCurrentSession().createQuery("Select distinct a.competencia.idcompetencia, a.competencia.descripcion from Matriz a where a.persona.idpersona=:id and upper(a.estado)='A'");
 		query.setParameter("id", id);
 		return query.list();
 	}
@@ -231,7 +232,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Habilidades> getHabilidades(Long id) {
-		Query query=getCurrentSession().createQuery("Select a.habilidades.idhabilidades, a.habilidades.descripcion from Habilidad a where a.persona.idpersona=:id");
+		Query query=getCurrentSession().createQuery("Select distinct a.habilidades.idhabilidades, a.habilidades.descripcion from Habilidad a where a.persona.idpersona=:id and upper(a.matriz.estado)='A'");
 		query.setParameter("id", id);
 		return query.list();
 	}
@@ -239,7 +240,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Atributo> getAtributos(Long id) {
-		Query query=getCurrentSession().createQuery("Select a.atributo.idatributo, a.atributo.habilidades.competencia.descripcion , a.atributo.habilidades.descripcion, a.atributo.descripcion from Atributos a where a.habilidad.persona.idpersona=:id");
+		Query query=getCurrentSession().createQuery("Select distinct a.atributo.idatributo, a.atributo.descripcion from Atributos a where a.habilidad.persona.idpersona=:id and upper(a.habilidad.matriz.estado)='A'");
 		query.setParameter("id", id);
 		return query.list();
 	}
@@ -253,6 +254,25 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		}else{
 			return 0; //no existe
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Habilidades> getHabilidadesXCompetencia(Long idPersona, Long idCompetencia) {
+		Query query=getCurrentSession().createQuery("Select distinct a.habilidades.idhabilidades, a.habilidades.descripcion from Habilidad a where a.persona.idpersona=:id and a.habilidades.competencia.idcompetencia=:comp and upper(a.matriz.estado)='A'");
+		query.setParameter("id", idPersona);
+		query.setParameter("comp", idCompetencia);
+		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Atributo> getAtributosXHabilidad(Long idPersona, Long idCompetencia, Long idHabilidad) {
+		Query query=getCurrentSession().createQuery("Select distinct a.atributo.idatributo, a.atributo.descripcion from Atributos a where a.habilidad.persona.idpersona=:id and a.habilidad.habilidades.idhabilidades=:hab and a.habilidad.matriz.competencia.idcompetencia=:comp and upper(a.habilidad.matriz.estado)='A'");
+		query.setParameter("id", idPersona);
+		query.setParameter("hab", idHabilidad);
+		query.setParameter("comp", idCompetencia);
+		return query.list();
 	}
 	
 	

@@ -34,15 +34,18 @@ public class Habilidad implements Serializable {
 	private List<Atributos> atributos;
 	
 	//bi-directional many-to-one association to Matriz
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idmatriz")
 	private Matriz matriz;
 
 	//bi-directional many-to-one association to Persona
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idpersona")
 	private Persona persona;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idhabilidades")
 	private Habilidades habilidades;

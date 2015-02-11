@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -45,6 +46,7 @@ public class Experiencia implements Serializable {
 	private Date anhofin;
 	
 	//bi-directional many-to-one association to Persona
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idpersona")
 	private Persona persona;

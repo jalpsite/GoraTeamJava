@@ -11,5 +11,5 @@ import com.gora.dominio.Matriz;
  */
 
 public interface MatrizDao extends GenericDao<Matriz> {
-
+	public void desactivarMatriz(Long idCompetencia);
 }

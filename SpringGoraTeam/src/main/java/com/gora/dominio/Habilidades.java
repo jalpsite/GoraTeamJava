@@ -45,6 +45,7 @@ public class Habilidades implements Serializable {
 	@OneToMany(mappedBy="habilidades",fetch=FetchType.EAGER)
 	private List<Atributo> atributos;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idcompetencia")
 	private Competencia competencia;

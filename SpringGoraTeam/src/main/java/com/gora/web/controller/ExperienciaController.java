@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,12 +28,12 @@ public class ExperienciaController {
 		
 
 	@RequestMapping(value = ExperienciaRestURIConstant.CREATE_EXPERIENCIA, method = RequestMethod.POST)	
-	public int Agregar(@ModelAttribute Experiencia exp, @PathVariable Long idPersona){	
+	public void Agregar(@RequestBody Experiencia[] exp, @PathVariable Long idPersona){	
 		Persona per=personaService.findById(idPersona);
-		exp.setPersona(per);
-		this.experiencia.save(exp);
-		
-		return Integer.parseInt((exp.getIdexperiencia()).toString()); 
+		for(Experiencia e:exp){
+			e.setPersona(per);
+			this.experiencia.save(e);			
+		}			
 	}
 	
 	@RequestMapping(value = ExperienciaRestURIConstant.UPDATE_EXPERIENCIA, method = RequestMethod.POST)	

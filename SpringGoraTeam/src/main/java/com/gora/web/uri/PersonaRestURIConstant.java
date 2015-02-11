@@ -23,10 +23,13 @@ public class PersonaRestURIConstant {
     public static final String GET_PERSONA_NOMBRE_APELLIDO = "/buscarNomApe/{nomApePersona}";
     
     //EXTRACCION DE DATOS
-    public static final String GET_PERSONA_JEFE = "{id}/jefe";    
-    public static final String GET_PERSONA_COMPETENCIAS = "{id}/competencias";
-    public static final String GET_PERSONA_HABILIDADES = "{id}/habilidades";
-    public static final String GET_PERSONA_ATRIBUTOS = "{id}/atributos";
+    public static final String GET_PERSONA_JEFE = "/{id}/jefe";    
+    public static final String GET_PERSONA_COMPETENCIAS = "/{id}/competencias";
+    public static final String GET_PERSONA_HABILIDADES = "/{id}/habilidades";
+    public static final String GET_PERSONA_ATRIBUTOS = "/{id}/atributos";
+    
+    public static final String GET_PERSONA_HABILIDADES_X_COMPETENCIA = "/{idPersona}/{idCompetencia}/habilidades";
+    public static final String GET_PERSONA_ATRIBUTOS_X_HABIILIDAD = "/{idPersona}/{idCompetencia}/{idHabilidad}/atributos";
     
     
     /*	DIRECCION */

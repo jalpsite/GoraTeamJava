@@ -47,7 +47,8 @@ public class Persona implements Serializable {
 	private String foto;
 	
 	private String presentacion;
-
+	@JsonIgnore
+	private String tienefoto;
 	
 
 	private Persona persona;
@@ -404,6 +405,15 @@ public class Persona implements Serializable {
 			this.foto = foto;
 		}
 		
+
+		public String getTienefoto() {
+			return tienefoto;
+		}
+
+
+		public void setTienefoto(String tienefoto) {
+			this.tienefoto = tienefoto;
+		}
 		
 
 }

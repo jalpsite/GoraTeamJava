@@ -173,7 +173,9 @@ public class PersonaController {
 	}
 	
 	
-	
+	/*
+	 * VALIDACION LA EXISTENCIA DEL DOCUMENTO
+	 */
 	
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_VALIDA_DOCUMENTO, method = RequestMethod.GET, headers = "Accept=application/json")
 	public int valDocumento(@PathVariable String doc) {
@@ -210,6 +212,16 @@ public class PersonaController {
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_ATRIBUTOS, method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<Atributo> getAtributos(@PathVariable Long id) {
 		return perService.getAtributos(id);
+	}
+	
+	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_HABILIDADES_X_COMPETENCIA, method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Habilidades> getHabilidadesXCompetencia(@PathVariable Long idPersona, @PathVariable Long idCompetencia) {
+		return perService.getHabilidadesXCompetencia(idPersona, idCompetencia);
+	}
+	
+	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_ATRIBUTOS_X_HABIILIDAD, method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Atributo> getAtributosXHabilidad(@PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidad) {
+		return perService.getAtributosXHabilidad(idPersona, idCompetencia, idHabilidad);
 	}
 
 	/*

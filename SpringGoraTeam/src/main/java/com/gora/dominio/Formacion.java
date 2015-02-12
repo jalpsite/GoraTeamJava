@@ -41,16 +41,19 @@ public class Formacion implements Serializable {
 
 	//bi-directional many-to-one association to Carrera
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idcarrera")
 	private Carrera carrera;
 
 	//bi-directional many-to-one association to Grado
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idgrado")
 	private Grado grado;
 
+	
 	//bi-directional many-to-one association to Persona
 	@JsonIgnore
 	@ManyToOne
@@ -58,7 +61,7 @@ public class Formacion implements Serializable {
 	private Persona persona;
 
 	//bi-directional many-to-one association to Universidad
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="iduniversidad")
 	private Universidad universidad;

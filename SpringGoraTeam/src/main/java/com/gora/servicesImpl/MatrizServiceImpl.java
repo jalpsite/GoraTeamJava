@@ -52,5 +52,10 @@ public class MatrizServiceImpl implements MatrizService {
         //Hibernate.initialize(tmp.getOrders());
         return tmp;
     }
+    
+    @Override
+	public void desactivarMatriz(Long idCompetencia) {		
+		matrizDao.desactivarMatriz(idCompetencia);
+	}
 
 }

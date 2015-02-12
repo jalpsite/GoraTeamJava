@@ -153,18 +153,17 @@ public class PersonaServiceImpl implements PersonaService {
 		return personaDao.validarDNI(doc);
 	}
 
-	
-	
-	
-	
-	
-	
-	/*
 	@Override
-	public List<PersonaDatos> filtroPersonas2(List<String> competencias,
-			List<String> habilidades, List<String> atributos) {
-		return personaDao.filtroPersonas2(competencias, habilidades, atributos);
+	public List<Habilidades> getHabilidadesXCompetencia(Long idPersona, Long idCompetencia) {
+		return personaDao.getHabilidadesXCompetencia(idPersona, idCompetencia);
 	}
-	*/
+
+	@Override
+	public List<Atributo> getAtributosXHabilidad(Long idPersona, Long idCompetencia, Long idHabilidad) {
+		return personaDao.getAtributosXHabilidad(idPersona, idCompetencia, idHabilidad);
+	}
+
+	
+
 
 }

@@ -27,18 +27,20 @@ public class ArchivoServiceImpl implements ArchivoService {
 	private ArchivoDao archivoDao;
 	 
 	@Override
-	public void subirArchivo(Archivo objArchivo, InputStream arch) {		
-		archivoDao.subirArchivo(objArchivo, arch);
+	public void gestionArchivo(Archivo objArchivo, InputStream arch) {		
+		archivoDao.gestionArchivo(objArchivo, arch);
 	}
-
-	@Override
-	public void actualizarArchivo(Archivo objArchivo, InputStream arch) {
-		archivoDao.actualizarArchivo(objArchivo, arch);
-	}
+	
 
 	@Override
 	public Archivo getArchivo(Long idPersona, String tipo) {
 		return archivoDao.getArchivo(idPersona, tipo);
+	}
+
+
+	@Override
+	public Archivo existenciaArchivo(Long idPersona, String tipo) {
+		return archivoDao.existenciaArchivo(idPersona, tipo);
 	}
     
 

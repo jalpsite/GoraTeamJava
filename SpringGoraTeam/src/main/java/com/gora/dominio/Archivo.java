@@ -2,7 +2,13 @@ package com.gora.dominio;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.Types;
+
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
+
 
 
 /**
@@ -24,8 +30,10 @@ public class Archivo implements Serializable {
 	private Long idarchivo;
 	private Long idpersona;
 	private String tipo;
+	
 	@Lob
-	private Blob archivo;
+	@Type(type="org.hibernate.type.PrimitiveByteArrayBlobType")    
+	private byte[] archivo;
 	
 	public Archivo(){
 		
@@ -55,11 +63,11 @@ public class Archivo implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public Blob getArchivo() {
+	public byte[] getArchivo() {
 		return archivo;
 	}
 
-	public void setArchivo(Blob archivo) {
+	public void setArchivo(byte[] archivo) {
 		this.archivo = archivo;
 	}
 	

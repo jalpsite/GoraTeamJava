@@ -43,12 +43,9 @@ public class Persona implements Serializable {
 	private String numerodocidentidad;
 	private String tipodocidentidad;
 	private String sexo;
-	private String codigo;
-	private String foto;
+	private String codigo;	
 	
-	private String presentacion;
-	@JsonIgnore
-	private String tienefoto;
+	private String presentacion;	
 	
 
 	private Persona persona;
@@ -395,25 +392,8 @@ public class Persona implements Serializable {
 			this.sexo = sexo;
 		}
 
-
-		public String getFoto() {
-			return foto;
-		}
-
-
-		public void setFoto(String foto) {
-			this.foto = foto;
-		}
-		
-
-		public String getTienefoto() {
-			return tienefoto;
-		}
-
-
-		public void setTienefoto(String tienefoto) {
-			this.tienefoto = tienefoto;
-		}
+	
+			
 		
 
 }

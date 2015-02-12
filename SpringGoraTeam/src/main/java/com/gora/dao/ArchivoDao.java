@@ -13,8 +13,8 @@ import com.gora.dominio.Archivo;
  */
 
 public interface ArchivoDao{
-	public void subirArchivo(Archivo objArchivo,InputStream arch);
-	public void actualizarArchivo(Archivo objArchivo,InputStream arch);
+	public void gestionArchivo(Archivo objArchivo,InputStream arch);	
 	public Archivo getArchivo(Long idPersona, String tipo);
+	public Archivo existenciaArchivo(Long idPersona, String tipo);
 	
 }

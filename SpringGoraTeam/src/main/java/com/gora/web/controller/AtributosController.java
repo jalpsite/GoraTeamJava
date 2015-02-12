@@ -42,11 +42,12 @@ public class AtributosController {
 		this.atributosService.save(attr);
 		return Integer.parseInt((attr.getIdatributos()).toString());
 	}
-	
+		
 	@RequestMapping(value = AtributosRestURIConstant.UPDATE_ATRIBUTOS, method = RequestMethod.POST)	
-	public void Actualizar(@ModelAttribute Atributos attr,@PathVariable Long idHabilidad, @PathVariable Long idAtributo){
+	public void Actualizar(@ModelAttribute Atributos attr, @PathVariable Long idHabilidad, @PathVariable Long idAtributo){
 		Habilidad hab=habiliService.findById(idHabilidad);
-		Atributo atri=atributService.findById(idAtributo);		
+		Atributo atri=atributService.findById(idAtributo);
+		System.out.println(attr.getIdatributos());
 		attr.setHabilidad(hab);
 		attr.setAtributo(atri);
 		this.atributosService.update(attr);		

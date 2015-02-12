@@ -60,4 +60,9 @@ public class HabilidadServiceImpl implements HabilidadService {
 		return habilidadDao.getAtributos(id);
 	}
 
+	@Override
+	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad) {
+		return habilidadDao.getAtributosExtracto(idPersona, idHabilidad);
+	}
+
 }

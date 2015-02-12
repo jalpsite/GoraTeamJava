@@ -91,88 +91,7 @@ public class PersonaController {
 
 	final DefaultResourceLoader loader = new DefaultResourceLoader();
 
-	/*
-	 * PERSONA FOTO
-	 */
-
-	@RequestMapping(value = PersonaRestURIConstant.CREATE_FOTOPERSONA, method = RequestMethod.POST)
-	public String saveFotoPersona(@RequestParam MultipartFile file,
-			@PathVariable Long id, HttpServletRequest request) {
-
-		InputStream inputStream = null;
-		OutputStream outputStream = null;
-		String fileName = file.getOriginalFilename();
-		String retorno = "";
-		try {
-			inputStream = file.getInputStream();
-			// String filePath =
-			// request.getSession().getServletContext().getRealPath("/WEB-INF/files/");
-			String filePath = request.getSession().getServletContext()
-					.getRealPath("/");
-			System.out.print(filePath);
-			File newFile = new File(filePath + "\\" + fileName);
-			if (!newFile.exists()) {
-				newFile.createNewFile();
-			}
-			outputStream = new FileOutputStream(newFile);
-			int read = 0;
-			byte[] bytes = new byte[1024];
-
-			while ((read = inputStream.read(bytes)) != -1) {
-				outputStream.write(bytes, 0, read);
-			}
-			outputStream.close();
-			inputStream.close();
-
-			Persona per = GetPersona(id);
-			retorno = filePath + fileName;
-			per.setFoto(retorno);
-			perService.update(per);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			return "0";
-
-		}
-		return retorno;
-
-	}
-
-	@RequestMapping(value = PersonaRestURIConstant.GET_FOTOPERSONA, method = RequestMethod.GET)
-	public void getFoto(HttpServletResponse response) {
-		Persona per = GetPersona(Long.parseLong("1"));
-		File file = new File(per.getFoto());
-		//File file = new File(
-				//"C:\\imagenes\\Desert.jpg");
-
-		 FileInputStream fis;
-		try {
-			fis = new FileInputStream(file);
 		
-	        response.reset();
-	        response.setContentType("image/jpeg");
-
-	        PrintWriter out = response.getWriter();
-	        int c;
-	        while ((c = fis.read()) != -1) {
-	            out.write(c);
-	        }
-	        out.flush();
-	        out.close();
-	        fis.close();
-	        
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-	}
-	
-	
 	/*
 	 * VALIDACION LA EXISTENCIA DEL DOCUMENTO
 	 */
@@ -220,7 +139,8 @@ public class PersonaController {
 	}
 	
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_ATRIBUTOS_X_HABIILIDAD, method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Atributo> getAtributosXHabilidad(@PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidad) {
+	public List<Atributo> getAtributosXHabilidad(@PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidad) {		
+		
 		return perService.getAtributosXHabilidad(idPersona, idCompetencia, idHabilidad);
 	}
 

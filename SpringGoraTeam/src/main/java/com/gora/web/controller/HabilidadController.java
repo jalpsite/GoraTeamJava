@@ -77,4 +77,9 @@ public class HabilidadController {
 		return this.habilidadService.getAtributos(id);		
 	}
 		
+	//{idPersona}/{idHabilidad}/atributos
+	@RequestMapping(value=HabilidadRestURIConstant.GET_ATRIBUTOS_EXTRACTO,method = RequestMethod.GET,headers="Accept=application/json")
+	public List<Atributo> GetAtributosExtracto(@PathVariable Long idPersona, @PathVariable Long idHabilidad){
+		return this.habilidadService.getAtributosExtracto(idPersona, idHabilidad);	
+	}
 }

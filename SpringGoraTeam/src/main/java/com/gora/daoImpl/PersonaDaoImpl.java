@@ -268,7 +268,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Atributo> getAtributosXHabilidad(Long idPersona, Long idCompetencia, Long idHabilidad) {
-		Query query=getCurrentSession().createQuery("Select distinct a.atributo.idatributo, a.atributo.descripcion from Atributos a where a.habilidad.persona.idpersona=:id and a.habilidad.habilidades.idhabilidades=:hab and a.habilidad.matriz.competencia.idcompetencia=:comp and upper(a.habilidad.matriz.estado)='A'");
+		Query query=getCurrentSession().createQuery("Select distinct a.idatributos, a.atributo.idatributo, a.atributo.descripcion from Atributos a where a.habilidad.persona.idpersona=:id and a.habilidad.habilidades.idhabilidades=:hab and a.habilidad.matriz.competencia.idcompetencia=:comp and upper(a.habilidad.matriz.estado)='A'");
 		query.setParameter("id", idPersona);
 		query.setParameter("hab", idHabilidad);
 		query.setParameter("comp", idCompetencia);

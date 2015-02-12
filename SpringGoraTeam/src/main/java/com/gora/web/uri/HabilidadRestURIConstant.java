@@ -9,4 +9,6 @@ public class HabilidadRestURIConstant {
     //public static final String DELETE_HABILIDAD = "/delete/{id}";
     
     public static final String GET_ATRIBUTOS = "/{id}/atributos";
+    
+    public static final String GET_ATRIBUTOS_EXTRACTO = "/extracto/{idPersona}/{idHabilidad}/atributos";
 }

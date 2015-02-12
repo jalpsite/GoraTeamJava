@@ -38,8 +38,33 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 	@Override
 	public List<Atributo> getAtributos(Long id) {
 		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id");
-		query.setParameter("id", id);
+		query.setParameter("id", id);		
+    	
 		return query.list();
+	}
+
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad) {
+    	Query q=getCurrentSession().createQuery("select distinct a.atributo.idatributo from Atributos a where a.atributo.habilidades.idhabilidades= :id and a.habilidad.persona.idpersona=:per");
+    	q.setParameter("id", idHabilidad);
+    	q.setParameter("per", idPersona);
+    	List<Long> listaAtributosPersona=(List<Long>)q.list();    	
+		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id and a.idatributo not in("+concatenador(listaAtributosPersona)+")");
+		query.setParameter("id", idHabilidad);
+		return query.list();
+	}
+    
+    private String concatenador(List<Long> arr){		
+		String res="";
+		for(int i=0;i<arr.size();i++){
+			if(i==arr.size()-1){
+				res+=(arr.get(i));				
+			}else{
+				res+=(arr.get(i)+",");
+			}			
+		}			
+		return res;
 	}
 
 }

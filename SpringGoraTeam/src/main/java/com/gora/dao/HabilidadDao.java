@@ -15,4 +15,5 @@ import com.gora.dominio.Habilidad;
 
 public interface HabilidadDao extends GenericDao<Habilidad> {	
 	public List<Atributo> getAtributos(Long id);
+	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad);
 }

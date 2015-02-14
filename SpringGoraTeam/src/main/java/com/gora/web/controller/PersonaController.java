@@ -88,8 +88,7 @@ public class PersonaController {
 	public Object login(@RequestParam String correo, @RequestParam String dni) {
 		return perService.login(correo, dni);
 	}
-
-	final DefaultResourceLoader loader = new DefaultResourceLoader();
+	
 
 		
 	/*
@@ -203,11 +202,13 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.UPDATE_EMAIL, method = RequestMethod.POST)
-	public PersonaEmail updateEmail(@ModelAttribute PersonaEmail perEmail,
+	public void updateEmail(@RequestBody PersonaEmail[] perEmail,
 			@PathVariable Long idPersona) {
-		perEmail.setPersona(this.GetPersona(idPersona));
-		this.perService.actualizarEmail(perEmail);
-		return perEmail;
+		Persona per = this.GetPersona(idPersona);
+		for (PersonaEmail em : perEmail) {
+			em.setPersona(per);
+			this.perService.actualizarEmail(em);
+		}		
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_EMAIL, method = RequestMethod.GET, headers = "Accept=application/json")
@@ -241,11 +242,13 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.UPDATE_PHONE, method = RequestMethod.POST)
-	public PersonaTelefono updateTelefono(
-			@ModelAttribute PersonaTelefono perTel, @PathVariable Long idPersona) {
-		perTel.setPersona(this.GetPersona(idPersona));
-		this.perService.actualizarTelefono(perTel);
-		return perTel;
+	public void updateTelefono(
+			@RequestBody PersonaTelefono[] perTel, @PathVariable Long idPersona) {
+		Persona per = this.GetPersona(idPersona);
+		for (PersonaTelefono tel : perTel) {
+			tel.setPersona(per);
+			this.perService.actualizarTelefono(tel);
+		}
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_PHONE, method = RequestMethod.GET, headers = "Accept=application/json")
@@ -279,11 +282,13 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.UPDATE_ADDRESS, method = RequestMethod.POST)
-	public PersonaDireccion updateDireccion(@ModelAttribute PersonaDireccion perDir,
+	public void updateDireccion(@RequestBody PersonaDireccion[] perDir,
 			@PathVariable Long idPersona) {
-		perDir.setPersona(this.GetPersona(idPersona));
-		this.perService.actualizarDireccion(perDir);
-		return perDir;
+		Persona per = this.GetPersona(idPersona);
+		for (PersonaDireccion dir : perDir) {
+			dir.setPersona(per);
+			this.perService.actualizarDireccion(dir);
+		}
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_ADDRESS, method = RequestMethod.GET, headers = "Accept=application/json")

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -29,6 +31,7 @@ public class Cargo implements Serializable {
 
 	private String estado;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Empleado
 	@OneToMany(mappedBy="cargo",fetch=FetchType.EAGER)
 	private List<Empleado> empleados;

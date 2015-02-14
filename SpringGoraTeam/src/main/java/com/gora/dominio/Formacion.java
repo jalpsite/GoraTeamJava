@@ -41,14 +41,14 @@ public class Formacion implements Serializable {
 
 	//bi-directional many-to-one association to Carrera
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idcarrera")
 	private Carrera carrera;
 
 	//bi-directional many-to-one association to Grado
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idgrado")
 	private Grado grado;
@@ -61,11 +61,13 @@ public class Formacion implements Serializable {
 	private Persona persona;
 
 	//bi-directional many-to-one association to Universidad
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="iduniversidad")
 	private Universidad universidad;
 
+	private String encurso;
+	
 	public Formacion() {
 	}
 
@@ -139,6 +141,14 @@ public class Formacion implements Serializable {
 
 	public void setNivelestudio(String nivelestudio) {
 		this.nivelestudio = nivelestudio;
+	}
+
+	public String getEncurso() {
+		return encurso;
+	}
+
+	public void setEncurso(String encurso) {
+		this.encurso = encurso;
 	}
 
 }

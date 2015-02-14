@@ -16,6 +16,7 @@ import com.gora.services.AtributoService;
 import com.gora.services.AtributosService;
 import com.gora.services.HabilidadService;
 import com.gora.web.uri.AtributosRestURIConstant;
+import com.gora.web.uri.HabilidadRestURIConstant;
 
 
 
@@ -31,6 +32,7 @@ public class AtributosController {
 	
 	@Autowired
 	AtributoService atributService;
+		
 	
 
 	@RequestMapping(value = AtributosRestURIConstant.CREATE_ATRIBUTOS, method = RequestMethod.POST)	
@@ -44,13 +46,11 @@ public class AtributosController {
 	}
 		
 	@RequestMapping(value = AtributosRestURIConstant.UPDATE_ATRIBUTOS, method = RequestMethod.POST)	
-	public void Actualizar(@ModelAttribute Atributos attr, @PathVariable Long idHabilidad, @PathVariable Long idAtributo){
-		Habilidad hab=habiliService.findById(idHabilidad);
-		Atributo atri=atributService.findById(idAtributo);
-		System.out.println(attr.getIdatributos());
-		attr.setHabilidad(hab);
-		attr.setAtributo(atri);
-		this.atributosService.update(attr);		
+	public void Actualizar(@ModelAttribute Atributos attr, @PathVariable Long idAtributo){
+		Atributos atributos=atributosService.findById(attr.getIdatributos());				
+		Atributo atri=atributService.findById(idAtributo);				
+		atributos.setAtributo(atri);
+		this.atributosService.update(atributos);		
 	}
 	
 	@RequestMapping(value=AtributosRestURIConstant.GET_ATRIBUTOS,method = RequestMethod.GET,headers="Accept=application/json")
@@ -62,4 +62,11 @@ public class AtributosController {
 	public List<Atributos> getAll(){
 		return this.atributosService.findAll();		
 	}
+	
+	@RequestMapping(value=AtributosRestURIConstant.GET_ATRIBUTOS_EXTRACTO,method = RequestMethod.GET,headers="Accept=application/json")
+	public List<Atributo> GetAtributosExtracto(@PathVariable Long idPersona, @PathVariable Long idHabilidad){
+		return this.habiliService.getAtributosExtracto(idPersona, idHabilidad);	
+	}
+		
+	
 }

@@ -44,5 +44,6 @@ public interface ListasDao {
 	 * 	6 = NIVELES DE ESTUDIO
 	 * 
 	 * */
-	public List<Lista> getLista(Long idbloque);	
+	public List<Lista> getLista(Long idbloque);
+	public List<Ubigeo> getUbigeo(Long idUbigeo);
 }

@@ -2,7 +2,9 @@ package com.gora.servicesImpl;
 
 import com.gora.dao.HabilidadDao;
 import com.gora.dominio.Atributo;
+import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidad;
+import com.gora.dominio.Habilidades;
 import com.gora.services.HabilidadService;
 
 import org.springframework.stereotype.Service;
@@ -63,6 +65,17 @@ public class HabilidadServiceImpl implements HabilidadService {
 	@Override
 	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad) {
 		return habilidadDao.getAtributosExtracto(idPersona, idHabilidad);
+	}
+
+	@Override
+	public List<Habilidades> getHabilidadesExtracto(Long idPersona,
+			Long idCompetencia) {
+		return habilidadDao.getHabilidadesExtracto(idPersona, idCompetencia);
+	}
+
+	@Override
+	public List<Competencia> getCompetenciasExtracto(Long idPersona) {
+		return habilidadDao.getCompetenciasExtracto(idPersona);
 	}
 
 }

@@ -52,4 +52,9 @@ public class AtributosServiceImpl implements AtributosService {
         return tmp;
     }
 
+	@Override
+	public boolean eliminarXHabilidad(Long idHabilidad) {
+		return atributoDao.eliminarXHabilidad(idHabilidad);
+	}
+
 }

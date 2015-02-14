@@ -103,4 +103,9 @@ public class ListasServiceImpl implements ListasService {
 		return listasDao.getAtributos();
 	}
 
+	@Override
+	public List<Ubigeo> getUbigeo(Long idUbigeo) {
+		return listasDao.getUbigeo(idUbigeo);
+	}
+
 }

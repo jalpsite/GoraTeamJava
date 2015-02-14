@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import com.gora.dao.ListasDao;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Cargo;
@@ -124,6 +125,14 @@ public class ListasDaoImpl  implements ListasDao {
 	@Override
 	public List<Atributo> getAtributos() {
 		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a");
+		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Ubigeo> getUbigeo(Long idUbigeo) {
+		Query query=getCurrentSession().createQuery("select a from Ubigeo a where a.idubigeo=:id");
+		query.setParameter("id", idUbigeo);
 		return query.list();
 	}
 

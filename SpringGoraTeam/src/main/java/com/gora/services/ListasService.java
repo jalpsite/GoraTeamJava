@@ -52,4 +52,6 @@ public interface ListasService {
 	 * */
 	
 	public List<Lista> getLista(Long idbloque);
+	
+	public List<Ubigeo> getUbigeo(Long idUbigeo);
 }

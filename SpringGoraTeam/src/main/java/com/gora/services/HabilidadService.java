@@ -1,7 +1,9 @@
 package com.gora.services;
 
 import com.gora.dominio.Atributo;
+import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidad;
+import com.gora.dominio.Habilidades;
 
 import java.util.List;
 
@@ -26,4 +28,6 @@ public interface HabilidadService {
     public List<Atributo> getAtributos(Long id);
     
     public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad);
+    public List<Habilidades> getHabilidadesExtracto(Long idPersona, Long idCompetencia);
+    public List<Competencia> getCompetenciasExtracto(Long idPersona);
 }

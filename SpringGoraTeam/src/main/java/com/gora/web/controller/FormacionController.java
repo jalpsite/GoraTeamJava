@@ -1,6 +1,8 @@
 package com.gora.web.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,8 @@ public class FormacionController {
 		form.setCarrera(carr);
 		form.setGrado(grado);
 		form.setUniversidad(uni);
-		//System.out.println(form.getAñofin()+" "+form.getAñoinicio());
+		//System.out.println(form.getAnhofin()+" "+form.getAnhoinicio());					
+		
 		
 		this.formacion.save(form);		
 		return Integer.parseInt((form.getIdformacion()).toString());
@@ -68,9 +71,14 @@ public class FormacionController {
 		form.setCarrera(carr);
 		form.setGrado(grado);
 		form.setUniversidad(uni);
+		
+				
+		
 		this.formacion.update(form);
 		return form;
 	}
+	
+	
 	
 	@RequestMapping(value=FormacionRestURIConstant.GET_FORMACION,method = RequestMethod.GET,headers="Accept=application/json")
 	public Formacion buscar(@PathVariable Long id){

@@ -8,4 +8,6 @@ public class CompetenciaRestURIConstant {
     public static final String UPDATE_COMPETENCIA = "/update";
     //public static final String DELETE_COMPETENCIA = "/delete/{id}"; 
     public static final String GET_HABILIDADES = "/{id}/habilidades";
+    
+    public static final String GET_COMPETENCIAS_EXTRACTO = "/extracto/{idPersona}";
 }

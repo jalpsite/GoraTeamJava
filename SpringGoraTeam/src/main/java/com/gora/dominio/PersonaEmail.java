@@ -26,6 +26,7 @@ public class PersonaEmail implements Serializable {
 	private Persona persona;
 
 	public PersonaEmail() {
+		
 	}
 
 

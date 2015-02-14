@@ -132,4 +132,11 @@ public class ListasController {
 		return listasService.getLista(Long.parseLong("7"));
 	}
 	
+	
+	
+	@RequestMapping(value = ListasRestURIConstant.GET_UBIGEO, method = RequestMethod.GET,headers="Accept=application/json")
+	public List<Ubigeo> getUbigeo(@PathVariable Long idUbigeo) {
+		return listasService.getUbigeo(idUbigeo);
+	}
+	
 }

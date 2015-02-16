@@ -163,6 +163,21 @@ public class PersonaServiceImpl implements PersonaService {
 		return personaDao.getAtributosXHabilidad(idPersona, idCompetencia, idHabilidad);
 	}
 
+	@Override
+	public void estadoDireccion(Long idDireccion, String estado) {
+		personaDao.estadoDireccion(idDireccion, estado);
+	}
+
+	@Override
+	public void estadoEmail(Long idEmail, String estado) {
+		personaDao.estadoEmail(idEmail, estado);
+	}
+
+	@Override
+	public void estadoTelefono(Long idTelefono, String estado) {
+		personaDao.estadoTelefono(idTelefono, estado);
+	}
+
 	
 
 

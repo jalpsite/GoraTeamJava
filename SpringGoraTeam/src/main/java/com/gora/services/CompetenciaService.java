@@ -24,5 +24,7 @@ public interface CompetenciaService {
     public List<Competencia> findAll();
     
     public List<Habilidad> getHabilidades(Long id);
+    
+    public List<Competencia> getCompetenciasExtracto(Long idPersona);
 
 }

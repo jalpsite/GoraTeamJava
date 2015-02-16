@@ -45,7 +45,9 @@ public class Persona implements Serializable {
 	private String sexo;
 	private String codigo;	
 	
-	private String presentacion;	
+	private String presentacion;
+	
+	private String perfil;
 	
 
 	private Persona persona;
@@ -166,6 +168,16 @@ public class Persona implements Serializable {
 
 	public String getPresentacion() {
 		return presentacion;
+	}
+
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 
 

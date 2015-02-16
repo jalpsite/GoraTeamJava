@@ -2,7 +2,6 @@ package com.gora.servicesImpl;
 
 import com.gora.dao.HabilidadDao;
 import com.gora.dominio.Atributo;
-import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 import com.gora.services.HabilidadService;
@@ -62,10 +61,7 @@ public class HabilidadServiceImpl implements HabilidadService {
 		return habilidadDao.getAtributos(id);
 	}
 
-	@Override
-	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad) {
-		return habilidadDao.getAtributosExtracto(idPersona, idHabilidad);
-	}
+	
 
 	@Override
 	public List<Habilidades> getHabilidadesExtracto(Long idPersona,
@@ -74,8 +70,14 @@ public class HabilidadServiceImpl implements HabilidadService {
 	}
 
 	@Override
-	public List<Competencia> getCompetenciasExtracto(Long idPersona) {
-		return habilidadDao.getCompetenciasExtracto(idPersona);
+	public List<Habilidad> getHabilidadXMatriz(Long idMatriz) {
+		return habilidadDao.getHabilidadXMatriz(idMatriz);
 	}
+
+	@Override
+	public boolean eliminarXMatriz(Long idMatriz) {
+		return habilidadDao.eliminarXMatriz(idMatriz);
+	}
+
 
 }

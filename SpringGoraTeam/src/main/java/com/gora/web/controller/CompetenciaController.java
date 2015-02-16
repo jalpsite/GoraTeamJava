@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidad;
-import com.gora.dominio.Habilidades;
 import com.gora.services.CompetenciaService;
-import com.gora.services.HabilidadService;
 import com.gora.web.uri.CompetenciaRestURIConstant;
-import com.gora.web.uri.HabilidadRestURIConstant;
+
 
 
 @RestController
@@ -25,9 +23,7 @@ import com.gora.web.uri.HabilidadRestURIConstant;
 public class CompetenciaController {
 	
 	@Autowired
-	CompetenciaService competencia;	
-	@Autowired
-	HabilidadService habilidad;	
+	CompetenciaService competencia;		
 		
 
 	@RequestMapping(value = CompetenciaRestURIConstant.CREATE_COMPETENCIA, method = RequestMethod.POST)	
@@ -58,6 +54,6 @@ public class CompetenciaController {
 	
 	@RequestMapping(value=CompetenciaRestURIConstant.GET_COMPETENCIAS_EXTRACTO,method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Competencia> GetAtributosExtracto(@PathVariable Long idPersona){
-		return this.habilidad.getCompetenciasExtracto(idPersona);
+		return this.competencia.getCompetenciasExtracto(idPersona);
 	}
 }

@@ -7,6 +7,7 @@ import com.gora.services.MatrizService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -52,10 +53,11 @@ public class MatrizServiceImpl implements MatrizService {
         //Hibernate.initialize(tmp.getOrders());
         return tmp;
     }
-    
-    @Override
-	public void desactivarMatriz(Long idCompetencia) {		
-		matrizDao.desactivarMatriz(idCompetencia);
+
+	@Override
+	public boolean deleteMatriz(Long idMatriz) {
+		return matrizDao.deleteMatriz(idMatriz);
 	}
+        
 
 }

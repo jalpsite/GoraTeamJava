@@ -29,6 +29,7 @@ public class Matriz implements Serializable {
 	) 
 	private Long idmatriz;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Evaluacion
 	@OneToMany(mappedBy="matriz")
 	private List<Evaluacion> evaluacions;
@@ -43,6 +44,7 @@ public class Matriz implements Serializable {
 	@JoinColumn(name="idcompetencia")
 	private Competencia competencia;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="idpersona")

@@ -1,11 +1,7 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
-import java.sql.Blob;
-import java.sql.Types;
-
 import javax.persistence.*;
-
 import org.hibernate.annotations.Type;
 
 

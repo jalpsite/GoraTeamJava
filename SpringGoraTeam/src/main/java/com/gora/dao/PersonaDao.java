@@ -26,11 +26,16 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public void actualizarDireccion(PersonaDireccion perDir);
 	public void actualizarEmail(PersonaEmail perEmail);
 	public void actualizarTelefono(PersonaTelefono perTelf);	
+	
 	public List<PersonaDireccion> getDireccion(Long id);
 	public List<PersonaEmail> getEmail(Long id);
-	public List<PersonaTelefono> getTelefono(Long id);	
-	public Object login(String correo,String dni);
+	public List<PersonaTelefono> getTelefono(Long id);
 	
+	public void estadoDireccion(Long idDireccion,String estado);
+	public void estadoEmail(Long idEmail,String estado );
+	public void estadoTelefono(Long idTelefono,String estado);
+	
+	public Object login(String correo,String dni);
 	public Long getIDJefe(Long idPersona);
 	public List<Competencia> getCompetencias(Long id);	
 	public List<Habilidades> getHabilidades(Long id);
@@ -44,6 +49,5 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public List<Persona> filtroPersonas(String[] competencias,String[] habilidades, String[] atributos);
 	
 	public int validarDNI(String doc);
-	
-	//public List<PersonaDatos> filtroPersonas2(List<String> competencias,List<String> habilidades, List<String> atributos);
+		
 }

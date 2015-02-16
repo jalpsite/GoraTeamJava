@@ -33,14 +33,20 @@ public class PersonaRestURIConstant {
     public static final String GET_PERSONA_ADDRESS = "/{id}/direccion";
     public static final String CREATE_ADDRESS = "/direccion/create/{idPersona}";
     public static final String UPDATE_ADDRESS = "/direccion/update/{idPersona}";
+    public static final String UPDATESINGLE_ADDRESS = "/direccion/updatesingle/{idPersona}";
+    public static final String DESACTIVAR_ADDRESS = "/direccion/desactivar/{idDireccion}";
     /*	EMAIL	*/
     public static final String GET_PERSONA_EMAIL = "/{id}/email";    
     public static final String CREATE_EMAIL = "/email/create/{idPersona}";    
     public static final String UPDATE_EMAIL = "/email/update/{idPersona}";
+    public static final String UPDATESINGLE_EMAIL = "/email/updatesingle/{idPersona}";
+    public static final String DESACTIVAR_EMAIL = "/email/desactivar/{idEmail}";
     /* 	TELEFONO	*/
     public static final String GET_PERSONA_PHONE = "/{id}/telefono";
     public static final String CREATE_PHONE = "/telefono/create/{idPersona}";
     public static final String UPDATE_PHONE = "/telefono/update/{idPersona}";
+    public static final String UPDATESINGLE_PHONE = "/telefono/updatesingle/{idPersona}";
+    public static final String DESACTIVAR_PHONE = "/telefono/desactivar/{idTelefono}";
     
     /* EXPERIENCIAS */
     public static final String GET_PERSONA_EXPERIENCIAS = "/{id}/experiencias"; 

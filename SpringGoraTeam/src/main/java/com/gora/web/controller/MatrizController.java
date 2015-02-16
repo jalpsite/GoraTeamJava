@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gora.dominio.Competencia;
+import com.gora.dominio.Habilidad;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
+import com.gora.services.AtributosService;
 import com.gora.services.CompetenciaService;
+import com.gora.services.HabilidadService;
 import com.gora.services.MatrizService;
 import com.gora.services.PersonaService;
 import com.gora.web.uri.MatrizRestURIConstant;
@@ -25,6 +28,12 @@ public class MatrizController {
 	
 	@Autowired
 	MatrizService matriz;
+	
+	@Autowired
+	HabilidadService habilidadService;
+	
+	@Autowired
+	AtributosService atributosService;
 	
 	@Autowired
 	PersonaService perService;
@@ -44,12 +53,29 @@ public class MatrizController {
 	}
 	
 	@RequestMapping(value = MatrizRestURIConstant.UPDATE_MATRIZ, method = RequestMethod.POST)	
-	public void Actualizar(@ModelAttribute Matriz matr, @PathVariable Long idPersona, @PathVariable Long idCompetencia){	
-		Persona per=perService.findById(idPersona);
-		Competencia comp=compService.findById(idCompetencia);
-		matr.setPersona(per);
-		matr.setCompetencia(comp);
-		this.matriz.update(matr);
+	public void Actualizar(@ModelAttribute Matriz matr, @PathVariable Long idCompetencia){
+		List<Habilidad> lstHabilidades=habilidadService.getHabilidadXMatriz(matr.getIdmatriz());
+		
+		//Eliminacion de atributos de todas las habilidades
+		boolean delAtributos=true;		
+		for(Habilidad h:lstHabilidades){
+			if(!atributosService.eliminarXHabilidad(h.getIdhabilidad())){
+				delAtributos=false;
+				break;
+			}
+		}	
+		
+		//Eliminacion de todas las habilidades		
+		if(delAtributos){			
+			if(habilidadService.eliminarXMatriz(matr.getIdmatriz())){
+				//Actualiza la Competencia segun el ID de Matriz 
+				Matriz objMatriz=matriz.findById(matr.getIdmatriz());
+				Competencia comp=compService.findById(idCompetencia);		
+				objMatriz.setCompetencia(comp);
+				this.matriz.update(objMatriz);		
+			}			
+		}							
+		
 	}
 	
 	
@@ -63,10 +89,16 @@ public class MatrizController {
 		return this.matriz.findAll();		
 	}
 	
-	@RequestMapping(value=MatrizRestURIConstant.DESACTIVAR_MATRIZ_X_COMPETENCIA,method = RequestMethod.GET,headers="Accept=application/json")
-	public void desactivarMatriz(@PathVariable Long idCompetencia){
-		this.matriz.desactivarMatriz(idCompetencia);		
+	@RequestMapping(value=MatrizRestURIConstant.DELETE_MATRIZ,method = RequestMethod.POST)
+	public String eliminarMatriz(@PathVariable Long idMatriz){
+		String res="";
+		if(!matriz.deleteMatriz(idMatriz)){
+			res="No se pudo eliminar Matriz";
+		}
+		return res;
 	}
+	
+	
 	
 	
 }

@@ -14,7 +14,5 @@ import com.gora.dominio.Archivo;
 
 public interface ArchivoDao{
 	public void gestionArchivo(Archivo objArchivo,InputStream arch);	
-	public Archivo getArchivo(Long idPersona, String tipo);
-	public Archivo existenciaArchivo(Long idPersona, String tipo);
-	
+	public Archivo getArchivo(Long idPersona, String tipo);	
 }

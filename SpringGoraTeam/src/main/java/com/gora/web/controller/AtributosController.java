@@ -16,8 +16,6 @@ import com.gora.services.AtributoService;
 import com.gora.services.AtributosService;
 import com.gora.services.HabilidadService;
 import com.gora.web.uri.AtributosRestURIConstant;
-import com.gora.web.uri.HabilidadRestURIConstant;
-
 
 
 @RestController
@@ -65,7 +63,7 @@ public class AtributosController {
 	
 	@RequestMapping(value=AtributosRestURIConstant.GET_ATRIBUTOS_EXTRACTO,method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Atributo> GetAtributosExtracto(@PathVariable Long idPersona, @PathVariable Long idHabilidad){
-		return this.habiliService.getAtributosExtracto(idPersona, idHabilidad);	
+		return this.atributService.getAtributosExtracto(idPersona, idHabilidad);	
 	}
 		
 	

@@ -37,11 +37,6 @@ public class ArchivoServiceImpl implements ArchivoService {
 		return archivoDao.getArchivo(idPersona, tipo);
 	}
 
-
-	@Override
-	public Archivo existenciaArchivo(Long idPersona, String tipo) {
-		return archivoDao.existenciaArchivo(idPersona, tipo);
-	}
     
 
 }

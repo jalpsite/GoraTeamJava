@@ -21,5 +21,7 @@ public interface AtributoService {
     public Atributo findById(Long id);
 
     public List<Atributo> findAll();
+    
+    public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad);
 
 }

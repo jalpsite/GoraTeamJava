@@ -2,7 +2,6 @@ package com.gora.daoImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.util.List;
 
 import com.gora.dao.ArchivoDao;
@@ -44,27 +43,20 @@ public class ArchivoDaoImpl implements ArchivoDao {
 		sessionFactory.getCurrentSession().saveOrUpdate(objArchivo);
 	}
 
-	@Override
-	public Archivo getArchivo(Long idPersona, String tipo) {
-		Query query = sessionFactory.getCurrentSession().createQuery(
-				"select a from Archivo a where idpersona=:id and tipo=:tip");
-		query.setParameter("id", idPersona);
-		query.setParameter("tip", tipo);
-		return (Archivo) query.list().get(0);
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
-	public Archivo existenciaArchivo(Long idPersona, String tipo) {
-		Query query=sessionFactory.getCurrentSession().createQuery("select a from Archivo a where a.idpersona=:id and a.tipo=:tipo");
+	public Archivo getArchivo(Long idPersona, String tipo) {
+		Query query = sessionFactory.getCurrentSession().createQuery("select a from Archivo a where idpersona=:id and tipo=:tip");
 		query.setParameter("id", idPersona);
-		query.setParameter("tipo", tipo.toUpperCase());		
-		Archivo ar=null;
-		List<Archivo> lstArchivos=query.list();		
-		if(lstArchivos.size()>0){
-			ar=lstArchivos.get(0);
-		}			
-		return ar;
+		query.setParameter("tip", tipo.toUpperCase());
+		List<Archivo> archivos=query.list();		
+		if(archivos.size()>0){			
+			return archivos.get(0);			
+		}else{
+			return null;
+		}	
+		
 	}
+	
 
 }

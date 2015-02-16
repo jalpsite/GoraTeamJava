@@ -2,6 +2,8 @@ package com.gora.daoImpl;
 import java.util.List;
 
 
+
+
 import com.gora.dao.PersonaDao;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
@@ -60,7 +62,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonaDireccion> getDireccion(Long id) {
-		Query query=getCurrentSession().createQuery("Select a from PersonaDireccion a where a.persona.idpersona= :id");
+		Query query=getCurrentSession().createQuery("Select a from PersonaDireccion a where a.persona.idpersona= :id and a.estado='A'");
 		query.setParameter("id", id);
 		return  query.list();	
 	}
@@ -68,7 +70,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonaEmail> getEmail(Long id) {
-		Query query=getCurrentSession().createQuery("Select a from PersonaEmail a where a.persona.idpersona= :id");
+		Query query=getCurrentSession().createQuery("Select a from PersonaEmail a where a.persona.idpersona= :id and a.estado='A'");
 		query.setParameter("id", id);
 		return query.list();
 	}
@@ -76,7 +78,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonaTelefono> getTelefono(Long id) {
-		Query query=getCurrentSession().createQuery("Select a from PersonaTelefono a where a.persona.idpersona= :id");
+		Query query=getCurrentSession().createQuery("Select a from PersonaTelefono a where a.persona.idpersona= :id and a.estado='A'");
 		query.setParameter("id", id);
 		return query.list();
 	}
@@ -99,7 +101,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object login(String correo,String dni) {		
-		Query query=getCurrentSession().createQuery("Select a.persona.idpersona, a.persona.sexo, a.persona.apemat, a.persona.apepat,a.persona.nombres from PersonaEmail a where a.persona.numerodocidentidad= :dni and upper(a.email)=:ema and a.tipo='LABORAL'");
+		Query query=getCurrentSession().createQuery("Select a.persona.idpersona, a.persona.sexo, a.persona.apemat, a.persona.apepat, a.persona.nombres, a.persona.perfil from PersonaEmail a where a.persona.numerodocidentidad= :dni and upper(a.email)=:ema and a.tipo='LABORAL'");
 		query.setParameter("dni", dni);
 		query.setParameter("ema", correo.toUpperCase());
 		Object per=null;
@@ -265,7 +267,8 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Habilidades> getHabilidadesXCompetencia(Long idPersona, Long idCompetencia) {
-		Query query=getCurrentSession().createQuery("Select distinct a.idhabilidad, a.habilidades.idhabilidades, a.habilidades.descripcion from Habilidad a where a.persona.idpersona=:id and a.habilidades.competencia.idcompetencia=:comp and upper(a.matriz.estado)='A'");
+		Query query=getCurrentSession().createQuery("Select distinct a.idhabilidad, a.habilidades.idhabilidades, a.habilidades.descripcion from Habilidad a where a.persona.idpersona=:id and a.matriz.competencia.idcompetencia=:comp and upper(a.matriz.estado)='A'");
+		
 		query.setParameter("id", idPersona);
 		query.setParameter("comp", idCompetencia);
 		return query.list();
@@ -280,6 +283,32 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		query.setParameter("comp", idCompetencia);
 		return query.list();
 	}
+
+	@Override
+	public void estadoDireccion(Long idDireccion, String estado) {		
+		Query query=getCurrentSession().createQuery("update PersonaDireccion a set a.estado=:estado where a.idpersonadireccion=:id");
+		query.setParameter("estado", estado);
+		query.setParameter("id", idDireccion);
+		query.executeUpdate();
+	}
+
+	@Override
+	public void estadoEmail(Long idEmail, String estado) {
+		Query query=getCurrentSession().createQuery("update PersonaEmail a set a.estado=:estado where a.idpersonaemail=:id");
+		query.setParameter("estado", estado);
+		query.setParameter("id", idEmail);
+		query.executeUpdate();
+	}
+
+	@Override
+	public void estadoTelefono(Long idTelefono, String estado) {
+		Query query=getCurrentSession().createQuery("update PersonaTelefono a set a.estado=:estado where a.idpersonatelefono=:id");
+		query.setParameter("estado", estado);
+		query.setParameter("id", idTelefono);
+		query.executeUpdate();
+	}
+
+	
 	
 	
 }

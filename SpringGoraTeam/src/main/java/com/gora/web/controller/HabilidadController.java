@@ -14,7 +14,6 @@ import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
-import com.gora.services.AtributoService;
 import com.gora.services.AtributosService;
 import com.gora.services.HabilidadService;
 import com.gora.services.HabilidadesService;

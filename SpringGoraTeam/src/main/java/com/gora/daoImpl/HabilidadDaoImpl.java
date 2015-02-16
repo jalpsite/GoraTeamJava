@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.gora.dao.HabilidadDao;
 import com.gora.dominio.Atributo;
-import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 
@@ -43,19 +42,7 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 		query.setParameter("id", id);		
     	
 		return query.list();
-	}
-
-    @SuppressWarnings("unchecked")
-	@Override
-	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad) {
-    	Query q=getCurrentSession().createQuery("select distinct a.atributo.idatributo from Atributos a where a.atributo.habilidades.idhabilidades= :id and a.habilidad.persona.idpersona=:per");
-    	q.setParameter("id", idHabilidad);
-    	q.setParameter("per", idPersona);
-    	List<Long> listaAtributosPersona=(List<Long>)q.list();    	
-		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id and a.idatributo not in("+concatenador(listaAtributosPersona)+")");
-		query.setParameter("id", idHabilidad);
-		return query.list();
-	}
+	}   
     
     private String concatenador(List<Long> arr){		
 		String res="";
@@ -67,34 +54,39 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 			}				
 		}			
 		return res;
-	}
-    
+	}    
     
     @SuppressWarnings("unchecked")
 	@Override
 	public List<Habilidades> getHabilidadesExtracto(Long idPersona, Long idCompetencia) {
-    	Query q=getCurrentSession().createQuery("Select distinct a.habilidades.idhabilidades from Habilidad a where a.persona.idpersona= :id and a.habilidades.competencia.idcompetencia=:comp and upper(a.matriz.estado)='A'");    	
+    	//Lista de IDs de habilidades por competencia que tiene la persona
+    	Query q=getCurrentSession().createQuery("Select distinct a.habilidades.idhabilidades from Habilidad a where a.persona.idpersona= :id and a.matriz.competencia.idcompetencia=:comp and upper(a.matriz.estado)='A'");    	
     	q.setParameter("comp", idCompetencia);
-    	q.setParameter("id", idPersona);    	
-    	List<Long> listaHabilidadesPersona=(List<Long>)q.list();     	    
-		Query query=getCurrentSession().createQuery("Select distinct a.habilidades.idhabilidades, a.habilidades.descripcion from Habilidad a where a.habilidades.competencia.idcompetencia=:comp and a.habilidades.idhabilidades not in("+concatenador(listaHabilidadesPersona)+")");
-		query.setParameter("comp", idCompetencia);
+    	q.setParameter("id", idPersona);     	
+    	List<Long> listaHabilidadesPersona=(List<Long>)q.list();     	
+    	//Lista de todas las habilidades por competencia
+    	Query qu=getCurrentSession().createQuery("Select distinct a.idhabilidades from Habilidades a where a.competencia.idcompetencia=:comp");    	
+    	qu.setParameter("comp", idCompetencia);    	    	
+    	List<Long> listaHabilidadesAll=(List<Long>)qu.list(); 
+    	//Filtrado
+    	int cantidad=listaHabilidadesAll.size();
+    	for(Long i:listaHabilidadesPersona){
+    		for(int j=0;j<cantidad;j++){
+    			if(i==listaHabilidadesAll.get(j)){
+    				listaHabilidadesAll.remove(j);
+    				cantidad--;
+    				break;
+    			}
+    		}
+    	}    	    	    	
+    	
+		Query query=getCurrentSession().createQuery("Select distinct a.idhabilidades, a.descripcion from Habilidades a where idhabilidades in("+concatenador(listaHabilidadesAll)+")");    							
 		return query.list();    	    
 	}
-
-    @SuppressWarnings("unchecked")
-	@Override
-	public List<Competencia> getCompetenciasExtracto(Long idPersona) {
-		Query q=getCurrentSession().createQuery("Select distinct a.competencia.idcompetencia from Matriz a where a.persona.idpersona= :id and upper(a.estado)='A'");    	    	
-    	q.setParameter("id", idPersona);    	    	
-    	List<Long> listaCompetenciasPersona=(List<Long>)q.list();     	    	
-    	Query query=getCurrentSession().createQuery("Select distinct a.competencia.idcompetencia, a.competencia.descripcion from Matriz a where a.competencia.idcompetencia not in("+concatenador(listaCompetenciasPersona)+")");		
-		return query.list();
-	}
-
+    
 	@Override
 	public boolean eliminarXMatriz(Long idMatriz) {
-		Query query=sessionFactory.getCurrentSession().createQuery("delete from Habilidad a where a.idmatriz=:id");
+		Query query=sessionFactory.getCurrentSession().createQuery("delete from Habilidad a where a.matriz.idmatriz=:id");
 		query.setParameter("id",idMatriz);
 		try {
 			query.executeUpdate();
@@ -103,7 +95,14 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 		}
 		return true;
 	}
-        
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Habilidad> getHabilidadXMatriz(Long idMatriz) {
+		Query query=sessionFactory.getCurrentSession().createQuery("select a from Habilidad a where a.matriz.idmatriz=:id");
+		query.setParameter("id",idMatriz);
+		return query.list();
+	}
+        
 }
 

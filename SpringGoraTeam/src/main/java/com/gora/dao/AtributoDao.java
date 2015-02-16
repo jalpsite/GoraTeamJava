@@ -1,5 +1,7 @@
 package com.gora.dao;
 
+import java.util.List;
+
 import com.gora.dominio.Atributo;
 
 /**
@@ -11,5 +13,5 @@ import com.gora.dominio.Atributo;
  */
 
 public interface AtributoDao extends GenericDao<Atributo> {
-
+	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad);
 }

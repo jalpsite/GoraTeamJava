@@ -44,14 +44,14 @@ public class ListasDaoImpl  implements ListasDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ubigeo> getDepartamentos() {
-		Query query=getCurrentSession().createQuery("select distinct(a.departamento) from Ubigeo a");
+		Query query=getCurrentSession().createQuery("select distinct(a.departamento) from Ubigeo a order by a.departamento");
 		return query.list();
 	}	
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ubigeo> getProvincias(String dep) {
-		Query query=getCurrentSession().createQuery("select distinct(a.provincia) from Ubigeo a where a.departamento= :dep");
+		Query query=getCurrentSession().createQuery("select distinct(a.provincia) from Ubigeo a where a.departamento= :dep order by a.provincia");
 		query.setParameter("dep", dep);
 		return query.list();
 	}
@@ -59,7 +59,7 @@ public class ListasDaoImpl  implements ListasDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ubigeo> getDistritos(String dep,String prov) {
-		Query query=getCurrentSession().createQuery("select a.idubigeo, a.distrito from Ubigeo a where a.provincia= :prov and a.departamento= :dep");
+		Query query=getCurrentSession().createQuery("select a.idubigeo, a.distrito from Ubigeo a where a.provincia= :prov and a.departamento= :dep order by a.distrito");
 		query.setParameter("prov", prov);
 		query.setParameter("dep", dep);
 		return query.list();

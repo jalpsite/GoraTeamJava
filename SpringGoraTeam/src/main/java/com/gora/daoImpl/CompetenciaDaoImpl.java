@@ -43,5 +43,27 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
 		return query.list();
 	}
 
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<Competencia> getCompetenciasExtracto(Long idPersona) {
+		Query q=getCurrentSession().createQuery("Select distinct a.competencia.idcompetencia from Matriz a where a.persona.idpersona= :id and upper(a.estado)='A'");    	    	
+    	q.setParameter("id", idPersona);    	    	
+    	List<Long> listaCompetenciasPersona=(List<Long>)q.list();     	    	
+    	Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+")");		
+		return query.list();
+	}
+	
+	private String concatenador(List<Long> arr){		
+		String res="";
+		for(int i=0;i<arr.size();i++){
+			if(i==arr.size()-1){
+				res+=(arr.get(i));				
+			}else{
+				res+=(arr.get(i)+",");
+			}				
+		}			
+		return res;
+	}
+
 }
 

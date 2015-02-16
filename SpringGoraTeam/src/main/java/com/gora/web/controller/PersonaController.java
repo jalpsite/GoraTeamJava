@@ -1,21 +1,8 @@
 package com.gora.web.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.gora.services.ExperienciaService;
 import com.gora.services.FormacionService;
@@ -54,9 +40,10 @@ public class PersonaController {
 
 	@Autowired
 	ExperienciaService expeServices;
-	
+
 	@Autowired
 	FormacionService formaServices;
+
 	/*
 	 * PERSONA
 	 */
@@ -88,19 +75,15 @@ public class PersonaController {
 	public Object login(@RequestParam String correo, @RequestParam String dni) {
 		return perService.login(correo, dni);
 	}
-	
 
-		
 	/*
 	 * VALIDACION LA EXISTENCIA DEL DOCUMENTO
 	 */
-	
+
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_VALIDA_DOCUMENTO, method = RequestMethod.GET, headers = "Accept=application/json")
 	public int valDocumento(@PathVariable String doc) {
 		return perService.validarDNI(doc);
 	}
-	
-	
 
 	/*
 	 * EXTRACCION DE DATOS POR PERSONA
@@ -131,16 +114,19 @@ public class PersonaController {
 	public List<Atributo> getAtributos(@PathVariable Long id) {
 		return perService.getAtributos(id);
 	}
-	
+
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_HABILIDADES_X_COMPETENCIA, method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Habilidades> getHabilidadesXCompetencia(@PathVariable Long idPersona, @PathVariable Long idCompetencia) {
+	public List<Habilidades> getHabilidadesXCompetencia(
+			@PathVariable Long idPersona, @PathVariable Long idCompetencia) {
 		return perService.getHabilidadesXCompetencia(idPersona, idCompetencia);
 	}
-	
+
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_ATRIBUTOS_X_HABIILIDAD, method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Atributo> getAtributosXHabilidad(@PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidad) {		
-		
-		return perService.getAtributosXHabilidad(idPersona, idCompetencia, idHabilidad);
+	public List<Atributo> getAtributosXHabilidad(@PathVariable Long idPersona,
+			@PathVariable Long idCompetencia, @PathVariable Long idHabilidad) {
+
+		return perService.getAtributosXHabilidad(idPersona, idCompetencia,
+				idHabilidad);
 	}
 
 	/*
@@ -181,14 +167,16 @@ public class PersonaController {
 	 */
 
 	/*
-	 * //GUARDADO SINGULAR
-	 * 
-	 * @RequestMapping(value = PersonaRestURIConstant.CREATE_EMAIL, method =
-	 * RequestMethod.POST) public void saveEmail(@ModelAttribute PersonaEmail
-	 * perEmail, @PathVariable Long idPersona) {
-	 * perEmail.setPersona(this.GetPersona(idPersona));
-	 * this.perService.agregarEmail(perEmail); }
+	 * //ACTUALIZADO SINGULAR
 	 */
+	@RequestMapping(value = PersonaRestURIConstant.UPDATESINGLE_EMAIL, method = RequestMethod.POST)
+	public PersonaEmail upEmail(@ModelAttribute PersonaEmail perEmail,
+			@PathVariable Long idPersona) {
+		perEmail.setPersona(this.GetPersona(idPersona));
+		this.perService.actualizarEmail(perEmail);
+		System.out.println(perEmail.getIdpersonaemail());
+		return perEmail;
+	}
 
 	// GUARDADO DE ARREGLO
 	@RequestMapping(value = PersonaRestURIConstant.CREATE_EMAIL, method = RequestMethod.POST)
@@ -208,7 +196,7 @@ public class PersonaController {
 		for (PersonaEmail em : perEmail) {
 			em.setPersona(per);
 			this.perService.actualizarEmail(em);
-		}		
+		}
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_EMAIL, method = RequestMethod.GET, headers = "Accept=application/json")
@@ -221,14 +209,15 @@ public class PersonaController {
 	 */
 
 	/*
-	 * // GUARDADO SINGULAR
-	 * 
-	 * @RequestMapping(value = PersonaRestURIConstant.CREATE_PHONE, method =
-	 * RequestMethod.POST) public void saveTelefono(@ModelAttribute
-	 * PersonaTelefono perTel, @PathVariable Long idPersona) {
-	 * perTel.setPersona(this.GetPersona(idPersona));
-	 * this.perService.agregarTelefono(perTel); }
+	 * // ACTUALIZADO SINGULAR
 	 */
+	@RequestMapping(value = PersonaRestURIConstant.UPDATESINGLE_PHONE, method = RequestMethod.POST)
+	public PersonaTelefono upTelefono(@ModelAttribute PersonaTelefono perTel,
+			@PathVariable Long idPersona) {
+		perTel.setPersona(this.GetPersona(idPersona));
+		this.perService.actualizarTelefono(perTel);
+		return perTel;
+	}
 
 	// GUARDADO DE ARREGLO
 	@RequestMapping(value = PersonaRestURIConstant.CREATE_PHONE, method = RequestMethod.POST)
@@ -242,8 +231,8 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.UPDATE_PHONE, method = RequestMethod.POST)
-	public void updateTelefono(
-			@RequestBody PersonaTelefono[] perTel, @PathVariable Long idPersona) {
+	public void updateTelefono(@RequestBody PersonaTelefono[] perTel,
+			@PathVariable Long idPersona) {
 		Persona per = this.GetPersona(idPersona);
 		for (PersonaTelefono tel : perTel) {
 			tel.setPersona(per);
@@ -260,15 +249,15 @@ public class PersonaController {
 	 * DIRECCION
 	 */
 
-	/*
-	 * // GUARDADO SINGULAR
-	 * 
-	 * @RequestMapping(value = PersonaRestURIConstant.CREATE_ADDRESS, method =
-	 * RequestMethod.POST) public void saveDireccion(@ModelAttribute
-	 * PersonaDireccion perDir, @PathVariable Long idPersona) {
-	 * perDir.setPersona(this.GetPersona(idPersona));
-	 * this.perService.agregarDireccion(perDir); }
-	 */
+	// ACTUALIZAR SINGULAR
+	@RequestMapping(value = PersonaRestURIConstant.UPDATESINGLE_ADDRESS, method = RequestMethod.POST)
+	public PersonaDireccion upDireccion(
+			@ModelAttribute PersonaDireccion perDir,
+			@PathVariable Long idPersona) {
+		perDir.setPersona(this.GetPersona(idPersona));
+		this.perService.actualizarDireccion(perDir);
+		return perDir;
+	}
 
 	// GUARDADO DE ARREGLO
 	@RequestMapping(value = PersonaRestURIConstant.CREATE_ADDRESS, method = RequestMethod.POST)
@@ -295,18 +284,35 @@ public class PersonaController {
 	public List<PersonaDireccion> getPersonaDireccion(@PathVariable Long id) {
 		return perService.getDireccion(id);
 	}
-	
-	
-	/* 	EXPERIENCIA 	*/
+
+	/* EXPERIENCIA */
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_EXPERIENCIAS, method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<Experiencia> getPersonaExperiencias(@PathVariable Long id) {
 		return expeServices.getExperienciasPersona(id);
 	}
-	
-	/* 	FORMACION 	*/
+
+	/* FORMACION */
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_FORMACION, method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<Formacion> getPersonaFormacion(@PathVariable Long id) {
 		return formaServices.getFormacionPersona(id);
 	}
+	
+	
+	
+	@RequestMapping(value = PersonaRestURIConstant.DESACTIVAR_ADDRESS, method = RequestMethod.POST)
+	public void desactivarDireccion(@PathVariable Long idDireccion) {
+		perService.estadoDireccion(idDireccion, "D");
+	}
+	
+	@RequestMapping(value = PersonaRestURIConstant.DESACTIVAR_EMAIL, method = RequestMethod.POST)
+	public void desactivarEmail(@PathVariable Long idEmail) {
+		perService.estadoEmail(idEmail, "D");
+	}
+	
+	@RequestMapping(value = PersonaRestURIConstant.DESACTIVAR_PHONE, method = RequestMethod.POST)
+	public void desactivarTelefono(@PathVariable Long idTelefono) {
+		perService.estadoTelefono(idTelefono, "D");
+	}
+	
 
 }

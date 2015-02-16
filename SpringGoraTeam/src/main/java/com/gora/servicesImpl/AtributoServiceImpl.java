@@ -51,5 +51,10 @@ public class AtributoServiceImpl implements AtributoService {
         //Hibernate.initialize(tmp.getOrders());
         return tmp;
     }
+    
+    @Override
+	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad) {
+		return atributoDao.getAtributosExtracto(idPersona, idHabilidad);
+	}
 
 }

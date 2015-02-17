@@ -42,5 +42,12 @@ public class FormacionDaoImpl extends GenericDaoImpl<Formacion> implements Forma
 		return query.list();
 	}
 
+	@Override
+	public void eliminarFormacion(Long idFormacion) {
+		Query query=sessionFactory.getCurrentSession().createQuery("delete from Formacion a where a.idformacion=:id");
+		query.setParameter("id", idFormacion);
+		query.executeUpdate();
+	}
+
 }
 

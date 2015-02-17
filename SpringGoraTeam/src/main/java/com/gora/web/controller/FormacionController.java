@@ -57,7 +57,7 @@ public class FormacionController {
 	}
 	
 	@RequestMapping(value = FormacionRestURIConstant.UPDATE_FORMACION, method = RequestMethod.POST)	
-	public void Actualizar(@ModelAttribute Formacion form, @PathVariable Long idPersona, @PathVariable Long idUniversidad, @PathVariable Long idCarrera, @PathVariable Long idGrado){		
+	public Formacion Actualizar(@ModelAttribute Formacion form, @PathVariable Long idPersona, @PathVariable Long idUniversidad, @PathVariable Long idCarrera, @PathVariable Long idGrado){		
 		Persona per=perService.findById(idPersona);		
 		Carrera carr=carreraService.findById(idCarrera);
 		Grado grado=gradoService.findById(idGrado);
@@ -66,7 +66,8 @@ public class FormacionController {
 		form.setCarrera(carr);
 		form.setGrado(grado);
 		form.setUniversidad(uni);						
-		this.formacion.update(form);		
+		this.formacion.update(form);
+		return form;
 	}
 	
 	
@@ -79,5 +80,10 @@ public class FormacionController {
 	@RequestMapping(value=FormacionRestURIConstant.GET_ALL_FORMACION,method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Formacion> getAll(){
 		return formacion.findAll();		
+	}
+	
+	@RequestMapping(value = FormacionRestURIConstant.DELETE_FORMACION, method = RequestMethod.POST)	
+	public void Agregar(@PathVariable Long id){	
+		formacion.eliminarFormacion(id);
 	}
 }

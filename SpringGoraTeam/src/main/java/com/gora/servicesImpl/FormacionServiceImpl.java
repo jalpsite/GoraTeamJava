@@ -59,4 +59,9 @@ public class FormacionServiceImpl implements FormacionService {
 		return formacionDao.getFormacionPersona(idPersona);
 	}
 
+	@Override
+	public void eliminarFormacion(Long idFormacion) {
+		formacionDao.eliminarFormacion(idFormacion);
+	}
+
 }

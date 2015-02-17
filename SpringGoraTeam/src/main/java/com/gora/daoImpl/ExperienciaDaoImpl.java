@@ -42,5 +42,12 @@ public class ExperienciaDaoImpl extends GenericDaoImpl<Experiencia> implements E
 		return query.list();
 	}
 
+	@Override
+	public void eliminarExperiencia(Long idExperiencia) {
+		Query query=sessionFactory.getCurrentSession().createQuery("delete from Experiencia a where a.idexperiencia=:id");
+		query.setParameter("id", idExperiencia);
+		query.executeUpdate();
+	}
+
 }
 

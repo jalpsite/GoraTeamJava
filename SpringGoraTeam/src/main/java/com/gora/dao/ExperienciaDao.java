@@ -14,4 +14,6 @@ import com.gora.dominio.Experiencia;
 
 public interface ExperienciaDao extends GenericDao<Experiencia> {
 	List<Experiencia> getExperienciasPersona(Long idPersona);
+	void eliminarExperiencia(Long idExperiencia);
+	
 }

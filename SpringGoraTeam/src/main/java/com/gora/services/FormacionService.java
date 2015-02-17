@@ -23,5 +23,7 @@ public interface FormacionService {
     public List<Formacion> findAll();
     
     public List<Formacion> getFormacionPersona(Long idPersona);
+    
+    public void eliminarFormacion(Long idFormacion);
 
 }

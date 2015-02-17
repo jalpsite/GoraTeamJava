@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gora.dominio.Experiencia;
@@ -62,5 +61,10 @@ public class ExperienciaController {
 	@RequestMapping(value=ExperienciaRestURIConstant.GET_ALL_EXPERIENCIA,method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Experiencia> getAll(){
 		return this.experiencia.findAll();		
+	}
+	
+	@RequestMapping(value = ExperienciaRestURIConstant.DELETE_EXPERIENCIA, method = RequestMethod.POST)	
+	public void Agregar(@PathVariable Long id){	
+		experiencia.eliminarExperiencia(id);
 	}
 }

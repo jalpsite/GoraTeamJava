@@ -59,4 +59,9 @@ public class ExperienciaServiceImpl implements ExperienciaService {
 		return experienciaDao.getExperienciasPersona(idPersona);
 	}
 
+	@Override
+	public void eliminarExperiencia(Long idExperiencia) {
+		experienciaDao.eliminarExperiencia(idExperiencia);
+	}
+
 }

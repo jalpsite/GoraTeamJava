@@ -23,5 +23,7 @@ public interface ExperienciaService {
     public List<Experiencia> findAll();
     
     public List<Experiencia> getExperienciasPersona(Long idPersona);
+    
+    public void eliminarExperiencia(Long idExperiencia);
 
 }

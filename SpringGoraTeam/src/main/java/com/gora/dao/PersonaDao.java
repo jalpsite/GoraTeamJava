@@ -48,6 +48,10 @@ public interface PersonaDao extends GenericDao<Persona> {
 	
 	public List<Persona> filtroPersonas(String[] competencias,String[] habilidades, String[] atributos);
 	
+	public List<Persona> filtroPersonas2(String[] competencias,String[] habilidades, String[] atributos, int pagina);
+	
+	public int numeroPaginas(String[] competencias,String[] habilidades, String[] atributos, int cantidad);
+	
 	public int validarDNI(String doc);
 		
 }

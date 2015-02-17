@@ -14,4 +14,5 @@ import com.gora.dominio.Formacion;
 
 public interface FormacionDao extends GenericDao<Formacion> {
 	List<Formacion> getFormacionPersona(Long idPersona);
+	void eliminarFormacion(Long idFormacion);
 }

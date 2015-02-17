@@ -42,7 +42,7 @@ public interface ListasDao {
 	 * 	4 = TIPOS DE DIRECCIONES
 	 * 	5 = ESTADO CIVIL
 	 * 	6 = NIVELES DE ESTUDIO
-	 * 
+	 *  7 = TIPO DE ARCHIVO
 	 * */
 	public List<Lista> getLista(Long idbloque);
 	public List<Ubigeo> getUbigeo(Long idUbigeo);

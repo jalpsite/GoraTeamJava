@@ -16,6 +16,8 @@ import com.gora.dominio.PersonaTelefono;
 
 
 
+
+
 import java.util.List;
 
 /**
@@ -65,5 +67,10 @@ public interface PersonaService {
 	public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos);
 	
 	public int validarDNI(String doc);
+	
+	
+	
+	public List<Persona> filtroPersonas2(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina);
+	public int numeroPaginas(String[] competencias,String[] habilidades, String[] atributos, int cantidad);
 
 }

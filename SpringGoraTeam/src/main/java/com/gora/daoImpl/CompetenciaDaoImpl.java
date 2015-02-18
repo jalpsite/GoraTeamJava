@@ -46,11 +46,15 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
     @SuppressWarnings("unchecked")
 	@Override
 	public List<Competencia> getCompetenciasExtracto(Long idPersona) {
+    	List<Competencia> listaCompetencia=null;
 		Query q=getCurrentSession().createQuery("Select distinct a.competencia.idcompetencia from Matriz a where a.persona.idpersona= :id and upper(a.estado)='A'");    	    	
     	q.setParameter("id", idPersona);    	    	
-    	List<Long> listaCompetenciasPersona=(List<Long>)q.list();     	    	
-    	Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+")");		
-		return query.list();
+    	List<Long> listaCompetenciasPersona=(List<Long>)q.list(); 
+    	if(listaCompetenciasPersona.size()>0){
+    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+")");
+        	listaCompetencia=query.list();
+    	}    	    	
+		return listaCompetencia;
 	}
 	
 	private String concatenador(List<Long> arr){		

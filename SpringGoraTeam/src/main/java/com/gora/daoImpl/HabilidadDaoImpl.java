@@ -59,29 +59,37 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
     @SuppressWarnings("unchecked")
 	@Override
 	public List<Habilidades> getHabilidadesExtracto(Long idPersona, Long idCompetencia) {
+    	List<Habilidades> listaHabilidades=null;
     	//Lista de IDs de habilidades por competencia que tiene la persona
     	Query q=getCurrentSession().createQuery("Select distinct a.habilidades.idhabilidades from Habilidad a where a.persona.idpersona= :id and a.matriz.competencia.idcompetencia=:comp and upper(a.matriz.estado)='A'");    	
     	q.setParameter("comp", idCompetencia);
     	q.setParameter("id", idPersona);     	
-    	List<Long> listaHabilidadesPersona=(List<Long>)q.list();     	
-    	//Lista de todas las habilidades por competencia
-    	Query qu=getCurrentSession().createQuery("Select distinct a.idhabilidades from Habilidades a where a.competencia.idcompetencia=:comp");    	
-    	qu.setParameter("comp", idCompetencia);    	    	
-    	List<Long> listaHabilidadesAll=(List<Long>)qu.list(); 
-    	//Filtrado
-    	int cantidad=listaHabilidadesAll.size();
-    	for(Long i:listaHabilidadesPersona){
-    		for(int j=0;j<cantidad;j++){
-    			if(i==listaHabilidadesAll.get(j)){
-    				listaHabilidadesAll.remove(j);
-    				cantidad--;
-    				break;
-    			}
-    		}
-    	}    	    	    	
-    	
-		Query query=getCurrentSession().createQuery("Select distinct a.idhabilidades, a.descripcion from Habilidades a where idhabilidades in("+concatenador(listaHabilidadesAll)+")");    							
-		return query.list();    	    
+    	List<Long> listaHabilidadesPersona=(List<Long>)q.list();    	
+    	if(listaHabilidadesPersona.size()>0){
+    		//Lista de todas las habilidades por competencia
+        	Query qu=getCurrentSession().createQuery("Select distinct a.idhabilidades from Habilidades a where a.competencia.idcompetencia=:comp");    	
+        	qu.setParameter("comp", idCompetencia);    	    	
+        	List<Long> listaHabilidadesAll=(List<Long>)qu.list(); 
+        	//Filtrado
+        	int cantidad=listaHabilidadesAll.size();
+        	
+        	for(Long i:listaHabilidadesPersona){
+        		for(int j=0;j<cantidad;j++){
+        			if(i==listaHabilidadesAll.get(j)){
+        				listaHabilidadesAll.remove(j);
+        				cantidad--;
+        				break;
+        			}
+        		}
+        	}    	   
+        	if(listaHabilidadesAll.size()>0){
+        		Query query=getCurrentSession().createQuery("Select distinct a.idhabilidades, a.descripcion from Habilidades a where idhabilidades in("+concatenador(listaHabilidadesAll)+")");
+        		listaHabilidades=query.list();
+        	}        	
+    		
+    	}    	
+		
+		return listaHabilidades;   	    
 	}
     
 	@Override

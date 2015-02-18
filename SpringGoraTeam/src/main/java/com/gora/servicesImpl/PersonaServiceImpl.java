@@ -183,11 +183,7 @@ public class PersonaServiceImpl implements PersonaService {
 			String[] lstHabilidades, String[] lstAtributos, int pagina) {
 		return personaDao.filtroPersonas2(lstCompetencias, lstHabilidades, lstAtributos, pagina);
 	}
-
-	@Override
-	public int numeroPaginas(String[] competencias,String[] habilidades, String[] atributos, int cantidad) {
-		return personaDao.numeroPaginas(competencias,habilidades,atributos,cantidad);
-	}
+	
 
 	
 

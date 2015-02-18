@@ -37,13 +37,17 @@ public class AtributoDaoImpl extends GenericDaoImpl<Atributo> implements Atribut
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Atributo> getAtributosExtracto(Long idPersona, Long idHabilidad) {
+		List<Atributo> listaAtributos=null;
     	Query q=getCurrentSession().createQuery("select distinct a.atributo.idatributo from Atributos a where a.atributo.habilidades.idhabilidades= :id and a.habilidad.persona.idpersona=:per");
     	q.setParameter("id", idHabilidad);
     	q.setParameter("per", idPersona);
-    	List<Long> listaAtributosPersona=(List<Long>)q.list();    	
-		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id and a.idatributo not in("+concatenador(listaAtributosPersona)+")");
-		query.setParameter("id", idHabilidad);
-		return query.list();
+    	List<Long> listaAtributosPersona=(List<Long>)q.list();    
+    	if(listaAtributosPersona.size()>0){
+    		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id and a.idatributo not in("+concatenador(listaAtributosPersona)+")");
+    		query.setParameter("id", idHabilidad);
+    		listaAtributos=query.list();
+    	}    			
+		return listaAtributos;
 	}
 	
 	private String concatenador(List<Long> arr){		

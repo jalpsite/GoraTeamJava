@@ -37,8 +37,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDao 
-{
-	public static int paginas;
+{	
 	@Autowired
     private SessionFactory sessionFactory;
  
@@ -328,27 +327,28 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 	
 	
 	
-	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Persona> filtroPersonas2(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina) {
+		int cantidad=10;		
+		List<Persona> listaPersonas=null;
 		List<Long> idPersonas=consultaFiltro(lstCompetencias,lstHabilidades,lstAtributos);
-		int cantidad=10;
-					    
-	    List<Long> idsConsulta=new ArrayList<Long>();
-		for(int i=(pagina*cantidad);i<(pagina*cantidad)+cantidad;i++){
-			idsConsulta.add(idPersonas.get(i-1));
-		}
-		
-		Query query2=getCurrentSession().createQuery("select a from Persona a where a.idpersona in("+concatenador2(idsConsulta)+")");
-		List<Persona> listaPersonas= query2.list();
-		
-		if(cantidad>0){
-	    	System.out.println("size: "+listaPersonas.size());
-	    	int division=listaPersonas.size()/cantidad;
-	    	System.out.println("division: "+division);
-	    	paginas=division;	    				
-	    }
-		
+		if(idPersonas.size()>0){
+			Query query2=getCurrentSession().createQuery("select a from Persona a where a.idpersona in("+concatenadorLista(idPersonas)+")");
+			query2.setFirstResult((pagina-1)*cantidad).setMaxResults(cantidad);
+			listaPersonas= query2.list();
+			
+			if(cantidad>0){	    	
+		    	int division=idPersonas.size()/cantidad;	    	    
+		    	Persona p=new Persona();
+		    	if(idPersonas.size()%10>0){
+		    		division++;
+		    	}
+		    	p.setCodigo(division+"");
+		    	p.setNumerodocidentidad(idPersonas.size()+"");
+		    	listaPersonas.add(p);
+		    }
+		}				
 		return listaPersonas;
 	}
 	
@@ -386,24 +386,15 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 				subconsulta="a.atributo.idatributo in("+concatenador(lstAtributos)+")";								
 				contador++;
 			}
-			consulta+=subconsulta;
-			
+			consulta+=subconsulta;			
 		}		
-		Query query=getCurrentSession().createQuery(consulta);
-		//query.setMaxResults(10);
+		Query query=getCurrentSession().createQuery(consulta);		
 		return query.list();
 	}
-	
-	
-
-	@Override
-	public int numeroPaginas(String[] competencias,String[] habilidades, String[] atributos, int cantidad) {
-		List<Long> idPersonas=consultaFiltro(competencias,habilidades,atributos);
-		return idPersonas.size()/cantidad;		
-	}
+		
 	
 
-	private String concatenador2(List<Long> arr){		
+	private String concatenadorLista(List<Long> arr){		
 		String res="";
 		for(int i=0;i<arr.size();i++){
 			if(i==arr.size()-1){

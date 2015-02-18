@@ -36,6 +36,7 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public void estadoTelefono(Long idTelefono,String estado);
 	
 	public Object login(String correo,String dni);
+	
 	public Long getIDJefe(Long idPersona);
 	public List<Competencia> getCompetencias(Long id);	
 	public List<Habilidades> getHabilidades(Long id);
@@ -49,8 +50,6 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public List<Persona> filtroPersonas(String[] competencias,String[] habilidades, String[] atributos);
 	
 	public List<Persona> filtroPersonas2(String[] competencias,String[] habilidades, String[] atributos, int pagina);
-	
-	public int numeroPaginas(String[] competencias,String[] habilidades, String[] atributos, int cantidad);
 	
 	public int validarDNI(String doc);
 		

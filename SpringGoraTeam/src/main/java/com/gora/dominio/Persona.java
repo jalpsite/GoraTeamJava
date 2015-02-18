@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,9 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+
+
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,7 +56,17 @@ public class Persona implements Serializable {
 	
 	private String perfil;
 	
-
+	/*
+	@JsonIgnore		
+	@ManyToOne
+	@JoinColumn(name="idusuario")	
+	private Usuario usuario;
+	*/
+	@OneToOne
+	@PrimaryKeyJoinColumn	
+	private Usuario idusuario;
+	
+	
 	private Persona persona;
 		
 	@JsonIgnore
@@ -403,6 +420,37 @@ public class Persona implements Serializable {
 		public void setSexo(String sexo) {
 			this.sexo = sexo;
 		}
+
+/*
+		public Usuario getUsuario() {
+			return usuario;
+		}
+
+
+		public void setUsuario(Usuario usuario) {
+			this.usuario = usuario;
+		}
+
+*/
+ 
+		public Usuario getIdusuario() {
+			return idusuario;
+		}
+
+
+		public void setIdusuario(Usuario idusuario) {
+			this.idusuario = idusuario;
+		}
+
+
+
+		
+
+
+
+		
+	
+
 
 	
 			

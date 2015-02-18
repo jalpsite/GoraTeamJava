@@ -161,13 +161,7 @@ public class PersonaController {
 		return perService.filtroPersonas2(competencias, habilidades, atributos,pagina);
 
 	}
-	
-	@RequestMapping(value = "/paginas", method = RequestMethod.POST)
-	public int pag(@RequestParam(required = false, defaultValue = "") String[] competencias,
-			@RequestParam(required = false, defaultValue = "") String[] habilidades,
-			@RequestParam(required = false, defaultValue = "") String[] atributos, @PathVariable int cantidad) {
-		return perService.numeroPaginas(competencias,habilidades,atributos,cantidad);
-	}
+		
 
 	/*
 	 * UPDATE PERSONA PARTICIONADO

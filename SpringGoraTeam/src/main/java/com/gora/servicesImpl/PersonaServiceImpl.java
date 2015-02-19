@@ -5,6 +5,7 @@ import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Persona;
+import com.gora.dominio.PersonaDatos;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
@@ -182,10 +183,6 @@ public class PersonaServiceImpl implements PersonaService {
 	public List<Persona> filtroPersonas2(String[] lstCompetencias,
 			String[] lstHabilidades, String[] lstAtributos, int pagina) {
 		return personaDao.filtroPersonas2(lstCompetencias, lstHabilidades, lstAtributos, pagina);
-	}
-	
-
-	
-
+	}	
 
 }

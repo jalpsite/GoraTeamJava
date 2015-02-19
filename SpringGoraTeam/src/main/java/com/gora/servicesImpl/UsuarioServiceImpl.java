@@ -2,6 +2,7 @@ package com.gora.servicesImpl;
 
 import com.gora.dao.UsuarioDao;
 import com.gora.dominio.Usuario;
+import com.gora.dominio.UsuarioRol;
 import com.gora.services.UsuarioService;
 
 import org.springframework.stereotype.Service;
@@ -50,6 +51,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Object login(String correo, String dni) {
 		return usuarioDao.login(correo, dni);
+	}
+
+	@Override
+	public List<UsuarioRol> rolesUsuario(Long idUsuario) {
+		return usuarioDao.rolesUsuario(idUsuario);
 	}
     
 

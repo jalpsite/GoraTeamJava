@@ -224,6 +224,9 @@ public class PersonaController {
 	@RequestMapping(value = PersonaRestURIConstant.UPDATESINGLE_PHONE, method = RequestMethod.POST)
 	public PersonaTelefono upTelefono(@ModelAttribute PersonaTelefono perTel,
 			@PathVariable Long idPersona) {
+		System.out.println(perTel.getIdpersonatelefono());
+		System.out.println(perTel.getEstado());
+		System.out.println(perTel.getTelefono());
 		perTel.setPersona(this.GetPersona(idPersona));
 		this.perService.actualizarTelefono(perTel);
 		return perTel;
@@ -264,6 +267,7 @@ public class PersonaController {
 	public PersonaDireccion upDireccion(
 			@ModelAttribute PersonaDireccion perDir,
 			@PathVariable Long idPersona) {
+		
 		perDir.setPersona(this.GetPersona(idPersona));
 		this.perService.actualizarDireccion(perDir);
 		return perDir;
@@ -322,7 +326,6 @@ public class PersonaController {
 	@RequestMapping(value = PersonaRestURIConstant.DESACTIVAR_PHONE, method = RequestMethod.POST)
 	public void desactivarTelefono(@PathVariable Long idTelefono) {
 		perService.estadoTelefono(idTelefono, "D");
-	}
-	
+	}	
 
 }

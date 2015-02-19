@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gora.services.ListasService;
+import com.gora.services.RolService;
 import com.gora.web.uri.ListasRestURIConstant;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Cargo;
@@ -18,6 +19,7 @@ import com.gora.dominio.Competencia;
 import com.gora.dominio.Grado;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Lista;
+import com.gora.dominio.Rol;
 import com.gora.dominio.Tipodocumento;
 import com.gora.dominio.Ubigeo;
 import com.gora.dominio.Universidad;
@@ -26,16 +28,15 @@ import com.gora.dominio.Universidad;
 @RequestMapping("/listas") 
 public class ListasController {
 
-     ListasService listasService ;        
+	@Autowired
+    ListasService listasService; 
+	
+	@Autowired
+	RolService rolService;
 	 
 	 public ListasService getListas() {
 		return listasService;
-	}
-
-	 @Autowired
-	public void setListas(ListasService listasService) {
-		this.listasService = listasService;
-	}			
+	}		
 	
 	@RequestMapping(value = ListasRestURIConstant.GET_DEPARTAMENTOS, method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Ubigeo> getDepartamentos() {
@@ -137,6 +138,11 @@ public class ListasController {
 	@RequestMapping(value = ListasRestURIConstant.GET_UBIGEO, method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Ubigeo> getUbigeo(@PathVariable Long idUbigeo) {
 		return listasService.getUbigeo(idUbigeo);
+	}
+	
+	@RequestMapping(value = ListasRestURIConstant.GET_ROLES, method = RequestMethod.GET,headers="Accept=application/json")
+	public List<Rol> getRoles() {
+		return rolService.findAll();
 	}
 	
 }

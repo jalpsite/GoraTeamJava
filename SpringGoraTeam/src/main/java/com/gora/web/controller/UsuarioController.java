@@ -1,5 +1,7 @@
 package com.gora.web.controller;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gora.dominio.Carrera;
-import com.gora.dominio.Formacion;
-import com.gora.dominio.Grado;
 import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaEmail;
-import com.gora.dominio.PersonaTelefono;
-import com.gora.dominio.Universidad;
+import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
+import com.gora.dominio.UsuarioRol;
 import com.gora.services.PersonaService;
-import com.gora.services.UniversidadService;
+import com.gora.services.RolService;
+import com.gora.services.UsuarioRolService;
 import com.gora.services.UsuarioService;
-import com.gora.web.uri.FormacionRestURIConstant;
-import com.gora.web.uri.PersonaRestURIConstant;
-import com.gora.web.uri.UniversidadRestURIConstant;
 import com.gora.web.uri.UsuarioRestURIConstant;
 
 
@@ -37,6 +34,11 @@ public class UsuarioController {
 	@Autowired
 	PersonaService personaService;
 	
+	@Autowired
+	RolService rolService;
+	
+	@Autowired
+	UsuarioRolService usuarioRolService;
 	
 
 	@RequestMapping(value = UsuarioRestURIConstant.LOGIN_USUARIO, method = RequestMethod.POST)
@@ -45,25 +47,64 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = UsuarioRestURIConstant.CREATE_USUARIO, method = RequestMethod.POST)	
-	public int Agregar(@ModelAttribute Usuario us){			
+	public int Agregar(@ModelAttribute Usuario us){	
+		
+		//Guardado de Usuario
 		usuarioService.save(us);	
 		
+		//Guardado de Persona
 		Persona per=new Persona();
 		per.setNumerodocidentidad(us.getPass());
-		//per.setIdusuario(us);
+		System.out.println(us.getId());		
+		per.setUsuario(us);
 		per.setEstado("A");
-		per.setPerfil("INCOMPLETO");
-		
+		per.setPerfil("INCOMPLETO");		
 		personaService.save(per);
 		
+		//Guardado de Email
 		PersonaEmail perEmail=new PersonaEmail();
 		perEmail.setPersona(per);
 		perEmail.setEstado("A");
-		perEmail.setEmail(us.getUsuario());
-		
+		perEmail.setTipo("LABORAL");
+		perEmail.setEmail(us.getUsuario());		
 		personaService.agregarEmail(perEmail);
 		
+		//Guardado de ROL
+		Rol rol=rolService.findById(new Long("2"));
+		UsuarioRol usuarioRol=new UsuarioRol();
+		usuarioRol.setEstado("A");
+		usuarioRol.setRol(rol);
+		usuarioRol.setUsuario(us);
+		usuarioRolService.save(usuarioRol);
+		
+		//Retorno de ID Usuario
 		return Integer.parseInt((us.getId()).toString());
 	}
 	
+	@RequestMapping(value = UsuarioRestURIConstant.ASIGNA_ROL_USUARIO, method = RequestMethod.POST)	
+	public void asignarRol(@PathVariable Long idPersona, @PathVariable Long idRol){	
+		Persona p=personaService.findById(idPersona);
+		Rol rol=rolService.findById(idRol);
+		UsuarioRol usRol=new UsuarioRol();
+		usRol.setEstado("A");
+		usRol.setRol(rol);
+		usRol.setUsuario(p.getUsuario());
+		usuarioRolService.save(usRol);
+	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.GET_USUARIO, method = RequestMethod.GET)	
+	public Usuario getUsuario(@PathVariable Long id){	
+		return usuarioService.findById(id);
+	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.GET_ALL_USUARIO, method = RequestMethod.GET)	
+	public List<Usuario> AllUsuarios(){	
+		return usuarioService.findAll();
+	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.GET_ROLES_USUARIO, method = RequestMethod.GET)	
+	public List<UsuarioRol> AllUsuarios(@PathVariable Long idUsuario){	
+		return usuarioService.rolesUsuario(idUsuario);
+	}
+		
 }

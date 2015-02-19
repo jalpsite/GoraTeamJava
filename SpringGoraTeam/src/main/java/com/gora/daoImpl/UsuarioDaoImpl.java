@@ -2,10 +2,9 @@ package com.gora.daoImpl;
 
 import java.util.List;
 
-import com.gora.dao.UniversidadDao;
 import com.gora.dao.UsuarioDao;
-import com.gora.dominio.Universidad;
 import com.gora.dominio.Usuario;
+import com.gora.dominio.UsuarioRol;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -39,17 +38,25 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object login(String correo,String dni) {		
-		//Query query=getCurrentSession().createQuery("Select a.persona.idpersona, a.persona.sexo, a.persona.apemat, a.persona.apepat, a.persona.nombres, a.persona.perfil from PersonaEmail a where a.persona.idusuario.pass= :dni and upper(a.persona.idusuario.usuario)=:ema and a.persona.idusuario.estado='A'");
-		Query query=getCurrentSession().createQuery("Select a from Persona a where a.idusuario.id=1");
+		Query query=getCurrentSession().createQuery("Select a.idpersona, a.sexo, a.apemat, a.apepat, a.nombres, a.perfil from Persona a where a.usuario.pass= :dni and upper(a.usuario.usuario)=:ema and a.usuario.estado='A'");
+		//Query query=getCurrentSession().createQuery("Select a from Persona a where a.usuario.id=1");
 		//Query query=getCurrentSession().createQuery("Select a from Usuario a where a.pass= :dni and upper(a.usuario)=:ema and a.estado='A'");
-		//query.setParameter("dni", dni);
-		//query.setParameter("ema", correo.toUpperCase());
+		query.setParameter("dni", dni);
+		query.setParameter("ema", correo.toUpperCase());
 		Object per=null;
 		List<Object> lst=query.list();
 		if(lst.size()>0){
 			per=lst.get(0);
 		}		
 		return per;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UsuarioRol> rolesUsuario(Long idUsuario) {
+		Query query=sessionFactory.getCurrentSession().createQuery("select a from UsuarioRol a where a.usuario.id=:id");
+		query.setParameter("id", idUsuario);
+		return query.list();
 	}
 
 }

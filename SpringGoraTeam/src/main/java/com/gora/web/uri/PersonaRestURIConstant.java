@@ -20,8 +20,8 @@ public class PersonaRestURIConstant {
     public static final String PERSONA_FILTRO2= "/filtro2/{pagina}";
     
     
-    public static final String GET_PERSONA_DNI = "/buscarDNI/{dniPersona}";
-    public static final String GET_PERSONA_NOMBRE_APELLIDO = "/buscarNomApe/{nomApePersona}";
+    public static final String GET_PERSONA_DNI = "/buscardni/{dniPersona}";
+    public static final String GET_PERSONA_NOMBRE_APELLIDO = "/buscarnombres/{nomApePersona}";
     
     //EXTRACCION DE DATOS
     public static final String GET_PERSONA_JEFE = "/{id}/jefe";    

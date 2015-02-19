@@ -30,5 +30,7 @@ public class ListasRestURIConstant {
 	    public static final String GET_TIPO_ARCHIVO = "/tipoarchivo";
 	    
 	    public static final String GET_UBIGEO = "/ubigeo/{idUbigeo}";
+	    
+	    public static final String GET_ROLES = "/roles";
 
 }

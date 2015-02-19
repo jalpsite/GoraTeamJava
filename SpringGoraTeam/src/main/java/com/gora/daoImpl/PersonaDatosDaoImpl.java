@@ -35,6 +35,7 @@ public class PersonaDatosDaoImpl extends GenericDaoImpl<PersonaDatos> implements
 	public List<PersonaDatos> getPersonaByDNI(String dni) {
 		Query query=getCurrentSession().createQuery("FROM PersonaDatos p where p.numerodocidentidad LIKE :dni");
 		query.setParameter("dni", "%"+dni+"%");
+		query.setMaxResults(20);
 		return query.list();
 	}
 	
@@ -43,6 +44,7 @@ public class PersonaDatosDaoImpl extends GenericDaoImpl<PersonaDatos> implements
 	public List<PersonaDatos> getPersonaByNomApe(String nomApe) {
 		Query query=getCurrentSession().createQuery("FROM PersonaDatos p where lower(p.nombres) LIKE lower(:nomApe) OR lower(p.apemat) LIKE lower(:nomApe) OR lower(p.apepat) LIKE lower(:nomApe)");
 		query.setParameter("nomApe", "%"+nomApe+"%");
+		query.setMaxResults(20);
 		return query.list();
 	}
 

@@ -1,11 +1,9 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
-import org.junit.Ignore;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQuery(name="Usuario.findAll", query="SELECT p FROM Usuario p")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="usuario_seq")
 	@SequenceGenerator(
@@ -30,25 +27,29 @@ public class Usuario implements Serializable {
 	) 
 	private Long id;
 	private String estado;
+	@JsonIgnore
 	private String pass;
 	private String usuario;
+		
 	
 	
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	private Persona per;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
+	private List<UsuarioRol> usuarioRoles;
 	
 	public Usuario(){
 		
 	}
-
-
+	
+	
 	public Long getId() {
 		return id;
 	}
-
-
 
 	public void setId(Long id) {
 		this.id = id;
@@ -91,7 +92,7 @@ public class Usuario implements Serializable {
 	}
 
 
-
+	
 	public Persona getPersona() {
 		return per;
 	}
@@ -100,6 +101,15 @@ public class Usuario implements Serializable {
 
 	public void setPersona(Persona persona) {
 		this.per = persona;
+	}
+	
+	
+	public List<UsuarioRol> getUsuarioRoles() {
+		return usuarioRoles;
+	}
+
+	public void setUsuarioRoles(List<UsuarioRol> usuarioRoles) {
+		this.usuarioRoles = usuarioRoles;
 	}
 
 	

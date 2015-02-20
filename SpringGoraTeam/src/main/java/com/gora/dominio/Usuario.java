@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @NamedQuery(name="Usuario.findAll", query="SELECT p FROM Usuario p")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -34,10 +36,10 @@ public class Usuario implements Serializable {
 	
 	
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@PrimaryKeyJoinColumn
-	private Persona per;
-	
+	private Persona persona;
+		
 	@JsonIgnore
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
 	private List<UsuarioRol> usuarioRoles;
@@ -94,13 +96,13 @@ public class Usuario implements Serializable {
 
 	
 	public Persona getPersona() {
-		return per;
+		return persona;
 	}
 
 
 
 	public void setPersona(Persona persona) {
-		this.per = persona;
+		this.persona = persona;
 	}
 	
 	
@@ -111,6 +113,8 @@ public class Usuario implements Serializable {
 	public void setUsuarioRoles(List<UsuarioRol> usuarioRoles) {
 		this.usuarioRoles = usuarioRoles;
 	}
+
+	
 
 	
 }

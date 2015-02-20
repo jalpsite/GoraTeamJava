@@ -1,6 +1,7 @@
 package com.gora.servicesImpl;
 
 import com.gora.dao.UsuarioDao;
+import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 import com.gora.services.UsuarioService;
@@ -56,6 +57,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public List<UsuarioRol> rolesUsuario(Long idUsuario) {
 		return usuarioDao.rolesUsuario(idUsuario);
+	}
+
+	@Override
+	public int validarUsuario(String usuario) {
+		return usuarioDao.validarUsuario(usuario);
+	}
+
+	@Override
+	public Usuario buscarXPersona(Long id) {
+		return usuarioDao.buscarXPersona(id);
 	}
     
 

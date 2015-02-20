@@ -1,5 +1,6 @@
 package com.gora.services;
 
+import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 
@@ -26,5 +27,9 @@ public interface UsuarioService {
     public Object login(String correo,String dni);
     
     public List<UsuarioRol> rolesUsuario(Long idUsuario);
+    
+    public int validarUsuario(String usuario);
+    
+    public Usuario buscarXPersona(Long id);
 
 }

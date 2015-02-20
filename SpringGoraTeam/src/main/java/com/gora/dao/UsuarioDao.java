@@ -2,6 +2,7 @@ package com.gora.dao;
 
 import java.util.List;
 
+import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 
@@ -16,4 +17,6 @@ import com.gora.dominio.UsuarioRol;
 public interface UsuarioDao extends GenericDao<Usuario> {
 	public Object login(String correo,String dni);	
 	public List<UsuarioRol> rolesUsuario(Long idUsuario);
+	public int validarUsuario(String usuario);
+	public Usuario buscarXPersona(Long id);
 }

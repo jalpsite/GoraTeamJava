@@ -25,7 +25,7 @@ public class Proyecto implements Serializable {
 		sequenceName="proyecto_sequence",
 		allocationSize=1
 	) 
-	private long idproyecto;
+	private Long idproyecto;
 
 	private String estado;
 
@@ -75,11 +75,11 @@ public class Proyecto implements Serializable {
 	public Proyecto() {
 	}
 
-	public long getIdproyecto() {
+	public Long getIdproyecto() {
 		return this.idproyecto;
 	}
 
-	public void setIdproyecto(long idproyecto) {
+	public void setIdproyecto(Long idproyecto) {
 		this.idproyecto = idproyecto;
 	}
 

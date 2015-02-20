@@ -1,5 +1,6 @@
 package com.gora.services;
 
+import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDatos;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public interface PersonaDatosService {
 
     public List<PersonaDatos> findAll();
     
-    public List<PersonaDatos> getPersonaByDNI(String dni);
+    public List<Persona> getPersonaByDNI(String dni);
 	
-	public List<PersonaDatos> getPersonaByNomApe(String nomApe);
+	public List<Persona> getPersonaByNomApe(String nomApe);
        
 
 }

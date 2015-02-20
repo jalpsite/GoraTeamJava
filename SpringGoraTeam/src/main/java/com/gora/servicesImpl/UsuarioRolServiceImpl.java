@@ -3,7 +3,9 @@ package com.gora.servicesImpl;
 import com.gora.dao.UsuarioRolDao;
 import com.gora.dominio.UsuarioRol;
 import com.gora.services.UsuarioRolService;
+
 import org.springframework.stereotype.Service;
+
 import javax.inject.Inject;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +47,6 @@ public class UsuarioRolServiceImpl implements UsuarioRolService {
 		return usuarioRolDao.findAll();
 	}
 
-	
+
 
 }

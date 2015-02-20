@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="rol")
 @NamedQuery(name="Rol.findAll", query="SELECT r FROM Rol r")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Rol implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -23,7 +25,7 @@ public class Rol implements Serializable {
 	private Long idrol;
 	private String estado;
 	private String nomrol;	
-	
+	private String descripcion;
 	@JsonIgnore
 	@OneToMany(mappedBy="rol", cascade = CascadeType.ALL)
 	private List<UsuarioRol> usuarioRoles;
@@ -62,6 +64,16 @@ public class Rol implements Serializable {
 
 	public void setUsuarioRoles(List<UsuarioRol> usuarioRoles) {
 		this.usuarioRoles = usuarioRoles;
+	}
+
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	
 	

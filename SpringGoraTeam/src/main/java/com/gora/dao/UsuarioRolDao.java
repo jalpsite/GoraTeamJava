@@ -5,5 +5,5 @@ import com.gora.dominio.UsuarioRol;
 
 
 
-public interface UsuarioRolDao extends GenericDao<UsuarioRol> {	
+public interface UsuarioRolDao extends GenericDao<UsuarioRol> {		
 }

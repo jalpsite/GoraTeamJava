@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 import org.junit.Ignore;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="usuario_rol")
 @NamedQuery(name="UsuarioRol.findAll", query="SELECT p FROM UsuarioRol p")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class UsuarioRol implements Serializable {
 	private static final long serialVersionUID = 1L;
 

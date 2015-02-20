@@ -21,6 +21,7 @@ public interface UsuarioRolService {
 
     public UsuarioRol findById(Long id);
 
-    public List<UsuarioRol> findAll();      
+    public List<UsuarioRol> findAll();   
+    
 
 }

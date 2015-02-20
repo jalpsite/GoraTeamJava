@@ -134,16 +134,16 @@ public class PersonaController {
 	 */
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_DNI, method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<PersonaDatos> getPersonaByDNI(@PathVariable String dniPersona) {
+	public List<Persona> getPersonaByDNI(@PathVariable String dniPersona) {
 		return this.perDatosService.getPersonaByDNI(dniPersona);
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_NOMBRE_APELLIDO, method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<PersonaDatos> getPersonaByNomApe(
+	public List<Persona> getPersonaByNomApe(
 			@PathVariable String nomApePersona) {
 		return this.perDatosService.getPersonaByNomApe(nomApePersona);
 	}
-
+/*
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO, method = RequestMethod.POST)
 	public List<Persona> filtroPersona(
 			@RequestParam(required = false, defaultValue = "") String[] competencias,
@@ -152,8 +152,9 @@ public class PersonaController {
 		return perService.filtroPersonas(competencias, habilidades, atributos);
 
 	}
+	*/
 	
-	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO2, method = RequestMethod.POST)
+	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO, method = RequestMethod.POST)
 	public List<Persona> filtroPersona2(
 			@RequestParam(required = false, defaultValue = "") String[] competencias,
 			@RequestParam(required = false, defaultValue = "") String[] habilidades,

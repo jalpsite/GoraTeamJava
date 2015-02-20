@@ -15,4 +15,10 @@ public class UsuarioRestURIConstant {
 	    
 	    public static final String ASIGNA_ROL_USUARIO = "/asignarrol/{idPersona}/{idRol}";
 	    public static final String GET_ROLES_USUARIO = "/{idUsuario}/roles";
+	    
+	    public static final String USUARIO_VALIDA_USUARIO = "/validausuario";
+	    
+	    //public static final String GET_USUARIO_X_PERSONA = "/persona/{idPersona}";
+	    
+	    public static final String UPDATE_USUARIO_ROL = "/{idUsuarioRol}/rol/update/{idRol}";
 }

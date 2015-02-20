@@ -3,6 +3,7 @@ package com.gora.dao;
 
 import java.util.List;
 
+import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDatos;
 
 /**
@@ -14,6 +15,6 @@ import com.gora.dominio.PersonaDatos;
  */
 
 public interface PersonaDatosDao extends GenericDao<PersonaDatos> {	
-	public List<PersonaDatos> getPersonaByDNI(String dni);	
-	public List<PersonaDatos> getPersonaByNomApe(String nomApe);
+	public List<Persona> getPersonaByDNI(String dni);	
+	public List<Persona> getPersonaByNomApe(String nomApe);
 }

@@ -24,7 +24,7 @@ public class Evaluacion implements Serializable {
 		sequenceName="evaluacion_sequence",
 		allocationSize=1
 	) 
-	private long idevaluacion;
+	private Long idevaluacion;
 
 	private BigDecimal calificacion;
 
@@ -51,11 +51,11 @@ public class Evaluacion implements Serializable {
 	public Evaluacion() {
 	}
 
-	public long getIdevaluacion() {
+	public Long getIdevaluacion() {
 		return this.idevaluacion;
 	}
 
-	public void setIdevaluacion(long idevaluacion) {
+	public void setIdevaluacion(Long idevaluacion) {
 		this.idevaluacion = idevaluacion;
 	}
 

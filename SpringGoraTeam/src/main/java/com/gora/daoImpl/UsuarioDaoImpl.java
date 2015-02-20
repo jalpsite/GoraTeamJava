@@ -3,6 +3,7 @@ package com.gora.daoImpl;
 import java.util.List;
 
 import com.gora.dao.UsuarioDao;
+import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 
@@ -57,6 +58,29 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 		Query query=sessionFactory.getCurrentSession().createQuery("select a from UsuarioRol a where a.usuario.id=:id");
 		query.setParameter("id", idUsuario);
 		return query.list();
+	}
+	
+	@Override
+	public int validarUsuario(String usuario) {
+		Query query=getCurrentSession().createQuery("Select a from Usuario a where a.usuario=:us");
+		query.setParameter("us", usuario);
+		if(query.list().size()>0){
+			return 1; //existe
+		}else{
+			return 0; //no existe
+		}
+	}
+
+	@Override
+	public Usuario buscarXPersona(Long id) {	
+		Usuario us=null;
+		Query query=sessionFactory.getCurrentSession().createQuery("select a.usuario from Persona a where a.idpersona=:id");
+		query.setParameter("id", id);
+		List<Usuario> lst=query.list();
+		if(lst.size()>0){
+			us=lst.get(0);
+		}
+		return us;
 	}
 
 }

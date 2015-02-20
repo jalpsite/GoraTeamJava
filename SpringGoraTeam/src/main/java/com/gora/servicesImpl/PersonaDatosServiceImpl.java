@@ -1,6 +1,7 @@
 package com.gora.servicesImpl;
 
 import com.gora.dao.PersonaDatosDao;
+import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDatos;
 import com.gora.services.PersonaDatosService;
 
@@ -49,12 +50,12 @@ public class PersonaDatosServiceImpl implements PersonaDatosService {
 	}
 
 	@Override
-	public List<PersonaDatos> getPersonaByDNI(String dni) {
+	public List<Persona> getPersonaByDNI(String dni) {
 		return personaDao.getPersonaByDNI(dni);
 	}
 
 	@Override
-	public List<PersonaDatos> getPersonaByNomApe(String nomApe) {
+	public List<Persona> getPersonaByNomApe(String nomApe) {
 		return personaDao.getPersonaByNomApe(nomApe);
 	}
 

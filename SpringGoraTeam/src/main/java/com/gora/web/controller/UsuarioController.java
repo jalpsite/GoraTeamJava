@@ -21,6 +21,7 @@ import com.gora.services.PersonaService;
 import com.gora.services.RolService;
 import com.gora.services.UsuarioRolService;
 import com.gora.services.UsuarioService;
+import com.gora.web.uri.PersonaRestURIConstant;
 import com.gora.web.uri.UsuarioRestURIConstant;
 
 
@@ -92,7 +93,7 @@ public class UsuarioController {
 		usuarioRolService.save(usRol);
 	}
 	
-	@RequestMapping(value = UsuarioRestURIConstant.GET_USUARIO, method = RequestMethod.GET)	
+	@RequestMapping(value = UsuarioRestURIConstant.GET_USUARIO, method = RequestMethod.GET, headers = "Accept=application/json")	
 	public Usuario getUsuario(@PathVariable Long id){	
 		return usuarioService.findById(id);
 	}
@@ -105,6 +106,26 @@ public class UsuarioController {
 	@RequestMapping(value = UsuarioRestURIConstant.GET_ROLES_USUARIO, method = RequestMethod.GET)	
 	public List<UsuarioRol> AllUsuarios(@PathVariable Long idUsuario){	
 		return usuarioService.rolesUsuario(idUsuario);
+	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.USUARIO_VALIDA_USUARIO, method = RequestMethod.POST)
+	public int valDocumento(@RequestParam String usuario) {
+		return usuarioService.validarUsuario(usuario);
+	}
+	/*
+	@RequestMapping(value = UsuarioRestURIConstant.GET_USUARIO_X_PERSONA, method = RequestMethod.GET)
+	public Usuario getUsuarioPersona(@PathVariable Long idPersona) {
+		return usuarioService.buscarXPersona(idPersona);
+	}
+	*/
+	
+	@RequestMapping(value = UsuarioRestURIConstant.UPDATE_USUARIO_ROL, method = RequestMethod.POST)	
+	public void updateUsuarioRol(@RequestParam String estado, @PathVariable Long idUsuarioRol,@PathVariable Long idRol){	
+		UsuarioRol usRol=usuarioRolService.findById(idUsuarioRol);
+		Rol rol=rolService.findById(idRol);
+		usRol.setRol(rol);
+		usRol.setEstado(estado);
+		usuarioRolService.update(usRol);
 	}
 		
 }

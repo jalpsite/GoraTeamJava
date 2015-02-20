@@ -16,8 +16,8 @@ public class PersonaRestURIConstant {
     public static final String UPDATE_PERSONA_PART = "/update/{opcion}";
     
     // FILTROS
-    public static final String PERSONA_FILTRO= "/filtro";
-    public static final String PERSONA_FILTRO2= "/filtro2/{pagina}";
+    public static final String PERSONA_FILTRO= "/filtro/{pagina}";
+    //public static final String PERSONA_FILTRO2= "/filtro2/{pagina}";
     
     
     public static final String GET_PERSONA_DNI = "/buscardni/{dniPersona}";

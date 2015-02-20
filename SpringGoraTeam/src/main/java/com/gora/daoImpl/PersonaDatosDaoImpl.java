@@ -3,7 +3,9 @@ package com.gora.daoImpl;
 import java.util.List;
 
 import com.gora.dao.PersonaDatosDao;
+import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDatos;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,8 +34,8 @@ public class PersonaDatosDaoImpl extends GenericDaoImpl<PersonaDatos> implements
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<PersonaDatos> getPersonaByDNI(String dni) {
-		Query query=getCurrentSession().createQuery("FROM PersonaDatos p where p.numerodocidentidad LIKE :dni");
+	public List<Persona> getPersonaByDNI(String dni) {
+		Query query=getCurrentSession().createQuery("select p from Persona p where p.numerodocidentidad LIKE :dni");
 		query.setParameter("dni", "%"+dni+"%");
 		query.setMaxResults(20);
 		return query.list();
@@ -41,8 +43,8 @@ public class PersonaDatosDaoImpl extends GenericDaoImpl<PersonaDatos> implements
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<PersonaDatos> getPersonaByNomApe(String nomApe) {
-		Query query=getCurrentSession().createQuery("FROM PersonaDatos p where lower(p.nombres) LIKE lower(:nomApe) OR lower(p.apemat) LIKE lower(:nomApe) OR lower(p.apepat) LIKE lower(:nomApe)");
+	public List<Persona> getPersonaByNomApe(String nomApe) {
+		Query query=getCurrentSession().createQuery("select p FROM Persona p where lower(p.nombres) LIKE lower(:nomApe) OR lower(p.apemat) LIKE lower(:nomApe) OR lower(p.apepat) LIKE lower(:nomApe)");
 		query.setParameter("nomApe", "%"+nomApe+"%");
 		query.setMaxResults(20);
 		return query.list();

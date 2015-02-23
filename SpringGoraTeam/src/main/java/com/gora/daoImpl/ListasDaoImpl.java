@@ -1,12 +1,6 @@
 package com.gora.daoImpl;
 
 import java.util.List;
-
-
-
-
-
-
 import com.gora.dao.ListasDao;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Cargo;
@@ -15,11 +9,9 @@ import com.gora.dominio.Competencia;
 import com.gora.dominio.Grado;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Lista;
-import com.gora.dominio.Rol;
 import com.gora.dominio.Tipodocumento;
 import com.gora.dominio.Ubigeo;
 import com.gora.dominio.Universidad;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

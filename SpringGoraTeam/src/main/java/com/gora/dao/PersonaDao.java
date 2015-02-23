@@ -7,7 +7,6 @@ import java.util.List;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidades;
-import com.gora.dominio.PersonaDatos;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
@@ -36,7 +35,7 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public void estadoEmail(Long idEmail,String estado );
 	public void estadoTelefono(Long idTelefono,String estado);
 	
-	public Object login(String correo,String dni);
+	//public Object login(String correo,String dni);
 	
 	public Long getIDJefe(Long idPersona);
 	public List<Competencia> getCompetencias(Long id);	
@@ -47,10 +46,8 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public List<Atributo> getAtributosXHabilidad(Long idPersona, Long idCompetencia, Long idHabilidad);
 	
 	public Persona updateDatos(int opcion, Persona per);
-	
-	public List<Persona> filtroPersonas(String[] competencias,String[] habilidades, String[] atributos);
-	
-	public List<Persona> filtroPersonas2(String[] competencias,String[] habilidades, String[] atributos, int pagina);
+		
+	public List<Persona> filtroPersonas(String[] competencias,String[] habilidades, String[] atributos, int pagina);
 	
 	public int validarDNI(String doc);	
 		

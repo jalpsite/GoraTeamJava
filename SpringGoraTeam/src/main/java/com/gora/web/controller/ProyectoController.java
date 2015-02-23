@@ -8,25 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.gora.dominio.Atributo;
-import com.gora.dominio.Habilidad;
-import com.gora.dominio.Habilidades;
-import com.gora.dominio.Matriz;
-import com.gora.dominio.Persona;
 import com.gora.dominio.Proyecto;
-import com.gora.dominio.Tipoproyecto;
-import com.gora.services.AtributosService;
 import com.gora.services.ClientService;
-import com.gora.services.HabilidadService;
-import com.gora.services.HabilidadesService;
 import com.gora.services.IniciativaService;
-import com.gora.services.MatrizService;
 import com.gora.services.PersonaService;
 import com.gora.services.PortafolioService;
 import com.gora.services.ProyectoService;
 import com.gora.services.TipoproyectoService;
-import com.gora.web.uri.HabilidadRestURIConstant;
 import com.gora.web.uri.ProyectoRestURIConstant;
 
 

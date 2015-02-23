@@ -3,7 +3,6 @@ package com.gora.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +15,13 @@ import com.gora.services.ExperienciaService;
 import com.gora.services.FormacionService;
 import com.gora.services.PersonaDatosService;
 import com.gora.services.PersonaService;
+import com.gora.services.UsuarioService;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Experiencia;
 import com.gora.dominio.Formacion;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Persona;
-import com.gora.dominio.PersonaDatos;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
@@ -43,6 +42,9 @@ public class PersonaController {
 
 	@Autowired
 	FormacionService formaServices;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 	/*
 	 * PERSONA
@@ -55,7 +57,8 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.UPDATE_PERSONA, method = RequestMethod.POST)
-	public int updatePersona(@ModelAttribute Persona per) {
+	public int updatePersona(@ModelAttribute Persona per, @PathVariable Long idUsuario) {
+		per.setUsuario(usuarioService.findById(idUsuario));
 		this.perService.update(per);
 		return Integer.parseInt((per.getIdpersona()).toString());
 	}
@@ -71,10 +74,12 @@ public class PersonaController {
 		return this.perService.findAll();
 	}
 
+	/*
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_LOGIN, method = RequestMethod.POST)
 	public Object login(@RequestParam String correo, @RequestParam String dni) {
 		return perService.login(correo, dni);
 	}
+	*/
 
 	/*
 	 * VALIDACION LA EXISTENCIA DEL DOCUMENTO
@@ -143,26 +148,15 @@ public class PersonaController {
 			@PathVariable String nomApePersona) {
 		return this.perDatosService.getPersonaByNomApe(nomApePersona);
 	}
-/*
+	
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO, method = RequestMethod.POST)
 	public List<Persona> filtroPersona(
 			@RequestParam(required = false, defaultValue = "") String[] competencias,
 			@RequestParam(required = false, defaultValue = "") String[] habilidades,
-			@RequestParam(required = false, defaultValue = "") String[] atributos) {
-		return perService.filtroPersonas(competencias, habilidades, atributos);
-
-	}
-	*/
-	
-	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO, method = RequestMethod.POST)
-	public List<Persona> filtroPersona2(
-			@RequestParam(required = false, defaultValue = "") String[] competencias,
-			@RequestParam(required = false, defaultValue = "") String[] habilidades,
 			@RequestParam(required = false, defaultValue = "") String[] atributos,@PathVariable int pagina) {
-		return perService.filtroPersonas2(competencias, habilidades, atributos,pagina);
+		return perService.filtroPersonas(competencias, habilidades, atributos,pagina);
 
-	}
-		
+	}		
 
 	/*
 	 * UPDATE PERSONA PARTICIONADO

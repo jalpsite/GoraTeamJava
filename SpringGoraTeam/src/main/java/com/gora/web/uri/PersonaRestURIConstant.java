@@ -7,7 +7,7 @@ public class PersonaRestURIConstant {
     public static final String GET_PERSONA = "/{id}"; 
     public static final String GET_ALL_PERSONA = "/lista";
     public static final String CREATE_PERSONA = "/create";
-    public static final String UPDATE_PERSONA = "/update";
+    public static final String UPDATE_PERSONA = "/update/user/{idUsuario}";
     public static final String PERSONA_LOGIN = "/login";
     
     public static final String PERSONA_VALIDA_DOCUMENTO = "/validadocumento/{doc}";

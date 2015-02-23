@@ -5,7 +5,6 @@ import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Persona;
-import com.gora.dominio.PersonaDatos;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
@@ -113,17 +112,13 @@ public class PersonaServiceImpl implements PersonaService {
 		personaDao.actualizarTelefono(perTelf);
 	}
 
+	/*
 	@Override
 	public Object login(String correo,String dni) {
 		return personaDao.login(correo,dni);
 	}
-
-	@Override
-	public List<Persona> filtroPersonas(String[] lstCompetencias,
-			String[] lstHabilidades, String[] lstAtributos) {		
-		return personaDao.filtroPersonas(lstCompetencias, lstHabilidades, lstAtributos);
-	}
-
+	*/
+	
 	@Override
 	public Persona updateDatos(int opcion, Persona per) {
 		return personaDao.updateDatos(opcion, per);
@@ -180,9 +175,9 @@ public class PersonaServiceImpl implements PersonaService {
 	}
 
 	@Override
-	public List<Persona> filtroPersonas2(String[] lstCompetencias,
+	public List<Persona> filtroPersonas(String[] lstCompetencias,
 			String[] lstHabilidades, String[] lstAtributos, int pagina) {
-		return personaDao.filtroPersonas2(lstCompetencias, lstHabilidades, lstAtributos, pagina);
+		return personaDao.filtroPersonas(lstCompetencias, lstHabilidades, lstAtributos, pagina);
 	}	
 
 }

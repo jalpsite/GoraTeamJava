@@ -1,11 +1,7 @@
 package com.gora.daoImpl;
 
-import java.util.List;
-
 import com.gora.dao.UsuarioRolDao;
 import com.gora.dominio.UsuarioRol;
-
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 /**

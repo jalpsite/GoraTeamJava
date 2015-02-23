@@ -3,7 +3,6 @@ package com.gora.daoImpl;
 import java.util.List;
 
 import com.gora.dao.UsuarioDao;
-import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 
@@ -39,9 +38,8 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object login(String correo,String dni) {		
-		Query query=getCurrentSession().createQuery("Select a.idpersona, a.sexo, a.apemat, a.apepat, a.nombres, a.perfil from Persona a where a.usuario.pass= :dni and upper(a.usuario.usuario)=:ema and a.usuario.estado='A'");
-		//Query query=getCurrentSession().createQuery("Select a from Persona a where a.usuario.id=1");
-		//Query query=getCurrentSession().createQuery("Select a from Usuario a where a.pass= :dni and upper(a.usuario)=:ema and a.estado='A'");
+		Query query=getCurrentSession().createQuery("Select a.idpersona, a.sexo, a.apemat, a.apepat, a.nombres, a.perfil, a.usuario.id from Persona a where a.usuario.pass= :dni and upper(a.usuario.usuario)=:ema and a.usuario.estado='A'");
+		
 		query.setParameter("dni", dni);
 		query.setParameter("ema", correo.toUpperCase());
 		Object per=null;
@@ -71,6 +69,7 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Usuario buscarXPersona(Long id) {	
 		Usuario us=null;

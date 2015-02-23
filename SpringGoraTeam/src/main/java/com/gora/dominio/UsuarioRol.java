@@ -3,10 +3,6 @@ package com.gora.dominio;
 import java.io.Serializable;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
-import org.junit.Ignore;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

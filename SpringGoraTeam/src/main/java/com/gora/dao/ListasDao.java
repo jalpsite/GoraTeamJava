@@ -9,7 +9,6 @@ import com.gora.dominio.Competencia;
 import com.gora.dominio.Grado;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Lista;
-import com.gora.dominio.Rol;
 import com.gora.dominio.Tipodocumento;
 import com.gora.dominio.Ubigeo;
 import com.gora.dominio.Universidad;

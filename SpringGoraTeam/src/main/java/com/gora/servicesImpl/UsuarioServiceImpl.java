@@ -1,7 +1,6 @@
 package com.gora.servicesImpl;
 
 import com.gora.dao.UsuarioDao;
-import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 import com.gora.services.UsuarioService;

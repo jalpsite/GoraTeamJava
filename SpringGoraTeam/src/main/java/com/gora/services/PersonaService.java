@@ -4,20 +4,9 @@ import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Persona;
-import com.gora.dominio.PersonaDatos;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
-
-
-
-
-
-
-
-
-
-
 
 
 import java.util.List;
@@ -55,7 +44,7 @@ public interface PersonaService {
 	public void estadoEmail(Long idEmail,String estado );
 	public void estadoTelefono(Long idTelefono,String estado);
 	
-	public Object login(String correo,String dni);
+	//public Object login(String correo,String dni);
 	public Long getIDJefe(Long idPersona);
 	public List<Competencia> getCompetencias(Long id);	
 	public List<Habilidades> getHabilidades(Long id);
@@ -66,13 +55,10 @@ public interface PersonaService {
 	
 	public Persona updateDatos(int opcion, Persona per);
 	
-	public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos);
+	public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina);
 	
 	public int validarDNI(String doc);
 	
-	
-	
-	public List<Persona> filtroPersonas2(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina);
 	
 
 }

@@ -1,8 +1,6 @@
 package com.gora.dao;
 
 import java.util.List;
-
-import com.gora.dominio.Rol;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 

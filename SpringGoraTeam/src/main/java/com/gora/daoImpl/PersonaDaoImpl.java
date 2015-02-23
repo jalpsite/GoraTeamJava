@@ -6,11 +6,9 @@ import com.gora.dominio.Atributo;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Persona;
-import com.gora.dominio.PersonaDatos;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -95,6 +93,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		getCurrentSession().saveOrUpdate(perTelf);			
 	}	
 
+	/*
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object login(String correo,String dni) {		
@@ -108,7 +107,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		}		
 		return per;
 	}
-
+*/
 	@Override
 	public Persona updateDatos(int opcion, Persona per) {
 		Query query=null;
@@ -156,61 +155,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 			return per;
 		else
 			return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos) {
-		List<Persona> lstPersonas=null;
-		String consulta="";
-		int contador=0;
-		if(lstCompetencias.length==0 && lstHabilidades.length==0 && lstAtributos.length==0){
-			consulta="select a from Persona a";
-		}else{
-			consulta="select DISTINCT a.habilidad.persona from Atributos a where ";
-			String subconsulta="";
-			
-			if(lstCompetencias.length!=0){
-				if(contador>0)
-					subconsulta="or "+subconsulta;
-				subconsulta="a.habilidad.matriz.competencia.idcompetencia in("+concatenador(lstCompetencias)+")";												
-				contador++;
-			}						
-
-			if(lstHabilidades.length!=0){
-				if(contador>0)
-					subconsulta="or "+subconsulta;
-				subconsulta="a.habilidad.habilidades.idhabilidades in("+concatenador(lstHabilidades)+")";								
-				contador++;
-			}
-			
-			if(lstAtributos.length!=0){	
-				if(contador>0)
-					subconsulta="or "+subconsulta;
-				subconsulta="a.atributo.idatributo in("+concatenador(lstAtributos)+")";								
-				contador++;
-			}
-			consulta+=subconsulta;
-			
-		}
-		consulta+="";
-		Query query=getCurrentSession().createQuery(consulta);
-		query.setMaxResults(10);
-		lstPersonas=query.list();			
-		return lstPersonas;
-	}
-	
-	private String concatenador(String[] arr){		
-		String res="";
-		for(int i=0;i<arr.length;i++){
-			if(i==arr.length-1){
-				res+=(arr[i]);				
-			}else{
-				res+=(arr[i]+",");
-			}			
-		}			
-		return res;
-	}
+	}	
 
 	@Override
 	public Long getIDJefe(Long idPersona) {
@@ -305,21 +250,10 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		query.executeUpdate();
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Persona> filtroPersonas2(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina) {
+	public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina) {
 		int cantidad=10;		
 		List<Persona> listaPersonas=null;
 		List<Long> idPersonas=consultaFiltro(lstCompetencias,lstHabilidades,lstAtributos);
@@ -341,12 +275,8 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		}				
 		return listaPersonas;
 	}
-	
-	
-	
-	
-	
-	
+		
+	@SuppressWarnings("unchecked")
 	private List<Long> consultaFiltro(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos){
 		String consulta="";
 		int contador=0;
@@ -381,9 +311,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		Query query=getCurrentSession().createQuery(consulta);		
 		return query.list();
 	}
-		
-	
-
+			
 	private String concatenadorLista(List<Long> arr){		
 		String res="";
 		for(int i=0;i<arr.size();i++){
@@ -396,7 +324,17 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		return res;
 	}
 	
-	
+	private String concatenador(String[] arr){		
+		String res="";
+		for(int i=0;i<arr.length;i++){
+			if(i==arr.length-1){
+				res+=(arr[i]);				
+			}else{
+				res+=(arr[i]+",");
+			}			
+		}			
+		return res;
+	}		
 	
 }
 

@@ -6,9 +6,6 @@ import com.gora.dao.AtributoDao;
 import com.gora.dominio.Atributo;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,14 +18,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AtributoDaoImpl extends GenericDaoImpl<Atributo> implements AtributoDao {
-
-	@Autowired
-    private SessionFactory sessionFactory;
- 
-    public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
-    
+	    
 	protected AtributoDaoImpl() {
 		super(Atributo.class);
 		// TODO Auto-generated constructor stub

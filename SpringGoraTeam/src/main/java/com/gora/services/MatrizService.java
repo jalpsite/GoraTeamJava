@@ -22,6 +22,6 @@ public interface MatrizService {
 
     public List<Matriz> findAll();
     
-    public boolean deleteMatriz(Long idMatriz);
+    public boolean deshabilitarMatriz(Long idMatriz);
 
 }

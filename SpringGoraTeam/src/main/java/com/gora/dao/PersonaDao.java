@@ -20,35 +20,40 @@ import com.gora.dominio.PersonaTelefono;
  */
 
 public interface PersonaDao extends GenericDao<Persona> {
+	
+	//DIRECCIONES
 	public void agregarDireccion(PersonaDireccion perDir);
-	public void agregarEmail(PersonaEmail perEmail);
-	public void agregarTelefono(PersonaTelefono perTelf);
 	public void actualizarDireccion(PersonaDireccion perDir);
-	public void actualizarEmail(PersonaEmail perEmail);
-	public void actualizarTelefono(PersonaTelefono perTelf);	
-	
 	public List<PersonaDireccion> getDireccion(Long id);
-	public List<PersonaEmail> getEmail(Long id);
-	public List<PersonaTelefono> getTelefono(Long id);
-	
 	public void estadoDireccion(Long idDireccion,String estado);
+	
+	//EMAILS
+	public void agregarEmail(PersonaEmail perEmail);
+	public void actualizarEmail(PersonaEmail perEmail);
+	public List<PersonaEmail> getEmail(Long id);
 	public void estadoEmail(Long idEmail,String estado );
+	
+	//TELEFONOS
+	public void agregarTelefono(PersonaTelefono perTelf);
+	public void actualizarTelefono(PersonaTelefono perTelf);		
+	public List<PersonaTelefono> getTelefono(Long id);			
 	public void estadoTelefono(Long idTelefono,String estado);
 	
-	//public Object login(String correo,String dni);
-	
+	//EXTRACCION DE DATOS	
 	public Long getIDJefe(Long idPersona);
 	public List<Competencia> getCompetencias(Long id);	
 	public List<Habilidades> getHabilidades(Long id);
-	public List<Atributo> getAtributos(Long id);
-	
+	public List<Atributo> getAtributos(Long id);	
 	public List<Habilidades> getHabilidadesXCompetencia(Long idPersona, Long idCompetencia);
 	public List<Atributo> getAtributosXHabilidad(Long idPersona, Long idCompetencia, Long idHabilidad);
 	
+	//ACTUALIZACION DE DATOS	
 	public Persona updateDatos(int opcion, Persona per);
 		
+	//FILTRO DE PERSONAS POR CAPACIDADES
 	public List<Persona> filtroPersonas(String[] competencias,String[] habilidades, String[] atributos, int pagina);
 	
+	//VALIDACIONES
 	public int validarDNI(String doc);	
 		
 }

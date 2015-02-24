@@ -55,8 +55,8 @@ public class MatrizServiceImpl implements MatrizService {
     }
 
 	@Override
-	public boolean deleteMatriz(Long idMatriz) {
-		return matrizDao.deleteMatriz(idMatriz);
+	public boolean deshabilitarMatriz(Long idMatriz) {
+		return matrizDao.deshabilitarMatriz(idMatriz);
 	}
         
 

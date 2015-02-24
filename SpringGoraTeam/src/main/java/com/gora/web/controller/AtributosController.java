@@ -65,6 +65,11 @@ public class AtributosController {
 	public List<Atributo> GetAtributosExtracto(@PathVariable Long idPersona, @PathVariable Long idHabilidad){
 		return this.atributService.getAtributosExtracto(idPersona, idHabilidad);	
 	}
+	
+	@RequestMapping(value = AtributosRestURIConstant.DELETE_ATRIBUTOS, method = RequestMethod.POST)	
+	public void delete(@PathVariable Long idAtributos){		
+		this.atributosService.eliminar(idAtributos);		
+	}
 		
 	
 }

@@ -23,5 +23,7 @@ public interface AtributosService {
     public List<Atributos> findAll();
     
     public boolean eliminarXHabilidad(Long idHabilidad);
+    
+    public boolean eliminar(Long idAtributos);
 
 }

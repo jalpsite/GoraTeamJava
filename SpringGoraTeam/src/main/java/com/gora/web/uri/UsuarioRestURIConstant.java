@@ -1,7 +1,6 @@
 package com.gora.web.uri;
 
 public class UsuarioRestURIConstant {
-
 	
 		public static final String DUMMY_USUARIO = "/dummy";
 	    public static final String GET_USUARIO = "/{id}";
@@ -11,14 +10,17 @@ public class UsuarioRestURIConstant {
 	    public static final String DELETE_USUARIO = "/delete/{id}";
 	    public static final String GET_AUTH = "/lista";
 	    	    
+	    //AUTENTICACION
 	    public static final String LOGIN_USUARIO = "/login";
 	    
+	    //ROLES
 	    public static final String ASIGNA_ROL_USUARIO = "/asignarrol/{idPersona}/{idRol}";
 	    public static final String GET_ROLES_USUARIO = "/{idUsuario}/roles";
 	    
+	    //VALIDACIONES
 	    public static final String USUARIO_VALIDA_USUARIO = "/validausuario";
-	    
-	    //public static final String GET_USUARIO_X_PERSONA = "/persona/{idPersona}";
-	    
-	    public static final String UPDATE_USUARIO_ROL = "/{idUsuarioRol}/rol/update/{idRol}";
+	    	    
+	    //ACTUALIZACIONES
+	    public static final String UPDATE_USUARIO_ROL = "/{idUsuarioRol}/rol/update/{idRol}";	    
+	    public static final String UPDATE_USUARIO_PASS = "/{idUsuario}/updatepass";
 }

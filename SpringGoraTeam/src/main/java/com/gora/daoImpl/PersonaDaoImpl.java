@@ -10,9 +10,6 @@ import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -25,14 +22,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDao 
-{	
-	@Autowired
-    private SessionFactory sessionFactory;
- 
-    public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
-	
+{			
 	protected PersonaDaoImpl() {
 		super(Persona.class);
 		// TODO Auto-generated constructor stub

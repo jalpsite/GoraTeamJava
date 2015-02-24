@@ -79,5 +79,10 @@ public class HabilidadServiceImpl implements HabilidadService {
 		return habilidadDao.eliminarXMatriz(idMatriz);
 	}
 
+	@Override
+	public boolean eliminar(Long idHabilidad) {
+		return habilidadDao.eliminar(idHabilidad);
+	}
+
 
 }

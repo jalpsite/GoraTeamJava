@@ -11,5 +11,5 @@ import com.gora.dominio.Matriz;
  */
 
 public interface MatrizDao extends GenericDao<Matriz> {	
-	public boolean deleteMatriz(Long idMatriz);
+	public boolean deshabilitarMatriz(Long idMatriz);
 }

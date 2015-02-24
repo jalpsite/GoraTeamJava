@@ -7,9 +7,6 @@ import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -22,14 +19,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDao {
-
-	@Autowired
-    private SessionFactory sessionFactory;
- 
-    public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
-    
+	   
 	protected UsuarioDaoImpl() {
 		super(Usuario.class);
 		// TODO Auto-generated constructor stub
@@ -53,7 +43,7 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UsuarioRol> rolesUsuario(Long idUsuario) {
-		Query query=sessionFactory.getCurrentSession().createQuery("select a from UsuarioRol a where a.usuario.id=:id");
+		Query query=getCurrentSession().createQuery("select a from UsuarioRol a where a.usuario.id=:id");
 		query.setParameter("id", idUsuario);
 		return query.list();
 	}
@@ -73,13 +63,22 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 	@Override
 	public Usuario buscarXPersona(Long id) {	
 		Usuario us=null;
-		Query query=sessionFactory.getCurrentSession().createQuery("select a.usuario from Persona a where a.idpersona=:id");
+		Query query=getCurrentSession().createQuery("select a.usuario from Persona a where a.idpersona=:id");
 		query.setParameter("id", id);
 		List<Usuario> lst=query.list();
 		if(lst.size()>0){
 			us=lst.get(0);
 		}
 		return us;
+	}
+
+	@Override
+	public int cambiarContraseña(Long idUsuario, String oldPass, String newPass) {		
+		Query query=getCurrentSession().createQuery("update Usuario a set a.pass=:newPass where a.id=:id and a.pass=:oldPass");
+		query.setParameter("id", idUsuario);
+		query.setParameter("newPass", newPass);
+		query.setParameter("oldPass", oldPass);
+		return query.executeUpdate();					
 	}
 
 }

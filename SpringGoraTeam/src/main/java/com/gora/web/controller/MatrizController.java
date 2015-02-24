@@ -89,16 +89,13 @@ public class MatrizController {
 		return this.matriz.findAll();		
 	}
 	
-	@RequestMapping(value=MatrizRestURIConstant.DELETE_MATRIZ,method = RequestMethod.POST)
-	public String eliminarMatriz(@PathVariable Long idMatriz){
-		String res="";
-		if(!matriz.deleteMatriz(idMatriz)){
-			res="No se pudo eliminar Matriz";
+	@RequestMapping(value=MatrizRestURIConstant.DESHABILITAR_MATRIZ,method = RequestMethod.POST)
+	public String deshabilitarMatriz(@PathVariable Long idMatriz){
+		String res="Matriz deshabilitada";
+		if(!matriz.deshabilitarMatriz(idMatriz)){
+			res="No se pudo deshabilitar Matriz";
 		}
 		return res;
-	}
-	
-	
-	
+	}			
 	
 }

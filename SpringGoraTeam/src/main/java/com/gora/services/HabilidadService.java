@@ -32,4 +32,6 @@ public interface HabilidadService {
     
     public boolean eliminarXMatriz(Long idMatriz);
     
+    public boolean eliminar(Long idHabilidad);
+    
 }

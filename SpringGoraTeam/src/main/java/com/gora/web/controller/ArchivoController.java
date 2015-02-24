@@ -45,22 +45,30 @@ public class ArchivoController {
 			if (tipo.equalsIgnoreCase("PF")) {
 				arch = archivoService.getArchivo(Long.parseLong("0"), "ANONIMO");				
 			}
-		} 
-		
-		try {
-			byte[] archivo = arch.getArchivo();
-			String tipoArchivo = "";
-			if (arch.getTipo().equalsIgnoreCase("PF")) { //TIPO 
-				tipoArchivo = "image/jpeg";
+		}else{
+			try {
+				byte[] archivo = arch.getArchivo();
+				String tipoArchivo = "";
+				
+				if (archivo.length > 0) {
+					String tipoA=arch.getTipo();
+					if (tipoA.equalsIgnoreCase("PF") || tipoA.equalsIgnoreCase("IMG")) { //TIPO PERFIL
+						tipoArchivo = "image/jpeg";
+					}else if (tipoA.equalsIgnoreCase("DOC")) { //TIPO WS WORD 
+						tipoArchivo = "application/msword";
+					}else if (tipoA.equalsIgnoreCase("PDF")) { //TIPO PDF 
+						tipoArchivo = "application/pdf";
+					}
+					response.reset();
+					response.setContentType(tipoArchivo);
+					response.getOutputStream().write(archivo);
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
-			if (archivo != null && archivo.length > 0) {
-				response.reset();
-				response.setContentType(tipoArchivo);
-				response.getOutputStream().write(archivo);
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
+		
+		
 
 	}
 

@@ -7,9 +7,6 @@ import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDatos;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,12 +18,7 @@ import org.springframework.stereotype.Repository;
 public class PersonaDatosDaoImpl extends GenericDaoImpl<PersonaDatos> implements
 		PersonaDatosDao {
 
-	@Autowired
-    private SessionFactory sessionFactory;
-	
-	public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
+	    
 	protected PersonaDatosDaoImpl() {
 		super(PersonaDatos.class);
 		// TODO Auto-generated constructor stub

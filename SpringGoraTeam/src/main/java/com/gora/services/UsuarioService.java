@@ -30,5 +30,7 @@ public interface UsuarioService {
     public int validarUsuario(String usuario);
     
     public Usuario buscarXPersona(Long id);
+    
+    public int cambiarContraseña(Long idUsuario, String oldPass, String newPass);
 
 }

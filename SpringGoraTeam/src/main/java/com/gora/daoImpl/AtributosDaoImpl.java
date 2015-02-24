@@ -4,9 +4,6 @@ import com.gora.dao.AtributosDao;
 import com.gora.dominio.Atributos;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,13 +16,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AtributosDaoImpl extends GenericDaoImpl<Atributos> implements AtributosDao {
-
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	public Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
-	}
 	
 	protected AtributosDaoImpl() {
 		super(Atributos.class);
@@ -34,8 +24,20 @@ public class AtributosDaoImpl extends GenericDaoImpl<Atributos> implements Atrib
 
 	@Override
 	public boolean eliminarXHabilidad(Long idHabilidad) {
-		Query query=sessionFactory.getCurrentSession().createQuery("delete from Atributos a where a.habilidad.idhabilidad=:id");
+		Query query=getCurrentSession().createQuery("delete from Atributos a where a.habilidad.idhabilidad=:id");
 		query.setParameter("id",idHabilidad);
+		try {
+			query.executeUpdate();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean eliminar(Long idAtributos) {
+		Query query=getCurrentSession().createQuery("delete from Atributos a where a.idatributos=:id");
+		query.setParameter("id",idAtributos);
 		try {
 			query.executeUpdate();
 		} catch (Exception e) {

@@ -12,4 +12,5 @@ import com.gora.dominio.Atributos;
 
 public interface AtributosDao extends GenericDao<Atributos> {
 	public boolean eliminarXHabilidad(Long idHabilidad);
+	public boolean eliminar(Long idAtributos);
 }

@@ -8,9 +8,6 @@ import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,13 +24,7 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 	protected HabilidadDaoImpl() {
 		super(Habilidad.class);
 		// TODO Auto-generated constructor stub
-	}	
-	@Autowired
-    private SessionFactory sessionFactory;
- 
-    public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
+	}		
 
     @SuppressWarnings("unchecked")
 	@Override
@@ -94,7 +85,7 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
     
 	@Override
 	public boolean eliminarXMatriz(Long idMatriz) {
-		Query query=sessionFactory.getCurrentSession().createQuery("delete from Habilidad a where a.matriz.idmatriz=:id");
+		Query query=getCurrentSession().createQuery("delete from Habilidad a where a.matriz.idmatriz=:id");
 		query.setParameter("id",idMatriz);
 		try {
 			query.executeUpdate();
@@ -107,9 +98,21 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Habilidad> getHabilidadXMatriz(Long idMatriz) {
-		Query query=sessionFactory.getCurrentSession().createQuery("select a from Habilidad a where a.matriz.idmatriz=:id");
+		Query query=getCurrentSession().createQuery("select a from Habilidad a where a.matriz.idmatriz=:id");
 		query.setParameter("id",idMatriz);
 		return query.list();
+	}
+
+	@Override
+	public boolean eliminar(Long idHabilidad) {
+		Query query=getCurrentSession().createQuery("delete from Habilidad a where a.idhabilidad=:id");
+		query.setParameter("id",idHabilidad);
+		try {
+			query.executeUpdate();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
         
 }

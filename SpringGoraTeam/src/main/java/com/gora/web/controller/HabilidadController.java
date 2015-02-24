@@ -85,4 +85,13 @@ public class HabilidadController {
 	public List<Habilidades> GetAtributosExtracto(@PathVariable Long idPersona, @PathVariable Long idCompetencia){
 		return this.habilidadService.getHabilidadesExtracto(idPersona, idCompetencia);
 	}
+	
+	@RequestMapping(value = HabilidadRestURIConstant.DELETE_HABILIDAD, method = RequestMethod.POST)	
+	public void delete(@PathVariable Long idHabilidad){		
+		//eliminar atributos
+		if(atributosService.eliminarXHabilidad(idHabilidad)){							
+			this.habilidadService.eliminar(idHabilidad);
+		}			
+	}
+	
 }

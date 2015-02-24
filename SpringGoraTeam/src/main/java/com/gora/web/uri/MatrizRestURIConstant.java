@@ -6,5 +6,5 @@ public class MatrizRestURIConstant {
     public static final String GET_ALL_MATRIZ = "/lista";
     public static final String CREATE_MATRIZ = "/create/{idPersona}/{idCompetencia}";
     public static final String UPDATE_MATRIZ = "/update/{idCompetencia}";    
-    public static final String DELETE_MATRIZ = "/delete/{idMatriz}";
+    public static final String DESHABILITAR_MATRIZ = "/deshabilitar/{idMatriz}";
 }

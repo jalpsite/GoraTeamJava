@@ -67,6 +67,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario buscarXPersona(Long id) {
 		return usuarioDao.buscarXPersona(id);
 	}
+
+	@Override
+	public int cambiarContraseña(Long idUsuario, String oldPass, String newPass) {
+		return usuarioDao.cambiarContraseña(idUsuario, oldPass, newPass);
+	}
     
 
 }

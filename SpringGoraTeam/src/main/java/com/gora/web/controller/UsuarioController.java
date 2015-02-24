@@ -121,5 +121,10 @@ public class UsuarioController {
 		usRol.setEstado(estado);
 		usuarioRolService.update(usRol);
 	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.UPDATE_USUARIO_PASS, method = RequestMethod.POST)	
+	public int updateUsuarioContraseña(@PathVariable Long idUsuario, @RequestParam String oldpass, @RequestParam String newpass){	
+		return usuarioService.cambiarContraseña(idUsuario, oldpass, newpass);
+	}
 		
 }

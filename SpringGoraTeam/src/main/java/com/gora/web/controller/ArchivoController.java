@@ -45,7 +45,7 @@ public class ArchivoController {
 			if (tipo.equalsIgnoreCase("PF")) {
 				arch = archivoService.getArchivo(Long.parseLong("0"), "ANONIMO");				
 			}
-		}else{
+		}
 			try {
 				byte[] archivo = arch.getArchivo();
 				String tipoArchivo = "";
@@ -65,11 +65,7 @@ public class ArchivoController {
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
-			}
-		}
-		
-		
-
+			}						
 	}
 
 }

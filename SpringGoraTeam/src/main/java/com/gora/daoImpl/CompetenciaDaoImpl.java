@@ -42,7 +42,10 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
     	if(listaCompetenciasPersona.size()>0){
     		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+")");
         	listaCompetencia=query.list();
-    	}    	    	
+    	}else{    		
+    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a");
+        	listaCompetencia=query.list();
+    	} 	    	
 		return listaCompetencia;
 	}
 	

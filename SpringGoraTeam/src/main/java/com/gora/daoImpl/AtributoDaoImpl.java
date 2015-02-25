@@ -36,6 +36,10 @@ public class AtributoDaoImpl extends GenericDaoImpl<Atributo> implements Atribut
     		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id and a.idatributo not in("+concatenador(listaAtributosPersona)+")");
     		query.setParameter("id", idHabilidad);
     		listaAtributos=query.list();
+    	}else{
+    		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id");
+    		query.setParameter("id", idHabilidad);
+    		listaAtributos=query.list();
     	}    			
 		return listaAtributos;
 	}

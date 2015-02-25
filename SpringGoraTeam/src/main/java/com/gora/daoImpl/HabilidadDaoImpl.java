@@ -78,6 +78,10 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
         		listaHabilidades=query.list();
         	}        	
     		
+    	}else{
+    		Query qu=getCurrentSession().createQuery("Select distinct a.idhabilidades, a.descripcion from Habilidades a where a.competencia.idcompetencia=:comp");
+    		qu.setParameter("comp", idCompetencia);  
+    		listaHabilidades=qu.list();
     	}    	
 		
 		return listaHabilidades;   	    

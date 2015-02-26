@@ -68,6 +68,8 @@ public class Formacion implements Serializable {
 
 	private String encurso;
 	
+	private String otros;
+	
 	public Formacion() {
 	}
 
@@ -149,6 +151,14 @@ public class Formacion implements Serializable {
 
 	public void setEncurso(String encurso) {
 		this.encurso = encurso;
+	}
+
+	public String getOtros() {
+		return otros;
+	}
+
+	public void setOtros(String otros) {
+		this.otros = otros;
 	}
 
 }

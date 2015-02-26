@@ -32,6 +32,9 @@ public class ExperienciaController {
 		Persona per=personaService.findById(idPersona);
 		for(Experiencia e:exp){
 			e.setPersona(per);
+			if(Integer.parseInt(e.getCargo())>0){
+				e.setOtros(null);
+			}
 			this.experiencia.save(e);			
 		}			
 	}
@@ -39,8 +42,11 @@ public class ExperienciaController {
 	@RequestMapping(value = ExperienciaRestURIConstant.UPDATE_EXPERIENCIA, method = RequestMethod.POST)	
 	public void Actualizar(@RequestBody Experiencia[] exp, @PathVariable Long idPersona){	
 		Persona per=personaService.findById(idPersona);
-		for(Experiencia e:exp){
+		for(Experiencia e:exp){			
 			e.setPersona(per);
+			if(Integer.parseInt(e.getCargo())>0){
+				e.setOtros(null);
+			}
 			this.experiencia.update(e);			
 		}	
 	}	
@@ -49,6 +55,9 @@ public class ExperienciaController {
 	public Experiencia ActualizarSingle(@ModelAttribute Experiencia exp, @PathVariable Long idPersona){	
 		Persona per=personaService.findById(idPersona);
 		exp.setPersona(per);
+		if(Integer.parseInt(exp.getCargo())>0){
+			exp.setOtros(null);
+		}
 		this.experiencia.update(exp);			
 		return exp;
 	}

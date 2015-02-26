@@ -35,7 +35,7 @@ public class ArchivoDaoImpl implements ArchivoDao {
 		byte[] bytes;
 		try {
 			bytes = IOUtils.toByteArray(arch);
-			objArchivo.setArchivo(bytes);
+			objArchivo.setArchivo(bytes);			
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
@@ -46,7 +46,7 @@ public class ArchivoDaoImpl implements ArchivoDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Archivo getArchivo(Long idPersona, String tipo) {
-		Query query = sessionFactory.getCurrentSession().createQuery("select a from Archivo a where idpersona=:id and tipo=:tip");
+		Query query = sessionFactory.getCurrentSession().createQuery("select a from Archivo a where a.idpersona=:id and a.tipo=:tip");
 		query.setParameter("id", idPersona);
 		query.setParameter("tip", tipo.toUpperCase());
 		List<Archivo> archivos=query.list();		
@@ -57,6 +57,32 @@ public class ArchivoDaoImpl implements ArchivoDao {
 		}	
 		
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Archivo> getArchivosLista(Long idPersona, String tipo,
+			Long idMatriz) {
+		Query query = sessionFactory.getCurrentSession().createQuery("select a from Archivo a where a.idpersona=:id and a.tipo=:tip and a.idmatriz=:matr");
+		query.setParameter("id", idPersona);
+		query.setParameter("tip", tipo.toUpperCase());
+		query.setParameter("matr", idMatriz);
+		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Archivo getArchivoID(Long idArchivo) {
+		Query query = sessionFactory.getCurrentSession().createQuery("select a from Archivo a where a.idarchivo=:id");
+		query.setParameter("id", idArchivo);		
+		List<Archivo> archivos=query.list();		
+		if(archivos.size()>0){			
+			return archivos.get(0);			
+		}else{
+			return null;
+		}	
+	}
+
+	
 	
 
 }

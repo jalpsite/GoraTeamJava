@@ -3,6 +3,7 @@ package com.gora.services;
 import com.gora.dominio.Archivo;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,6 +14,8 @@ import java.io.InputStream;
  */
 
 public interface ArchivoService {
-	public void gestionArchivo(Archivo objArchivo,InputStream arch);	
+	public void gestionArchivo(Archivo objArchivo, InputStream arch);	
 	public Archivo getArchivo(Long idPersona, String tipo);	
+	public List<Archivo> getArchivosLista(Long idPersona, String tipo, Long idMatriz);
+	public Archivo getArchivoID(Long idArchivo);
 }

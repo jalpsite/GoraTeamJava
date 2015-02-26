@@ -1,8 +1,12 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -26,7 +30,11 @@ public class Archivo implements Serializable {
 	private Long idarchivo;
 	private Long idpersona;
 	private String tipo;
+	private Long idmatriz;
+	private String descripcion;
+	private String clase;
 	
+	@JsonIgnore
 	@Lob
 	@Type(type="org.hibernate.type.PrimitiveByteArrayBlobType")    
 	private byte[] archivo;
@@ -65,6 +73,30 @@ public class Archivo implements Serializable {
 
 	public void setArchivo(byte[] archivo) {
 		this.archivo = archivo;
+	}
+
+	public Long getIdmatriz() {
+		return idmatriz;
+	}
+
+	public void setIdmatriz(Long idmatriz) {
+		this.idmatriz = idmatriz;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getClase() {
+		return clase;
+	}
+
+	public void setClase(String clase) {
+		this.clase = clase;
 	}
 	
 

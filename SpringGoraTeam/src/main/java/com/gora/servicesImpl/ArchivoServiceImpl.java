@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,6 +38,19 @@ public class ArchivoServiceImpl implements ArchivoService {
 		return archivoDao.getArchivo(idPersona, tipo);
 	}
 
+
+	@Override
+	public List<Archivo> getArchivosLista(Long idPersona, String tipo,
+			Long idMatriz) {
+		return archivoDao.getArchivosLista(idPersona, tipo, idMatriz);
+	}
+
+
+	@Override
+	public Archivo getArchivoID(Long idArchivo) {
+		return archivoDao.getArchivoID(idArchivo);
+	}
+	
     
 
 }

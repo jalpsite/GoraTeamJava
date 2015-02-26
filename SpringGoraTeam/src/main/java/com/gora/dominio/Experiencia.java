@@ -41,6 +41,8 @@ public class Experiencia implements Serializable {
 	
 	private String encurso;
 	
+	private String otros;
+	
 	@Temporal(TemporalType.DATE)
 	private Date anhoinicio;
 	
@@ -142,6 +144,14 @@ public class Experiencia implements Serializable {
 
 	public void setEncurso(String encurso) {
 		this.encurso = encurso;
+	}
+
+	public String getOtros() {
+		return otros;
+	}
+
+	public void setOtros(String otros) {
+		this.otros = otros;
 	}
 
 }

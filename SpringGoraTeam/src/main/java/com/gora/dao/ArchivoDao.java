@@ -18,4 +18,6 @@ public interface ArchivoDao{
 	public Archivo getArchivo(Long idPersona, String tipo);	
 	public Archivo getArchivoID(Long idArchivo);	
 	public List<Archivo> getArchivosLista(Long idPersona, String tipo, Long idMatriz);	
+	public void eliminarArchivo(Long idArchivo);
+	
 }

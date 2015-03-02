@@ -50,6 +50,12 @@ public class ArchivoServiceImpl implements ArchivoService {
 	public Archivo getArchivoID(Long idArchivo) {
 		return archivoDao.getArchivoID(idArchivo);
 	}
+
+
+	@Override
+	public void eliminarArchivo(Long idArchivo) {
+		archivoDao.eliminarArchivo(idArchivo);
+	}
 	
     
 

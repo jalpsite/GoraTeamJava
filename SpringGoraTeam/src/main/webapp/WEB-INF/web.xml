@@ -22,7 +22,7 @@
   </servlet-mapping>
   <filter>
     <filter-name>SimpleCORSFilter</filter-name>
-    <filter-class>com.gora.web.controller.SimpleCORSFilter</filter-class>
+    <filter-class>com.gora.util.SimpleCORSFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>SimpleCORSFilter</filter-name>

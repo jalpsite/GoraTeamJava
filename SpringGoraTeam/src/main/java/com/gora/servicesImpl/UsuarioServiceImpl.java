@@ -72,6 +72,26 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public int cambiarContraseña(Long idUsuario, String oldPass, String newPass) {
 		return usuarioDao.cambiarContraseña(idUsuario, oldPass, newPass);
 	}
+
+	@Override
+	public Usuario getUsuario(String correo) {
+		return usuarioDao.getUsuario(correo);
+	}
+
+	@Override
+	public int enviaTokenContraseña(Usuario us) {
+		return usuarioDao.enviaTokenContraseña(us);
+	}
+
+	@Override
+	public int resetContraseña(Long idUsuario, String token, String newpass) {
+		return usuarioDao.resetContraseña(idUsuario, token, newpass);
+	}
+
+	@Override
+	public boolean verificarToken(Long idUsuario, String token) {
+		return usuarioDao.verificarToken(idUsuario, token);
+	}
     
 
 }

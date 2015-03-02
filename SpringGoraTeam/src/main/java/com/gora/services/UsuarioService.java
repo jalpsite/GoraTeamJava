@@ -32,5 +32,9 @@ public interface UsuarioService {
     public Usuario buscarXPersona(Long id);
     
     public int cambiarContraseña(Long idUsuario, String oldPass, String newPass);
-
+    
+    public Usuario getUsuario(String correo);
+	public int enviaTokenContraseña(Usuario us);
+	public int resetContraseña(Long idUsuario, String token, String newpass);
+	public boolean verificarToken(Long idUsuario, String token);
 }

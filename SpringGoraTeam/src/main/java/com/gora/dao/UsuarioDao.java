@@ -18,4 +18,9 @@ public interface UsuarioDao extends GenericDao<Usuario> {
 	public int validarUsuario(String usuario);
 	public Usuario buscarXPersona(Long id);
 	public int cambiarContraseña(Long idUsuario, String oldPass, String newPass);
+	public Usuario getUsuario(String correo);
+	public int enviaTokenContraseña(Usuario us);
+	public boolean verificarToken(Long idUsuario,String token);
+	public int resetContraseña(Long idUsuario,String token, String newpass);
+	
 }

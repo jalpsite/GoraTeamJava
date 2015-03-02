@@ -18,4 +18,5 @@ public interface ArchivoService {
 	public Archivo getArchivo(Long idPersona, String tipo);	
 	public List<Archivo> getArchivosLista(Long idPersona, String tipo, Long idMatriz);
 	public Archivo getArchivoID(Long idArchivo);
+	public void eliminarArchivo(Long idArchivo);
 }

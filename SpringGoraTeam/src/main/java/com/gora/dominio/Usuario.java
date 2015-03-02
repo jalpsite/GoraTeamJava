@@ -1,15 +1,13 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
-
 
 /**
  * The persistent class for the atributo database table.
@@ -32,9 +30,12 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private String pass;
 	private String usuario;
-		
-	
-	
+	@JsonIgnore
+	private String token;
+	@JsonIgnore
+	@Temporal(TemporalType.DATE)
+	private Date fechatoken;
+			
 	@JsonIgnore
 	@OneToOne
 	@PrimaryKeyJoinColumn
@@ -112,6 +113,26 @@ public class Usuario implements Serializable {
 
 	public void setUsuarioRoles(List<UsuarioRol> usuarioRoles) {
 		this.usuarioRoles = usuarioRoles;
+	}
+
+
+	public String getToken() {
+		return token;
+	}
+
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+
+	public Date getFechatoken() {
+		return fechatoken;
+	}
+
+
+	public void setFechatoken(Date fechatoken) {
+		this.fechatoken = fechatoken;
 	}
 
 	

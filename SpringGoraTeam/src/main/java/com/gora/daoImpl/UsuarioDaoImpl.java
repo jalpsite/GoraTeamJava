@@ -1,13 +1,17 @@
 package com.gora.daoImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.gora.dao.UsuarioDao;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
+import com.gora.util.Correo;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -79,6 +83,68 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 		query.setParameter("newPass", newPass);
 		query.setParameter("oldPass", oldPass);
 		return query.executeUpdate();					
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Usuario getUsuario(String correo) {
+		Query query=getCurrentSession().createQuery("select a from Usuario a where upper(a.usuario)=:us");
+		query.setParameter("us",correo);
+		Usuario us=null;
+		List<Usuario> lst=query.list();
+		if(lst.size()>0)
+			us=lst.get(0);
+		return us;
+	}
+
+	@Override
+	public int enviaTokenContraseña(Usuario us) {
+		int res=0;
+		String token = UUID.randomUUID().toString();				
+		Query query=getCurrentSession().createQuery("update Usuario a set a.token=:token, a.fechatoken=:fecha where a.id=:id");
+		query.setParameter("id",us.getId());
+		query.setParameter("token",token);
+		query.setParameter("fecha",new Date());
+		int x=query.executeUpdate();
+		if(x>0){
+			Correo obj=new Correo(us.getUsuario(),"Su Token es: "+token,"Reestablecer Contraseña");	
+			obj.enviarCorreo();	
+			res=1;
+		}
+		return res;
+	}
+
+	@Override
+	public int resetContraseña(Long idUsuario, String token, String newpass) {	
+		int res=0;
+		Query query1=getCurrentSession().createQuery("select a from Usuario a where a.id=:id and a.token=:token and (current_date-a.fechatoken)<1");
+		query1.setParameter("id",idUsuario);
+		query1.setParameter("token",token);		
+		if(query1.list().size()>0){
+			Query query2=getCurrentSession().createQuery("update Usuario a set a.pass=:newpass, a.token=:token, a.fechatoken=:fecha where a.id=:id");
+			query2.setParameter("newpass",newpass);
+			query2.setParameter("token",null);
+			query2.setParameter("fecha",null);
+			query2.setParameter("id",idUsuario);
+			if(query2.executeUpdate()>0){
+				res=1;
+			}
+		}
+		return res;
+		
+		
+	}
+
+	@Override
+	public boolean verificarToken(Long idUsuario, String token) {
+		Query query=getCurrentSession().createQuery("select a from Usuario a where a.id=:id and a.token=:token and (current_date-a.fechatoken)<1");
+		query.setParameter("id",idUsuario);
+		query.setParameter("token",token);		
+		if(query.list().size()>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }

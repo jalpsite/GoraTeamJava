@@ -91,9 +91,9 @@ public class MatrizController {
 	
 	@RequestMapping(value=MatrizRestURIConstant.DESHABILITAR_MATRIZ,method = RequestMethod.POST)
 	public String deshabilitarMatriz(@PathVariable Long idMatriz){
-		String res="Matriz deshabilitada";
-		if(!matriz.deshabilitarMatriz(idMatriz)){
-			res="No se pudo deshabilitar Matriz";
+		String res="No se pudo deshabilitar Matriz";
+		if(matriz.deshabilitarMatriz(idMatriz)){			
+			res="Matriz deshabilitada";						
 		}
 		return res;
 	}			

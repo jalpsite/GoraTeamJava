@@ -1,6 +1,7 @@
 package com.gora.web.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.Rol;
@@ -17,6 +19,7 @@ import com.gora.services.PersonaService;
 import com.gora.services.RolService;
 import com.gora.services.UsuarioRolService;
 import com.gora.services.UsuarioService;
+import com.gora.util.Correo;
 import com.gora.web.uri.UsuarioRestURIConstant;
 
 
@@ -126,5 +129,32 @@ public class UsuarioController {
 	public int updateUsuarioContraseña(@PathVariable Long idUsuario, @RequestParam String oldpass, @RequestParam String newpass){	
 		return usuarioService.cambiarContraseña(idUsuario, oldpass, newpass);
 	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.LOSTPASSWORD_USUARIO, method = RequestMethod.POST)
+	public int resetUsuarioPass(@RequestParam String usuario){
+		Usuario us=usuarioService.getUsuario(usuario.toUpperCase());
+		int res=0;
+		if(us!=null){
+			if(usuarioService.enviaTokenContraseña(us)==1){
+				res=1;
+			}
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.VERIFICA_TOKEN_USUARIO_PASS, method = RequestMethod.POST)
+	public int verificarToken(@PathVariable Long idUsuario,@PathVariable String token){
+		int res=0;
+		if(usuarioService.verificarToken(idUsuario, token)){
+			res=1;
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.RESET_USUARIO_PASS, method = RequestMethod.POST)
+	public int resetPassword(@PathVariable Long idUsuario,@PathVariable String token,@RequestParam String newpass){				
+		return usuarioService.resetContraseña(idUsuario, token, newpass);
+	}
+		
 		
 }

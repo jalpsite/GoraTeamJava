@@ -127,7 +127,12 @@ public class ArchivoController {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}			
-	}	
+		}	
 
-}
+	}
+	
+	@RequestMapping(value = ArchivoRestURIConstant.DELETE_ARCHIVO, method = RequestMethod.POST)
+	public void eliminarArchivo(@PathVariable Long idArchivo){
+		archivoService.eliminarArchivo(idArchivo);
+	}
 }

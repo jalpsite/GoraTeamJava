@@ -82,6 +82,13 @@ public class ArchivoDaoImpl implements ArchivoDao {
 		}	
 	}
 
+	@Override
+	public void eliminarArchivo(Long idArchivo) {
+		Query query = sessionFactory.getCurrentSession().createQuery("delete Archivo a where a.idarchivo=:id");	
+		query.setParameter("id", idArchivo);
+		query.executeUpdate();
+	}
+
 	
 	
 

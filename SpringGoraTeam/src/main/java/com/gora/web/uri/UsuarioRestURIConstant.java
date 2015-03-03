@@ -28,4 +28,5 @@ public class UsuarioRestURIConstant {
 	    public static final String LOSTPASSWORD_USUARIO = "/lostpassword";
 	    public static final String VERIFICA_TOKEN_USUARIO_PASS = "/token/{idUsuario}/{token}";
 	    public static final String RESET_USUARIO_PASS = "/reset/{idUsuario}/{token}";
+	    public static final String VERIFICA_USUARIO = "/verifica";
 }

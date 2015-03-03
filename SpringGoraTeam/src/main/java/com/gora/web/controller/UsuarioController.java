@@ -19,7 +19,6 @@ import com.gora.services.PersonaService;
 import com.gora.services.RolService;
 import com.gora.services.UsuarioRolService;
 import com.gora.services.UsuarioService;
-import com.gora.util.Correo;
 import com.gora.web.uri.UsuarioRestURIConstant;
 
 
@@ -154,6 +153,15 @@ public class UsuarioController {
 	@RequestMapping(value = UsuarioRestURIConstant.RESET_USUARIO_PASS, method = RequestMethod.POST)
 	public int resetPassword(@PathVariable Long idUsuario,@PathVariable String token,@RequestParam String newpass){				
 		return usuarioService.resetContraseña(idUsuario, token, newpass);
+	}
+	
+	@RequestMapping(value = UsuarioRestURIConstant.VERIFICA_USUARIO, method = RequestMethod.POST)
+	public int verificaUsuario(@RequestParam String usuario){
+		Usuario us=usuarioService.getUsuario(usuario.toUpperCase());
+		if(us!=null)
+			return 1;
+		else
+			return 0;
 	}
 		
 		

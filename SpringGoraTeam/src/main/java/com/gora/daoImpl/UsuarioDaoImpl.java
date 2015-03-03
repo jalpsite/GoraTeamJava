@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.gora.dao.UsuarioDao;
+import com.gora.dominio.Persona;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 import com.gora.util.Correo;
@@ -106,9 +107,9 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 		query.setParameter("token",token);
 		query.setParameter("fecha",new Date());
 		int x=query.executeUpdate();
-		if(x>0){
-			Correo obj=new Correo(us.getUsuario(),"Su Token es: "+token,"Reestablecer Contraseña");	
-			obj.enviarCorreo();	
+		if(x>0){			
+			Correo obj=new Correo(us.getUsuario(),"Reestablecer Contraseña");	
+			obj.enviarCorreo(token,"Usuario",us.getId().toString());	
 			res=1;
 		}
 		return res;

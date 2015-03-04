@@ -52,7 +52,10 @@ public class FormacionController {
 		form.setGrado(grado);
 		form.setUniversidad(uni);
 		if(idGrado>0){
-			form.setOtros(null);
+			form.setOtrogrado(null);
+		}
+		if(idUniversidad>0){
+			form.setOtrauniversidad(null);
 		}
 		//System.out.println(form.getAnhofin()+" "+form.getAnhoinicio());								
 		this.formacion.save(form);		
@@ -70,7 +73,10 @@ public class FormacionController {
 		form.setGrado(grado);
 		form.setUniversidad(uni);
 		if(idGrado>0){
-			form.setOtros(null);
+			form.setOtrogrado(null);
+		}
+		if(idUniversidad>0){
+			form.setOtrauniversidad(null);
 		}
 		this.formacion.update(form);
 		return form;

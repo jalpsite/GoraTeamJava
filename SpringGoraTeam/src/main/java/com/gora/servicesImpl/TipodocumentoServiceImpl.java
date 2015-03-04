@@ -22,25 +22,23 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class TipodocumentoServiceImpl implements TipodocumentoService {
 
     @Inject
     private TipodocumentoDao tipodocumentoDao;
 
-    @Override
-    @Transactional
+    @Override    
     public void save(Tipodocumento tipodocumento) {
     	tipodocumentoDao.save(tipodocumento);
     }
 
-    @Override
-    @Transactional
+    @Override    
     public void update(Tipodocumento tipodocumento) {
     	tipodocumentoDao.update(tipodocumento);
     }
 
-    @Override
-    @Transactional
+    @Override    
     public List<Tipodocumento> findAll() {
         List<Tipodocumento> tmp = tipodocumentoDao.findAll();
         //for (Tipodocumento order : tmp) {

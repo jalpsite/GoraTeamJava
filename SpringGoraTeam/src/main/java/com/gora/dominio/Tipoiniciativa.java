@@ -23,7 +23,7 @@ public class Tipoiniciativa implements Serializable {
 		sequenceName="tipoini_sequence",
 		allocationSize=1
 	) 
-	private long idtipoiniciativa;
+	private Long idtipoiniciativa;
 
 	private String descripcion;
 
@@ -36,11 +36,11 @@ public class Tipoiniciativa implements Serializable {
 	public Tipoiniciativa() {
 	}
 
-	public long getIdtipoiniciativa() {
+	public Long getIdtipoiniciativa() {
 		return this.idtipoiniciativa;
 	}
 
-	public void setIdtipoiniciativa(long idtipoiniciativa) {
+	public void setIdtipoiniciativa(Long idtipoiniciativa) {
 		this.idtipoiniciativa = idtipoiniciativa;
 	}
 

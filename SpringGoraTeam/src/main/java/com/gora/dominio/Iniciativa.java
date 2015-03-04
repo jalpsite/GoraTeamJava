@@ -25,7 +25,7 @@ public class Iniciativa implements Serializable {
 		sequenceName="iniciativa_sequence",
 		allocationSize=1
 	) 
-	private long idiniciativa;
+	private Long idiniciativa;
 
 	private String descripcion;
 
@@ -56,11 +56,11 @@ public class Iniciativa implements Serializable {
 	public Iniciativa() {
 	}
 
-	public long getIdiniciativa() {
+	public Long getIdiniciativa() {
 		return this.idiniciativa;
 	}
 
-	public void setIdiniciativa(long idiniciativa) {
+	public void setIdiniciativa(Long idiniciativa) {
 		this.idiniciativa = idiniciativa;
 	}
 

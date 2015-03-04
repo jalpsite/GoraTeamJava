@@ -68,7 +68,9 @@ public class Formacion implements Serializable {
 
 	private String encurso;
 	
-	private String otros;
+	private String otrogrado;
+	
+	private String otrauniversidad;
 	
 	public Formacion() {
 	}
@@ -153,12 +155,22 @@ public class Formacion implements Serializable {
 		this.encurso = encurso;
 	}
 
-	public String getOtros() {
-		return otros;
+	public String getOtrogrado() {
+		return otrogrado;
 	}
 
-	public void setOtros(String otros) {
-		this.otros = otros;
+	public void setOtrogrado(String otrogrado) {
+		this.otrogrado = otrogrado;
 	}
+
+	public String getOtrauniversidad() {
+		return otrauniversidad;
+	}
+
+	public void setOtrauniversidad(String otrauniversidad) {
+		this.otrauniversidad = otrauniversidad;
+	}
+
+	
 
 }

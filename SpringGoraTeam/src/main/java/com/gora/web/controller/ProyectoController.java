@@ -40,8 +40,7 @@ public class ProyectoController {
 	
 	@Autowired
 	TipoproyectoService tipoProyectoService;
-		
-	//{idCliente}/{idIniciativa}/{idPersona}/{idPortafolio}/{idTipoProyecto}
+			
 	@RequestMapping(value = ProyectoRestURIConstant.CREATE_PROYECTO, method = RequestMethod.POST)	
 	public int Agregar(@ModelAttribute Proyecto proy,@PathVariable Long idCliente, @PathVariable Long idIniciativa,@PathVariable Long idPersona, @PathVariable Long idPortafolio,@PathVariable Long idTipoProyecto){
 		proy.setCliente(clienteService.findById(idCliente));

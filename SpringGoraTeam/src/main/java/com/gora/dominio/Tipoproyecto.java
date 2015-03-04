@@ -23,7 +23,7 @@ public class Tipoproyecto implements Serializable {
 		sequenceName="tipoproy_sequence",
 		allocationSize=1
 	) 
-	private long idtipoproyecto;
+	private Long idtipoproyecto;
 
 	private String descripcion;
 
@@ -36,11 +36,11 @@ public class Tipoproyecto implements Serializable {
 	public Tipoproyecto() {
 	}
 
-	public long getIdtipoproyecto() {
+	public Long getIdtipoproyecto() {
 		return this.idtipoproyecto;
 	}
 
-	public void setIdtipoproyecto(long idtipoproyecto) {
+	public void setIdtipoproyecto(Long idtipoproyecto) {
 		this.idtipoproyecto = idtipoproyecto;
 	}
 

@@ -197,6 +197,12 @@
 		  <artifactId>mail</artifactId>
 		  <version>1.4.5</version>
 		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.5</version>
+		</dependency>
+		
 		<!-- <dependency>
     <groupId>com.google.code.gson</groupId>
     <artifactId>gson</artifactId>

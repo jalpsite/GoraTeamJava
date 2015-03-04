@@ -23,7 +23,7 @@ public class Portafolio implements Serializable {
 		sequenceName="portafolio_sequence",
 		allocationSize=1
 	) 
-	private long idportafolio;
+	private Long idportafolio;
 
 	private String descripcion;
 
@@ -36,11 +36,11 @@ public class Portafolio implements Serializable {
 	public Portafolio() {
 	}
 
-	public long getIdportafolio() {
+	public Long getIdportafolio() {
 		return this.idportafolio;
 	}
 
-	public void setIdportafolio(long idportafolio) {
+	public void setIdportafolio(Long idportafolio) {
 		this.idportafolio = idportafolio;
 	}
 

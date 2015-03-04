@@ -23,7 +23,7 @@ public class Cliente implements Serializable {
 		sequenceName="cliente_sequence",
 		allocationSize=1
 	) 
-	private long idcliente;
+	private Long idcliente;
 
 	private String contacto;
 
@@ -55,11 +55,11 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public long getIdcliente() {
+	public Long getIdcliente() {
 		return this.idcliente;
 	}
 
-	public void setIdcliente(long idcliente) {
+	public void setIdcliente(Long idcliente) {
 		this.idcliente = idcliente;
 	}
 

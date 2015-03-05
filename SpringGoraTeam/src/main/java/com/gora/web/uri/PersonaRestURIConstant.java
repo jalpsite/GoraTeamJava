@@ -56,6 +56,8 @@ public class PersonaRestURIConstant {
     public static final String UPDATESINGLE_PHONE = "/telefono/updatesingle/{idPersona}";
     public static final String DESACTIVAR_PHONE = "/telefono/desactivar/{idTelefono}";
        
+    /*	IMPRESION DE CV	 */
+    public static final String GET_CV_PERSONA = "/{idPersona}/cv";
     
     
 }

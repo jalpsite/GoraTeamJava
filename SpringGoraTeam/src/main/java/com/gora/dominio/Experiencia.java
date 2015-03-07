@@ -42,7 +42,8 @@ public class Experiencia implements Serializable {
 	private String encurso;
 	
 	private String otros;
-	
+	@Transient
+	public Cargo oCargo;
 	@Temporal(TemporalType.DATE)
 	private Date anhoinicio;
 	

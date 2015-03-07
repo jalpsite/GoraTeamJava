@@ -25,7 +25,8 @@ public class PersonaDireccion implements Serializable {
 	private String tipo;
 	@JsonIgnore
 	private Persona persona;
-
+	@Transient
+	public Ubigeo ubigeo;
 	public PersonaDireccion() {
 	}
 
@@ -88,5 +89,16 @@ public class PersonaDireccion implements Serializable {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
+
+/*
+	public Ubigeo getUbigeo() {
+		return ubigeo;
+	}
+
+
+	public void setUbigeo(Ubigeo ubigeo) {
+		this.ubigeo = ubigeo;
+	}
+	*/
 
 }

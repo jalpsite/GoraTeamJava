@@ -1,7 +1,10 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -10,6 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Ubigeo.findAll", query="SELECT u FROM Ubigeo u")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Ubigeo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long idubigeo;

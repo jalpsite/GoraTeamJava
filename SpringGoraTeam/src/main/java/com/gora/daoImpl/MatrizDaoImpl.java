@@ -1,5 +1,7 @@
 package com.gora.daoImpl;
 
+import java.util.List;
+
 import com.gora.dao.MatrizDao;
 import com.gora.dominio.Matriz;
 
@@ -31,6 +33,14 @@ public class MatrizDaoImpl extends GenericDaoImpl<Matriz> implements MatrizDao {
 			return true;
 		else
 			return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Matriz> getMatricesXPersona(Long idPersona) {
+		Query query=getCurrentSession().createQuery("SELECT m FROM Matriz m where m.persona.idpersona=:id and m.estado='A'");
+		query.setParameter("id", idPersona);
+		return query.list();
 	}
 
 }

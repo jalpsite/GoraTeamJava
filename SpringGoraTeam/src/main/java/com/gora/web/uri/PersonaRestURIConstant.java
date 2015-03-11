@@ -22,7 +22,7 @@ public class PersonaRestURIConstant {
     
     //BUSQUEDAS
     public static final String GET_PERSONA_DNI = "/buscardni/{dniPersona}";
-    public static final String GET_PERSONA_NOMBRE_APELLIDO = "/buscarnombres/{nomApePersona}";
+    public static final String GET_PERSONA_NOMBRE_APELLIDO = "/buscarnombres";
     
     //EXTRACCION DE DATOS
     public static final String GET_PERSONA_JEFE = "/{id}/jefe";    

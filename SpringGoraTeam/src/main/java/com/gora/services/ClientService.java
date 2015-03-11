@@ -20,5 +20,9 @@ public interface ClientService {
     public Cliente findById(Long id);
 
     public List<Cliente> findAll();
+    
+    public List<Cliente> buscarXEmpresa(String empresa);
+    
+	public List<Cliente> buscarXContacto(String contacto);
 
 }

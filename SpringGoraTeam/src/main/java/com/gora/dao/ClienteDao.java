@@ -1,5 +1,7 @@
 package com.gora.dao;
 
+import java.util.List;
+
 import com.gora.dominio.Cliente;
 
 /**
@@ -11,5 +13,7 @@ import com.gora.dominio.Cliente;
  */
 
 public interface ClienteDao extends GenericDao<Cliente> {
-
+	public List<Cliente> buscarXEmpresa(String empresa);
+	public List<Cliente> buscarXContacto(String contacto);
+	
 }

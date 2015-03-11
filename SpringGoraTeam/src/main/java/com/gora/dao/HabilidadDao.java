@@ -20,4 +20,5 @@ public interface HabilidadDao extends GenericDao<Habilidad> {
 	public boolean eliminarXMatriz(Long idMatriz);
 	public List<Habilidad> getHabilidadXMatriz(Long idMatriz);
 	public boolean eliminar(Long idHabilidad);
+	public List<Habilidad> getHabilidadXPersona(Long idPersona);
 }

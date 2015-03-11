@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.gora.dominio.Cliente;
 import com.gora.services.ClientService;
 import com.gora.services.UbigeoService;
@@ -47,5 +49,15 @@ public class ClienteController {
 	@RequestMapping(value=ClienteRestURIConstant.GET_ALL_CLIENTE,method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Cliente> getAll(){
 		return this.clienteService.findAll();		
+	}
+	
+	@RequestMapping(value=ClienteRestURIConstant.GET_CLIENTE_NOMBRE,method = RequestMethod.POST)
+	public List<Cliente> getClientesXNombre(@RequestParam String empresa){
+		return this.clienteService.buscarXEmpresa(empresa);	
+	}
+	
+	@RequestMapping(value=ClienteRestURIConstant.GET_CLIENTE_CONTACTO,method = RequestMethod.POST)
+	public List<Cliente> getClientesXContacto(@RequestParam String contacto){
+		return this.clienteService.buscarXContacto(contacto);
 	}
 }

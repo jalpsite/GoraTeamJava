@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gora.services.ArchivoService;
+import com.gora.services.AtributosService;
 import com.gora.services.CargoService;
 import com.gora.services.ExperienciaService;
 import com.gora.services.FormacionService;
+import com.gora.services.HabilidadService;
+import com.gora.services.MatrizService;
 import com.gora.services.PersonaDatosService;
 import com.gora.services.PersonaService;
 import com.gora.services.UbigeoService;
@@ -24,9 +27,11 @@ import com.gora.services.UsuarioService;
 import com.gora.util.PdfCV;
 import com.gora.dominio.Archivo;
 import com.gora.dominio.Atributo;
+import com.gora.dominio.Atributos;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Experiencia;
 import com.gora.dominio.Formacion;
+import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDireccion;
@@ -61,7 +66,15 @@ public class PersonaController {
 	
 	@Autowired
 	CargoService cargoService;
-
+	
+	@Autowired
+	HabilidadService habilidadService;
+	
+	@Autowired
+	AtributosService atributosService;
+	
+	@Autowired
+	MatrizService matrizService;
 	/*
 	 * PERSONA
 	 */
@@ -159,10 +172,10 @@ public class PersonaController {
 		return this.perDatosService.getPersonaByDNI(dniPersona);
 	}
 
-	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_NOMBRE_APELLIDO, method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_NOMBRE_APELLIDO, method = RequestMethod.POST, headers = "Accept=application/json")
 	public List<Persona> getPersonaByNomApe(
-			@PathVariable String nomApePersona) {
-		return this.perDatosService.getPersonaByNomApe(nomApePersona);
+			@RequestParam String nombres) {
+		return this.perDatosService.getPersonaByNomApe(nombres);
 	}
 	
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO, method = RequestMethod.POST)
@@ -353,14 +366,18 @@ public class PersonaController {
 			pd.ubigeo=ubigeoService.findById(pd.getIdubigeo());
 		}
 		
-		List<Experiencia> listaExperiencia=per.getExperiencias();
+		List<Experiencia> listaExperiencia=expeServices.getExperienciasPersona(per.getIdpersona());
 		for(Experiencia ex:listaExperiencia){
-			ex.oCargo=cargoService.findById(Long.parseLong(ex.getCargo()));
-		}
+			ex.oCargo=cargoService.findById(Long.parseLong(ex.getCargo()));					
+		}		
 		
 		per.setPersonaDireccions(listaDirecciones);
 		per.setExperiencias(listaExperiencia);
-		PdfCV pdf=new PdfCV(per,archivo);
+		per.setFormacions(formaServices.getFormacionPersona(per.getIdpersona()));
+		List<Habilidad> listaHabilidad=habilidadService.getHabilidadXPersona(per.getIdpersona());
+		List<Atributos> listaAtributos=atributosService.getAtributosXPersona(per.getIdpersona());
+		per.setMatrices(matrizService.getMatricesXPersona(per.getIdpersona()));		
+		PdfCV pdf=new PdfCV(per,listaHabilidad,listaAtributos,archivo);
 		pdf.generarCV(response);
 			    
 	}

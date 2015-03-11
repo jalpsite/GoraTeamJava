@@ -97,7 +97,7 @@ public class ListasDaoImpl  implements ListasDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Lista> getLista(Long idbloque) {
-		Query query=getCurrentSession().createQuery("select a.codigo, a.descripcion from Lista a where a.idbloque= :id and a.estado='A'");
+		Query query=getCurrentSession().createQuery("select a.codigo, a.descripcion from Lista a where a.idbloque= :id and a.estado='A' order by a.descripcion");
 		query.setParameter("id", idbloque);
 		return query.list();
 	}
@@ -118,7 +118,7 @@ public class ListasDaoImpl  implements ListasDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Atributo> getAtributos() {
-		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a");
+		Query query=getCurrentSession().createQuery("select DISTINCT descripcion from Atributo ");
 		return query.list();
 	}
 

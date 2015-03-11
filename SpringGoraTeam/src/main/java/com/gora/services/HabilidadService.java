@@ -34,4 +34,6 @@ public interface HabilidadService {
     
     public boolean eliminar(Long idHabilidad);
     
+    public List<Habilidad> getHabilidadXPersona(Long idPersona);
+    
 }

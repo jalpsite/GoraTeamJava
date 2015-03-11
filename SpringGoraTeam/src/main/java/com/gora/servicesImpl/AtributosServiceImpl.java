@@ -62,4 +62,9 @@ public class AtributosServiceImpl implements AtributosService {
 		return atributoDao.eliminar(idAtributos);
 	}
 
+	@Override
+	public List<Atributos> getAtributosXPersona(Long idPersona) {
+		return atributoDao.getAtributosXPersona(idPersona);
+	}
+
 }

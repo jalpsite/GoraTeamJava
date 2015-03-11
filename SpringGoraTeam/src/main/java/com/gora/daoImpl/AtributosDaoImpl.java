@@ -1,5 +1,7 @@
 package com.gora.daoImpl;
 
+import java.util.List;
+
 import com.gora.dao.AtributosDao;
 import com.gora.dominio.Atributos;
 
@@ -44,6 +46,14 @@ public class AtributosDaoImpl extends GenericDaoImpl<Atributos> implements Atrib
 			return false;
 		}
 		return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Atributos> getAtributosXPersona(Long idPersona) {
+		Query query=getCurrentSession().createQuery("select a.atributos from Habilidad a where a.persona.idpersona=:id");
+		query.setParameter("id",idPersona);
+		return query.list();
 	}
 
 }

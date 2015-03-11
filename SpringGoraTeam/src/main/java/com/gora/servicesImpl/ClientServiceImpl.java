@@ -1,11 +1,13 @@
 package com.gora.servicesImpl;
 
-import com.gora.dao.ClientDao;
+import com.gora.dao.ClienteDao;
 import com.gora.dominio.Cliente;
 import com.gora.services.ClientService;
+
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
 
     @Inject
-    private ClientDao clientDao;
+    private ClienteDao clientDao;
 
     @Override
     public void save(Cliente client) {
@@ -48,5 +50,15 @@ public class ClientServiceImpl implements ClientService {
         Cliente tmp = clientDao.findById(id);
         return tmp;
     }
+
+	@Override
+	public List<Cliente> buscarXEmpresa(String empresa) {
+		return clientDao.buscarXEmpresa(empresa);
+	}
+
+	@Override
+	public List<Cliente> buscarXContacto(String contacto) {
+		return clientDao.buscarXContacto(contacto);
+	}
 
 }

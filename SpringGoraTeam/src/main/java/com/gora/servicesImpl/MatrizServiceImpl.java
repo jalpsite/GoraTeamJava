@@ -58,6 +58,11 @@ public class MatrizServiceImpl implements MatrizService {
 	public boolean deshabilitarMatriz(Long idMatriz) {
 		return matrizDao.deshabilitarMatriz(idMatriz);
 	}
+
+	@Override
+	public List<Matriz> getMatricesXPersona(Long idPersona) {
+		return matrizDao.getMatricesXPersona(idPersona);
+	}
         
 
 }

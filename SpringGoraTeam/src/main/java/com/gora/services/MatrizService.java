@@ -23,5 +23,7 @@ public interface MatrizService {
     public List<Matriz> findAll();
     
     public boolean deshabilitarMatriz(Long idMatriz);
+    
+    public List<Matriz> getMatricesXPersona(Long idPersona);
 
 }

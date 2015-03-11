@@ -84,5 +84,10 @@ public class HabilidadServiceImpl implements HabilidadService {
 		return habilidadDao.eliminar(idHabilidad);
 	}
 
+	@Override
+	public List<Habilidad> getHabilidadXPersona(Long idPersona) {
+		return habilidadDao.getHabilidadXPersona(idPersona);
+	}
+
 
 }

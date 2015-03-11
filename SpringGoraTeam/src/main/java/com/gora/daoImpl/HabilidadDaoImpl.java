@@ -118,6 +118,14 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 		}
 		return true;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Habilidad> getHabilidadXPersona(Long idPersona) {
+		Query query=getCurrentSession().createQuery("select a from Habilidad a where a.persona.idpersona=:id");
+		query.setParameter("id",idPersona);
+		return query.list();
+	}
         
 }
 

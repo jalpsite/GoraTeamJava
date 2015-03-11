@@ -293,7 +293,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 			if(lstAtributos.length!=0){	
 				if(contador>0)
 					subconsulta="or "+subconsulta;
-				subconsulta="a.atributo.idatributo in("+concatenador(lstAtributos)+")";								
+				subconsulta="a.atributo.descripcion in("+concatenadorCaracter(lstAtributos)+")";								
 				contador++;
 			}
 			consulta+=subconsulta;			
@@ -324,7 +324,19 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 			}			
 		}			
 		return res;
-	}		
+	}	
+	
+	private String concatenadorCaracter(String[] arr){		
+		String res="";
+		for(int i=0;i<arr.length;i++){
+			if(i==arr.length-1){
+				res+="'"+(arr[i])+"'";				
+			}else{
+				res+=("'"+arr[i]+"',");
+			}			
+		}			
+		return res;
+	}	
 	
 }
 

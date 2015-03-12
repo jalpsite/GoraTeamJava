@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Rol implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@SequenceGenerator(name="ROL_IDROL_GENERATOR", sequenceName="ROL_SEQUENCE")
+	@SequenceGenerator(name="ROL_IDROL_GENERATOR", sequenceName="ROL_SEQUENCE",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ROL_IDROL_GENERATOR")
 	private Long idrol;
 	private String estado;

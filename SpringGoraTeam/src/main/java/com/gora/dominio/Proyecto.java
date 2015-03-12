@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Proyecto.findAll", query="SELECT p FROM Proyecto p")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Proyecto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -39,39 +43,55 @@ public class Proyecto implements Serializable {
 
 	private String nombre;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Cronograma
 	@OneToMany(mappedBy="proyecto",fetch=FetchType.EAGER)
 	private List<Cronograma> cronogramas;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Evaluacion
 	@OneToMany(mappedBy="proyecto",fetch=FetchType.EAGER)
 	private List<Evaluacion> evaluacions;
 
+	//@JsonIgnore
 	//bi-directional many-to-one association to Cliente
 	@ManyToOne
 	@JoinColumn(name="idcliente")
 	private Cliente cliente;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Iniciativa
 	@ManyToOne
 	@JoinColumn(name="idiniciativa")
 	private Iniciativa iniciativa;
 
+	//@JsonIgnore
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="idpergestor")
 	private Persona persona;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Portafolio
 	@ManyToOne
 	@JoinColumn(name="idportafolio")
 	private Portafolio portafolio;
 
+	//@JsonIgnore
 	//bi-directional many-to-one association to Tipoproyecto
 	@ManyToOne
 	@JoinColumn(name="idtipoproyecto")
 	private Tipoproyecto tipoproyecto;
 
+	@JsonIgnore
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private Equipo Equipo;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="proyecto",fetch=FetchType.EAGER)
+	private List<Entregable> entregables;
+	
 	public Proyecto() {
 	}
 
@@ -205,6 +225,22 @@ public class Proyecto implements Serializable {
 
 	public void setTipoproyecto(Tipoproyecto tipoproyecto) {
 		this.tipoproyecto = tipoproyecto;
+	}
+
+	public Equipo getEquipo() {
+		return Equipo;
+	}
+
+	public void setEquipo(Equipo equipo) {
+		Equipo = equipo;
+	}
+
+	public List<Entregable> getEntregables() {
+		return entregables;
+	}
+
+	public void setEntregables(List<Entregable> entregables) {
+		this.entregables = entregables;
 	}
 
 }

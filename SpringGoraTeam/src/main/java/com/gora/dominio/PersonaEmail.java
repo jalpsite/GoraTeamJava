@@ -31,7 +31,7 @@ public class PersonaEmail implements Serializable {
 
 
 	@Id
-	@SequenceGenerator(name="PERSONA_EMAIL_IDPERSONAEMAIL_GENERATOR", sequenceName="PERSONA_EMAIL_SEQUENCE")
+	@SequenceGenerator(name="PERSONA_EMAIL_IDPERSONAEMAIL_GENERATOR", sequenceName="PERSONA_EMAIL_SEQUENCE",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERSONA_EMAIL_IDPERSONAEMAIL_GENERATOR")
 	public Long getIdpersonaemail() {
 		return this.idpersonaemail;

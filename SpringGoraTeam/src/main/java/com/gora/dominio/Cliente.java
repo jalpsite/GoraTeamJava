@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -48,6 +50,7 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy="cliente",fetch=FetchType.EAGER)
 	private List<Iniciativa> iniciativas;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Proyecto
 	@OneToMany(mappedBy="cliente",fetch=FetchType.EAGER)
 	private List<Proyecto> proyectos;

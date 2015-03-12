@@ -41,8 +41,8 @@ public class PersonaDatos implements Serializable {
 	}
 
 	@Id
-	@SequenceGenerator(name = "PERSONADATOS_IDPERSONA_GENERATOR", sequenceName = "PERSONA_SEQUENCE")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONADATOS_IDPERSONA_GENERATOR")
+	@SequenceGenerator(name = "PERSONADATOS_IDPERSONA_GENERATOR", sequenceName = "PERSONA_SEQUENCE",allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONADATOS_IDPERSONA_GENERATOR")	
 	public Long getIdpersona() {
 		return this.idpersona;
 	}

@@ -30,7 +30,7 @@ public class PersonaTelefono implements Serializable {
 
 
 	@Id
-	@SequenceGenerator(name="PERSONA_TELEFONO_IDPERSONATELEFONO_GENERATOR", sequenceName="PERSONA_TELEFONO_SEQUENCE")
+	@SequenceGenerator(name="PERSONA_TELEFONO_IDPERSONATELEFONO_GENERATOR", sequenceName="PERSONA_TELEFONO_SEQUENCE",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERSONA_TELEFONO_IDPERSONATELEFONO_GENERATOR")
 	public Long getIdpersonatelefono() {
 		return this.idpersonatelefono;

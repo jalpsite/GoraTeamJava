@@ -3,6 +3,8 @@ package com.gora.dominio;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -74,7 +77,10 @@ public class Persona implements Serializable {
 	
 	@JsonIgnore
 	private List<Matriz> matrices;
-
+	
+	@JsonIgnore
+	private List<PersonaEquipo> personasequipo;
+	
 	public Persona() {
 	}
 
@@ -417,6 +423,32 @@ public class Persona implements Serializable {
 		public void setUsuario(Usuario usuario) {
 			this.usuario = usuario;
 		}
+		
+		@OneToMany(mappedBy="persona",cascade = CascadeType.ALL,fetch=FetchType.LAZY)		
+		public List<PersonaEquipo> getPersonasequipo() {
+			return personasequipo;
+		}
+
+
+		public void setPersonasequipo(List<PersonaEquipo> personasequipo) {
+			this.personasequipo = personasequipo;
+		}
+		
+		
+		public PersonaEquipo addPersonaEquipo(PersonaEquipo matriz) {
+			getPersonasequipo().add(matriz);
+			matriz.setPersona(this);
+
+			return matriz;
+		}
+
+		public PersonaEquipo removePersonaEquipo(PersonaEquipo matriz) {
+			getPersonasequipo().remove(matriz);
+			matriz.setPersona(null);
+
+			return matriz;
+		}
+		
 
  
 

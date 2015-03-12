@@ -21,6 +21,7 @@ import com.gora.dominio.Habilidades;
 import com.gora.dominio.Lista;
 import com.gora.dominio.Rol;
 import com.gora.dominio.Tipodocumento;
+import com.gora.dominio.Tipoproyecto;
 import com.gora.dominio.Ubigeo;
 import com.gora.dominio.Universidad;
  
@@ -32,7 +33,7 @@ public class ListasController {
     ListasService listasService; 
 	
 	@Autowired
-	RolService rolService;
+	RolService rolService;	
 	 
 	 public ListasService getListas() {
 		return listasService;
@@ -133,8 +134,11 @@ public class ListasController {
 		return listasService.getLista(Long.parseLong("7"));
 	}
 	
-	
-	
+	@RequestMapping(value = ListasRestURIConstant.GET_TIPO_PROYECTO, method = RequestMethod.GET,headers="Accept=application/json")
+	public List<Tipoproyecto> getTipoProyecto() {
+		return listasService.getTipoProyecto();
+	}
+			
 	@RequestMapping(value = ListasRestURIConstant.GET_UBIGEO, method = RequestMethod.GET,headers="Accept=application/json")
 	public List<Ubigeo> getUbigeo(@PathVariable Long idUbigeo) {
 		return listasService.getUbigeo(idUbigeo);
@@ -144,5 +148,6 @@ public class ListasController {
 	public List<Rol> getRoles() {
 		return rolService.findAll();
 	}
+	
 	
 }

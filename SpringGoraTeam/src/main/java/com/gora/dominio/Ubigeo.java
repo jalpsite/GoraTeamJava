@@ -37,7 +37,7 @@ public class Ubigeo implements Serializable {
 
 
 	@Id
-	@SequenceGenerator(name="UBIGEO_IDUBIGEO_GENERATOR", sequenceName="UBIGEO_SEQUENCE")
+	@SequenceGenerator(name="UBIGEO_IDUBIGEO_GENERATOR", sequenceName="UBIGEO_SEQUENCE",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="UBIGEO_IDUBIGEO_GENERATOR")
 	public Long getIdubigeo() {
 		return this.idubigeo;

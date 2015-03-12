@@ -2,9 +2,7 @@ package com.gora.daoImpl;
 
 import java.util.Date;
 import java.util.List;
-
 import com.gora.dao.UsuarioDao;
-import com.gora.dominio.Persona;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 import com.gora.util.Correo;

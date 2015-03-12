@@ -33,11 +33,11 @@ public class AtributoDaoImpl extends GenericDaoImpl<Atributo> implements Atribut
     	q.setParameter("per", idPersona);
     	List<Long> listaAtributosPersona=(List<Long>)q.list();    
     	if(listaAtributosPersona.size()>0){
-    		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id and a.idatributo not in("+concatenador(listaAtributosPersona)+")");
+    		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id and a.idatributo not in("+concatenador(listaAtributosPersona)+") order by a.descripcion");
     		query.setParameter("id", idHabilidad);
     		listaAtributos=query.list();
     	}else{
-    		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id");
+    		Query query=getCurrentSession().createQuery("select a.idatributo, a.descripcion from Atributo a where a.habilidades.idhabilidades= :id order by a.descripcion");
     		query.setParameter("id", idHabilidad);
     		listaAtributos=query.list();
     	}    			

@@ -8,6 +8,7 @@ import com.gora.dominio.Grado;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Lista;
 import com.gora.dominio.Tipodocumento;
+import com.gora.dominio.Tipoproyecto;
 import com.gora.dominio.Ubigeo;
 import com.gora.dominio.Universidad;
 
@@ -54,4 +55,6 @@ public interface ListasService {
 	public List<Lista> getLista(Long idbloque);
 	
 	public List<Ubigeo> getUbigeo(Long idUbigeo);
+	
+	public List<Tipoproyecto> getTipoProyecto();
 }

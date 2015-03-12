@@ -30,6 +30,7 @@ public class ListasRestURIConstant {
 	    public static final String GET_TIPO_TELEFONO = "/tipotelefono";
 	    public static final String GET_TIPO_DIRECCION = "/tipodireccion";
 	    public static final String GET_TIPO_ARCHIVO = "/tipoarchivo";
+	    public static final String GET_TIPO_PROYECTO = "/tipoproyecto";
 	    
 	    //USUARIOS
 	    public static final String GET_ROLES = "/roles";

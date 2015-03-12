@@ -32,8 +32,8 @@ public class PersonaDireccion implements Serializable {
 
 
 	@Id
-	@SequenceGenerator(name="PERSONA_DIRECCION_IDPERSONADIRECCION_GENERATOR", sequenceName="PERSONA_DIRECCION_SEQUENCE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERSONA_DIRECCION_IDPERSONADIRECCION_GENERATOR")
+	@SequenceGenerator(name="PERSONA_DIRECCION_IDPERSONADIRECCION_GENERATOR", sequenceName="PERSONA_DIRECCION_SEQUENCE",allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERSONA_DIRECCION_IDPERSONADIRECCION_GENERATOR")	
 	public Long getIdpersonadireccion() {
 		return this.idpersonadireccion;
 	}

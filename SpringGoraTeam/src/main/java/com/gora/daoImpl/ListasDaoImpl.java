@@ -1,6 +1,7 @@
 package com.gora.daoImpl;
 
 import java.util.List;
+
 import com.gora.dao.ListasDao;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Cargo;
@@ -10,8 +11,10 @@ import com.gora.dominio.Grado;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Lista;
 import com.gora.dominio.Tipodocumento;
+import com.gora.dominio.Tipoproyecto;
 import com.gora.dominio.Ubigeo;
 import com.gora.dominio.Universidad;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -83,7 +86,7 @@ public class ListasDaoImpl  implements ListasDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Competencia> getCompetencias() {
-		Query query=getCurrentSession().createQuery("select a.idcompetencia, a.descripcion from Competencia a");
+		Query query=getCurrentSession().createQuery("select a.idcompetencia, a.descripcion from Competencia a order by a.descripcion");
 		return query.list();
 	}
 	
@@ -111,14 +114,14 @@ public class ListasDaoImpl  implements ListasDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Habilidades> getHabilidades() {
-		Query query=getCurrentSession().createQuery("select a.idhabilidades, a.descripcion from Habilidades a");
+		Query query=getCurrentSession().createQuery("select a.idhabilidades, a.descripcion from Habilidades a order by a.descripcion");
 		return query.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Atributo> getAtributos() {
-		Query query=getCurrentSession().createQuery("select DISTINCT descripcion from Atributo ");
+		Query query=getCurrentSession().createQuery("select DISTINCT descripcion from Atributo order by descripcion");
 		return query.list();
 	}
 
@@ -129,6 +132,12 @@ public class ListasDaoImpl  implements ListasDao {
 		query.setParameter("id", idUbigeo);
 		return query.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Tipoproyecto> getTipoProyecto() {
+		return getCurrentSession().createQuery("select a.idtipoproyecto, a.descripcion from Tipoproyecto a").list();		
+	}	
 
 	
 

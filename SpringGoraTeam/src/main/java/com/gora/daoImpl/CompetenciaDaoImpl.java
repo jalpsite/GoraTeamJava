@@ -27,7 +27,7 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
     @SuppressWarnings("unchecked")
 	@Override
 	public List<Habilidad> getHabilidades(Long id) {
-		Query query=getCurrentSession().createQuery("select a.idhabilidades, a.descripcion from Habilidades a where a.competencia.idcompetencia= :id");
+		Query query=getCurrentSession().createQuery("select a.idhabilidades, a.descripcion from Habilidades a where a.competencia.idcompetencia= :id order by a.descripcion");
 		query.setParameter("id", id);
 		return query.list();
 	}
@@ -40,10 +40,10 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
     	q.setParameter("id", idPersona);    	    	
     	List<Long> listaCompetenciasPersona=(List<Long>)q.list(); 
     	if(listaCompetenciasPersona.size()>0){
-    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+")");
+    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+") order by a.descripcion");
         	listaCompetencia=query.list();
     	}else{    		
-    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a");
+    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a order by a.descripcion");
         	listaCompetencia=query.list();
     	} 	    	
 		return listaCompetencia;

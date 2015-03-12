@@ -1,6 +1,7 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -21,8 +22,8 @@ public class Operacion implements Serializable {
 
 
 	@Id
-	@SequenceGenerator(name="OPERACION_IDOPERACION_GENERATOR", sequenceName="OPERACION_SEQUENCE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="OPERACION_IDOPERACION_GENERATOR")
+	@SequenceGenerator(name="OPERACION_IDOPERACION_GENERATOR", sequenceName="OPERACION_SEQUENCE",allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="OPERACION_IDOPERACION_GENERATOR")	
 	public Integer getIdoperacion() {
 		return this.idoperacion;
 	}

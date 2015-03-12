@@ -72,6 +72,8 @@ public class Formacion implements Serializable {
 	
 	private String otrauniversidad;
 	
+	private String cip;
+	
 	public Formacion() {
 	}
 
@@ -169,6 +171,14 @@ public class Formacion implements Serializable {
 
 	public void setOtrauniversidad(String otrauniversidad) {
 		this.otrauniversidad = otrauniversidad;
+	}
+
+	public String getCip() {
+		return cip;
+	}
+
+	public void setCip(String cip) {
+		this.cip = cip;
 	}
 
 	

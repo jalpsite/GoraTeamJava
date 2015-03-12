@@ -23,7 +23,7 @@ public class RolOperacion implements Serializable {
 
 
 	@Id
-	@SequenceGenerator(name="ROL_OPERACION_IDROLOPERACION_GENERATOR", sequenceName="ROL_OPERACION_SEQUENCE")
+	@SequenceGenerator(name="ROL_OPERACION_IDROLOPERACION_GENERATOR", sequenceName="ROL_OPERACION_SEQUENCE",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ROL_OPERACION_IDROLOPERACION_GENERATOR")
 	public Integer getIdroloperacion() {
 		return this.idroloperacion;

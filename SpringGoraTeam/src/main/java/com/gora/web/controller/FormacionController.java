@@ -78,6 +78,9 @@ public class FormacionController {
 		if(idUniversidad>0){
 			form.setOtrauniversidad(null);
 		}
+		if(!form.getGrado().getDescripcion().equalsIgnoreCase("COLEGIADO")){
+			form.setCip(null);
+		}
 		this.formacion.update(form);
 		return form;
 	}

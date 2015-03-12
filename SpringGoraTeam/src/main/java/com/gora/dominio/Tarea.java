@@ -78,6 +78,10 @@ public class Tarea implements Serializable {
 	@OneToMany(mappedBy="tarea2",fetch=FetchType.EAGER)
 	private List<Tarea> tareas2;
 
+	@ManyToOne
+	@JoinColumn(name="identregable")
+	private Entregable entregable;
+	
 	public Tarea() {
 	}
 

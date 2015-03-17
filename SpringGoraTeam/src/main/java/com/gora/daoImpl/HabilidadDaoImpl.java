@@ -74,12 +74,12 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
         		}
         	}    	   
         	if(listaHabilidadesAll.size()>0){
-        		Query query=getCurrentSession().createQuery("Select distinct a.idhabilidades, a.descripcion from Habilidades a where idhabilidades in("+concatenador(listaHabilidadesAll)+") order by a.descripcion");
+        		Query query=getCurrentSession().createQuery("Select a.idhabilidades, a.descripcion from Habilidades a where idhabilidades in("+concatenador(listaHabilidadesAll)+") order by a.descripcion");
         		listaHabilidades=query.list();
         	}        	
     		
     	}else{
-    		Query qu=getCurrentSession().createQuery("Select distinct a.idhabilidades, a.descripcion from Habilidades a where a.competencia.idcompetencia=:comp order by a.descripcion");
+    		Query qu=getCurrentSession().createQuery("Select a.idhabilidades, a.descripcion from Habilidades a where a.competencia.idcompetencia=:comp order by a.descripcion");
     		qu.setParameter("comp", idCompetencia);  
     		listaHabilidades=qu.list();
     	}    	
@@ -125,6 +125,21 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 		Query query=getCurrentSession().createQuery("select a from Habilidad a where a.persona.idpersona=:id");
 		query.setParameter("id",idPersona);
 		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Habilidad getHabilidadXPersonaXComp(Long idPersona, Long idCompetencia, Long idHabilidades) {
+		Query query=getCurrentSession().createQuery("select a from Habilidad a where a.persona.idpersona=:idPer and a.matriz.competencia.idcompetencia=:idComp and a.habilidades.idhabilidades=:idHab");
+		query.setParameter("idPer",idPersona);
+		query.setParameter("idComp",idCompetencia);
+		query.setParameter("idHab",idHabilidades);
+		List<Habilidad> lst=query.list();
+		Habilidad h=null;
+		if(lst.size()>0){
+			h=lst.get(0);
+		}
+		return h;
 	}
         
 }

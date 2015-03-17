@@ -37,10 +37,11 @@ public class Competencia implements Serializable {
 	//bi-directional many-to-one association to Matriz
 	@OneToMany(mappedBy="competencia")
 	private List<Matriz> matrizs;
+	
 	@JsonIgnore
 	//bi-directional many-to-one association to habilidades
-		@OneToMany(mappedBy="competencia")
-		private List<Habilidades> habilidades;
+	@OneToMany(mappedBy="competencia")
+	private List<Habilidades> habilidades;
 
 	public List<Habilidades> getHabilidades() {
 			return habilidades;

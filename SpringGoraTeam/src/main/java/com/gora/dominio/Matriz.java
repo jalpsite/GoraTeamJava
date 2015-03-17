@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 import java.util.List;
 
@@ -35,8 +36,8 @@ public class Matriz implements Serializable {
 	private List<Evaluacion> evaluacions;
 
 	//bi-directional many-to-one association to Habilidad
-	@JsonIgnore
-	@OneToMany(mappedBy="matriz")
+	//@JsonIgnore
+	@OneToMany(mappedBy="matriz",fetch=FetchType.EAGER)
 	private List<Habilidad> habilidads;
 
 	//bi-directional many-to-one association to Competencia

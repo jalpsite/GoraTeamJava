@@ -9,6 +9,10 @@ import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
 
 
+
+import com.gora.dominio.Usuario;
+import com.gora.dominio.UsuarioRol;
+
 import java.util.List;
 
 /**
@@ -59,6 +63,8 @@ public interface PersonaService {
 	
 	public int validarDNI(String doc);
 	
+	public List<Persona> getPersonaXRol(String busqueda, String rol);
 	
+	public Persona getPersona(Long id) ;
 
 }

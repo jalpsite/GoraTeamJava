@@ -21,5 +21,7 @@ public interface ProyectoService {
     public Proyecto findById(Long id);
 
     public List<Proyecto> findAll();
+    
+    public List<Proyecto> buscarProyecto(String busqueda);
 
 }

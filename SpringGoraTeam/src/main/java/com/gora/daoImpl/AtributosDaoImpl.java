@@ -56,5 +56,20 @@ public class AtributosDaoImpl extends GenericDaoImpl<Atributos> implements Atrib
 		return query.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Atributos getAtributosXPersonaXCompXHab(Long idPersona, Long idHabilidades, Long idAtributo) {
+		Query query=getCurrentSession().createQuery("select a from Atributos a where a.habilidad.habilidades.idhabilidades=:idHab and a.habilidad.persona.idpersona=:idPer and a.atributo.idatributo=:idAtri");
+		query.setParameter("idHab",idHabilidades);
+		query.setParameter("idPer",idPersona);
+		query.setParameter("idAtri",idAtributo);
+		List<Atributos> lst=query.list();
+		Atributos a=null;
+		if(lst.size()>0){
+			a=lst.get(0);
+		}
+		return a;
+	}
+
 }
 

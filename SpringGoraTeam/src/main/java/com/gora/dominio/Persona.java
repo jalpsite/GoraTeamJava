@@ -75,7 +75,7 @@ public class Persona implements Serializable {
 	@JsonIgnore
 	private List<Formacion> formacions;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	private List<Matriz> matrices;
 	
 	@JsonIgnore
@@ -424,7 +424,7 @@ public class Persona implements Serializable {
 			this.usuario = usuario;
 		}
 		
-		@OneToMany(mappedBy="persona",cascade = CascadeType.ALL,fetch=FetchType.LAZY)		
+		@OneToMany(mappedBy="persona",cascade = CascadeType.ALL)		
 		public List<PersonaEquipo> getPersonasequipo() {
 			return personasequipo;
 		}

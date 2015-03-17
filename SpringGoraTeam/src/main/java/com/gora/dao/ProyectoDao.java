@@ -1,5 +1,7 @@
 package com.gora.dao;
 
+import java.util.List;
+
 import com.gora.dominio.Proyecto;
 
 /**
@@ -10,7 +12,7 @@ import com.gora.dominio.Proyecto;
  * com.gora.dominio
  */
 
-public interface ProyectoDao extends GenericDao<Proyecto> {
-
+public interface ProyectoDao extends GenericDao<Proyecto> {	
+	public List<Proyecto> buscarProyecto(String busqueda);
 }
 

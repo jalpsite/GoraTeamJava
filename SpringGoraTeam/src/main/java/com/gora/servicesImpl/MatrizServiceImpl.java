@@ -63,6 +63,11 @@ public class MatrizServiceImpl implements MatrizService {
 	public List<Matriz> getMatricesXPersona(Long idPersona) {
 		return matrizDao.getMatricesXPersona(idPersona);
 	}
+
+	@Override
+	public Matriz getMatrizXPersona(Long idComp, Long idPersona) {
+		return matrizDao.getMatrizXPersona(idComp, idPersona);
+	}
         
 
 }

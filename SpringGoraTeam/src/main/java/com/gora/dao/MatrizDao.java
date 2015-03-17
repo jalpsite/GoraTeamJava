@@ -15,4 +15,5 @@ import com.gora.dominio.Matriz;
 public interface MatrizDao extends GenericDao<Matriz> {	
 	public boolean deshabilitarMatriz(Long idMatriz);
 	public List<Matriz> getMatricesXPersona(Long idPersona);
+	public Matriz getMatrizXPersona(Long idComp, Long idPersona);
 }

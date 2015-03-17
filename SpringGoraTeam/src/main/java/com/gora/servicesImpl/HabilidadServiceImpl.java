@@ -89,5 +89,11 @@ public class HabilidadServiceImpl implements HabilidadService {
 		return habilidadDao.getHabilidadXPersona(idPersona);
 	}
 
+	@Override
+	public Habilidad getHabilidadXPersonaXComp(Long idPersona,
+			Long idCompetencia, Long idHabilidades) {
+		return habilidadDao.getHabilidadXPersonaXComp(idPersona, idCompetencia,idHabilidades);
+	}
+
 
 }

@@ -37,6 +37,8 @@ import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
+import com.gora.dominio.Usuario;
+import com.gora.dominio.UsuarioRol;
 import com.gora.web.uri.PersonaRestURIConstant;
 
 @RestController
@@ -94,7 +96,8 @@ public class PersonaController {
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA, method = RequestMethod.GET, headers = "Accept=application/json")
 	public Persona GetPersona(@PathVariable Long id) {
-		Persona p = this.perService.findById(id);
+		//Persona p = this.perService.findById(id);
+		Persona p = this.perService.getPersona(id);
 		return p;
 	}
 
@@ -382,7 +385,10 @@ public class PersonaController {
 			    
 	}
 	
-	
+	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_JEFE_PROYECTO, method = RequestMethod.POST)
+	public List<Persona> getJefesProyecto(@RequestParam String nombres){
+		return perService.getPersonaXRol(nombres,"ROLE_OPER_PROY");
+	}
 	
 	
 

@@ -2,6 +2,8 @@ package com.gora.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -270,7 +272,13 @@ public class PdfCV {
 	    
 	    PdfPCell cellPresentacion = estiloCelda(2,1);		  
 	    Paragraph tituPresentacion = new Paragraph("Presentacion:",subtit);
-	    Paragraph presentacion = new Paragraph(parseMayuscula(per.getPresentacion()),subtit);
+	    
+	    Pattern Tags = Pattern.compile("<.+?>");
+	    String pres=parseMayuscula(per.getPresentacion());
+	    Matcher m = Tags.matcher(pres);
+	    pres= m.replaceAll("").replaceAll("\\&.*?\\;", "");
+	    
+	    Paragraph presentacion = new Paragraph(pres,subtit);
 	    cellPresentacion.addElement(tituPresentacion);
 	    cellPresentacion.addElement(presentacion);
 	    tablaDatos.addCell(cellTituloDatos);

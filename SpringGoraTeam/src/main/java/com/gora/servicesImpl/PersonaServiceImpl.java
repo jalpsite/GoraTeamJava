@@ -8,6 +8,8 @@ import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
+import com.gora.dominio.Usuario;
+import com.gora.dominio.UsuarioRol;
 import com.gora.services.PersonaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,6 +180,16 @@ public class PersonaServiceImpl implements PersonaService {
 	public List<Persona> filtroPersonas(String[] lstCompetencias,
 			String[] lstHabilidades, String[] lstAtributos, int pagina) {
 		return personaDao.filtroPersonas(lstCompetencias, lstHabilidades, lstAtributos, pagina);
+	}
+
+	@Override
+	public List<Persona> getPersonaXRol(String busqueda, String rol) {
+		return personaDao.getPersonaXRol(busqueda, rol);
+	}
+
+	@Override
+	public Persona getPersona(Long id) {
+		return personaDao.getPersona(id);
 	}	
 
 }

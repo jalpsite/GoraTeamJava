@@ -7,6 +7,7 @@ import com.gora.services.ProyectoService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -52,5 +53,10 @@ public class ProyectoServiceImpl implements ProyectoService {
         //Hibernate.initialize(tmp.getOrders());
         return tmp;
     }
+
+	@Override
+	public List<Proyecto> buscarProyecto(String busqueda) {
+		return proyectoDao.buscarProyecto(busqueda);
+	}
 
 }

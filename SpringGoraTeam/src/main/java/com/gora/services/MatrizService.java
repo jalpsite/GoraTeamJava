@@ -25,5 +25,7 @@ public interface MatrizService {
     public boolean deshabilitarMatriz(Long idMatriz);
     
     public List<Matriz> getMatricesXPersona(Long idPersona);
+    
+    public Matriz getMatrizXPersona(Long idComp, Long idPersona);
 
 }

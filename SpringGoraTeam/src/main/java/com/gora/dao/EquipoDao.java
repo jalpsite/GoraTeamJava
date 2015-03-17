@@ -1,6 +1,9 @@
 package com.gora.dao;
 
+import java.util.List;
+
 import com.gora.dominio.Equipo;
+import com.gora.dominio.Persona;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,6 +13,6 @@ import com.gora.dominio.Equipo;
  * com.gora.dominio
  */
 
-public interface EquipoDao extends GenericDao<Equipo> {
-
+public interface EquipoDao extends GenericDao<Equipo> {	
+	public List<Persona> getPersonasEquipo(Long idEquipo);
 }

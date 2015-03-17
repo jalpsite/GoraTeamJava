@@ -67,4 +67,10 @@ public class AtributosServiceImpl implements AtributosService {
 		return atributoDao.getAtributosXPersona(idPersona);
 	}
 
+	@Override
+	public Atributos getAtributosXPersonaXCompXHab(Long idPersona, Long idHabilidades,
+			Long idAtributo) {
+		return atributoDao.getAtributosXPersonaXCompXHab(idPersona, idHabilidades, idAtributo);
+	}
+
 }

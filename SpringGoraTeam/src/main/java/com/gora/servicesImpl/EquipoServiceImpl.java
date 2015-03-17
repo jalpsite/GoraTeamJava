@@ -2,6 +2,7 @@ package com.gora.servicesImpl;
 
 import com.gora.dao.EquipoDao;
 import com.gora.dominio.Equipo;
+import com.gora.dominio.Persona;
 import com.gora.services.EquipoService;
 
 import org.springframework.stereotype.Service;
@@ -49,5 +50,10 @@ public class EquipoServiceImpl implements EquipoService {
     	Equipo tmp = equipoDao.findById(id);        
         return tmp;
     }
+
+	@Override
+	public List<Persona> getPersonasEquipo(Long idEquipo) {
+		return equipoDao.getPersonasEquipo(idEquipo);
+	}
 
 }

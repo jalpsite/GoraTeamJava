@@ -12,9 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Atributos;
 import com.gora.dominio.Habilidad;
+import com.gora.dominio.Matriz;
+import com.gora.dominio.Persona;
 import com.gora.services.AtributoService;
 import com.gora.services.AtributosService;
+import com.gora.services.CompetenciaService;
 import com.gora.services.HabilidadService;
+import com.gora.services.HabilidadesService;
+import com.gora.services.MatrizService;
+import com.gora.services.PersonaService;
 import com.gora.web.uri.AtributosRestURIConstant;
 
 
@@ -30,17 +36,54 @@ public class AtributosController {
 	
 	@Autowired
 	AtributoService atributService;
+	
+	@Autowired
+	PersonaService personaService;
+	
+	@Autowired
+	CompetenciaService compService;
+	
+	@Autowired
+	MatrizService matrizService;
+	
+	@Autowired
+	HabilidadesService habilidadesService;
 		
 	
 
 	@RequestMapping(value = AtributosRestURIConstant.CREATE_ATRIBUTOS, method = RequestMethod.POST)	
-	public int Agregar(@ModelAttribute Atributos attr, @PathVariable Long idHabilidad, @PathVariable Long idAtributo){
-		Habilidad hab=habiliService.findById(idHabilidad);
-		Atributo atri=atributService.findById(idAtributo);		
-		attr.setHabilidad(hab);
-		attr.setAtributo(atri);
-		this.atributosService.save(attr);
-		return Integer.parseInt((attr.getIdatributos()).toString());
+	//public int Agregar(@ModelAttribute Atributos attr, @PathVariable Long idHabilidad, @PathVariable Long idAtributo){			
+	public int Agregar(@ModelAttribute Atributos attr, @PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidades, @PathVariable Long idAtributo){
+		
+		Atributos a=atributosService.getAtributosXPersonaXCompXHab(idPersona, idHabilidades, idAtributo);
+		if(a==null){
+			Matriz m=matrizService.getMatrizXPersona(idCompetencia, idPersona);
+			Persona p=personaService.findById(idPersona);
+			if(m==null){
+				m=new Matriz();
+				m.setPersona(p);
+				m.setCompetencia(compService.findById(idCompetencia));
+				m.setEstado("A");
+				matrizService.save(m);
+			}
+			
+			Habilidad h=habiliService.getHabilidadXPersonaXComp(idPersona, idCompetencia, idHabilidades);
+			
+			if(h==null){
+				h=new Habilidad();
+				h.setHabilidades(habilidadesService.findById(idHabilidades));
+				h.setMatriz(m);
+				h.setPersona(p);
+				habiliService.save(h);
+			}
+			
+			attr.setHabilidad(h);
+			attr.setAtributo(atributService.findById(idAtributo));
+			this.atributosService.save(attr);
+			return Integer.parseInt((attr.getIdatributos()).toString());
+		}else{
+			return 0;
+		}					
 	}
 		
 	@RequestMapping(value = AtributosRestURIConstant.UPDATE_ATRIBUTOS, method = RequestMethod.POST)	

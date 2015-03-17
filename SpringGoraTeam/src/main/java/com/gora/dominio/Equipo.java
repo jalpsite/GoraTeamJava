@@ -19,6 +19,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Equipo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	
+	private Long idequipo;
+
+	private String nombre;
+	
+	@JsonIgnore	
+	private Proyecto proyecto;
+		
+	@JsonIgnore	
+	private List<PersonaEquipo> personasequipo;
+	
+	public Equipo() {
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="equipo_seq")
 	@SequenceGenerator(
@@ -26,22 +40,6 @@ public class Equipo implements Serializable {
 		sequenceName="equipo_sequence",
 		allocationSize=1
 	) 
-	private Long idequipo;
-
-	private String nombre;
-	
-	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name="idproyecto")
-	private Proyecto proyecto;
-		
-	@JsonIgnore
-	@OneToMany(mappedBy="equipo",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<PersonaEquipo> personasequipo;
-	
-	public Equipo() {
-	}
-
 	public Long getIdequipo() {
 		return idequipo;
 	}
@@ -58,6 +56,8 @@ public class Equipo implements Serializable {
 		this.nombre = nombre;
 	}
 
+	@OneToOne
+	@JoinColumn(name="idproyecto")
 	public Proyecto getProyecto() {
 		return proyecto;
 	}
@@ -66,6 +66,7 @@ public class Equipo implements Serializable {
 		this.proyecto = proyecto;
 	}
 
+	@OneToMany(mappedBy="equipo",cascade=CascadeType.ALL)
 	public List<PersonaEquipo> getPersonasequipo() {
 		return personasequipo;
 	}

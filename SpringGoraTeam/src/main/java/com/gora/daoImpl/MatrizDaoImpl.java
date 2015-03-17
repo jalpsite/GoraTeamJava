@@ -3,6 +3,7 @@ package com.gora.daoImpl;
 import java.util.List;
 
 import com.gora.dao.MatrizDao;
+import com.gora.dominio.Competencia;
 import com.gora.dominio.Matriz;
 
 import org.hibernate.Query;
@@ -42,6 +43,21 @@ public class MatrizDaoImpl extends GenericDaoImpl<Matriz> implements MatrizDao {
 		query.setParameter("id", idPersona);
 		return query.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Matriz getMatrizXPersona(Long idComp, Long idPersona) {
+		Query query=getCurrentSession().createQuery("Select a from Matriz a where a.persona.idpersona=:idPer and a.competencia.idcompetencia=:idComp and upper(a.estado)='A'");
+		query.setParameter("idComp", idComp);
+		query.setParameter("idPer", idPersona);
+		List<Matriz> lst=query.list();
+		Matriz m=null;
+		if(lst.size()>0){
+			m=lst.get(0);
+		}
+		return m;	
+	}
+		
 
 }
 

@@ -36,4 +36,6 @@ public interface HabilidadService {
     
     public List<Habilidad> getHabilidadXPersona(Long idPersona);
     
+    public Habilidad getHabilidadXPersonaXComp(Long idPersona, Long idCompetencia, Long idHabilidades);
+    
 }

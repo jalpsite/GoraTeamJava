@@ -1,6 +1,7 @@
 package com.gora.web.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gora.dominio.Atributos;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
+import com.gora.services.AtributoService;
 import com.gora.services.AtributosService;
 import com.gora.services.CompetenciaService;
 import com.gora.services.HabilidadService;
@@ -34,6 +37,9 @@ public class MatrizController {
 	
 	@Autowired
 	AtributosService atributosService;
+	
+	@Autowired
+	AtributoService atributoService;
 	
 	@Autowired
 	PersonaService perService;
@@ -92,6 +98,16 @@ public class MatrizController {
 	@RequestMapping(value=MatrizRestURIConstant.DESHABILITAR_MATRIZ,method = RequestMethod.POST)
 	public String deshabilitarMatriz(@PathVariable Long idMatriz){
 		String res="No se pudo deshabilitar Matriz";
+		List<Habilidad> lst=habilidadService.getHabilidadXMatriz(idMatriz);
+		
+		for(Habilidad h:lst){
+			List<Atributos> l=h.getAtributos();
+			for(Atributos a:l){
+				atributosService.eliminar(a.getIdatributos());
+			}
+			habilidadService.eliminar(h.getIdhabilidad());
+		}
+		
 		if(matriz.deshabilitarMatriz(idMatriz)){			
 			res="Matriz deshabilitada";						
 		}

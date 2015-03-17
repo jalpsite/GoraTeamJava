@@ -16,4 +16,5 @@ public interface AtributosDao extends GenericDao<Atributos> {
 	public boolean eliminarXHabilidad(Long idHabilidad);
 	public boolean eliminar(Long idAtributos);	
 	public List<Atributos> getAtributosXPersona(Long idPersona);
+	public Atributos getAtributosXPersonaXCompXHab(Long idPersona, Long idHabilidades, Long idAtributo);
 }

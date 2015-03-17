@@ -1,6 +1,7 @@
 package com.gora.services;
 
 import com.gora.dominio.Equipo;
+import com.gora.dominio.Persona;
 
 import java.util.List;
 
@@ -21,5 +22,7 @@ public interface EquipoService {
     public Equipo findById(Long id);
 
     public List<Equipo> findAll();
+    
+    public List<Persona> getPersonasEquipo(Long idEquipo);
 
 }

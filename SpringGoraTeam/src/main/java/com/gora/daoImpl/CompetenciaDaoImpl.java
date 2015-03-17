@@ -5,6 +5,7 @@ import java.util.List;
 import com.gora.dao.CompetenciaDao;
 import com.gora.dominio.Competencia;
 import com.gora.dominio.Habilidad;
+
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -40,10 +41,10 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
     	q.setParameter("id", idPersona);    	    	
     	List<Long> listaCompetenciasPersona=(List<Long>)q.list(); 
     	if(listaCompetenciasPersona.size()>0){
-    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+") order by a.descripcion");
+    		Query query=getCurrentSession().createQuery("Select a.idcompetencia, a.descripcion from Competencia a where a.idcompetencia not in("+concatenador(listaCompetenciasPersona)+") order by a.descripcion");
         	listaCompetencia=query.list();
     	}else{    		
-    		Query query=getCurrentSession().createQuery("Select distinct a.idcompetencia, a.descripcion from Competencia a order by a.descripcion");
+    		Query query=getCurrentSession().createQuery("Select a.idcompetencia, a.descripcion from Competencia a order by a.descripcion");
         	listaCompetencia=query.list();
     	} 	    	
 		return listaCompetencia;
@@ -60,6 +61,7 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
 		}			
 		return res;
 	}
+	
 
 }
 

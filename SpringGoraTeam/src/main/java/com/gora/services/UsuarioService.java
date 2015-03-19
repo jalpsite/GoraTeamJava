@@ -37,4 +37,6 @@ public interface UsuarioService {
 	public int enviaTokenContraseña(Usuario us);
 	public int resetContraseña(Long idUsuario, String token, String newpass);
 	public boolean verificarToken(Long idUsuario, String token);
+	
+	public Usuario getUsuarioXPersona(Long idPersona);
 }

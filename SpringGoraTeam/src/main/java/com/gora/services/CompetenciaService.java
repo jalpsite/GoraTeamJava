@@ -27,5 +27,6 @@ public interface CompetenciaService {
     
     public List<Competencia> getCompetenciasExtracto(Long idPersona);
        
+    public Competencia getCompetenciaXMatriz(Long idMatriz);
 
 }

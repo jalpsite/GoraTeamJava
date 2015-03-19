@@ -36,8 +36,8 @@ public class Matriz implements Serializable {
 	private List<Evaluacion> evaluacions;
 
 	//bi-directional many-to-one association to Habilidad
-	//@JsonIgnore
-	@OneToMany(mappedBy="matriz",fetch=FetchType.EAGER)
+	@JsonIgnore
+	@OneToMany(mappedBy="matriz")
 	private List<Habilidad> habilidads;
 
 	//bi-directional many-to-one association to Competencia

@@ -27,8 +27,8 @@ public class PersonaDatosDaoImpl extends GenericDaoImpl<PersonaDatos> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Persona> getPersonaByDNI(String dni) {
-		Query query=getCurrentSession().createQuery("select p from Persona p where p.numerodocidentidad LIKE :dni");
-		query.setParameter("dni", "%"+dni+"%");
+		Query query=getCurrentSession().createQuery("select p from Persona p where p.estado='A' and p.numerodocidentidad LIKE :dni");
+		query.setParameter("dni", dni+"%");
 		query.setMaxResults(20);
 		return query.list();
 	}
@@ -36,7 +36,7 @@ public class PersonaDatosDaoImpl extends GenericDaoImpl<PersonaDatos> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Persona> getPersonaByNomApe(String nomApe) {
-		Query query=getCurrentSession().createQuery("select p FROM Persona p where lower(p.nombres) LIKE lower(:nomApe) OR lower(p.apemat) LIKE lower(:nomApe) OR lower(p.apepat) LIKE lower(:nomApe)");
+		Query query=getCurrentSession().createQuery("select p FROM Persona p where p.estado='A' and lower(p.nombres) LIKE lower(:nomApe) OR lower(p.apemat) LIKE lower(:nomApe) OR lower(p.apepat) LIKE lower(:nomApe)");
 		query.setParameter("nomApe", "%"+nomApe+"%");
 		query.setMaxResults(20);
 		return query.list();

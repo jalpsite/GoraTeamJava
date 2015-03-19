@@ -29,8 +29,8 @@ public class Habilidad implements Serializable {
 	private Long idhabilidad;
 
 	
-	//@JsonIgnore
-	@OneToMany(mappedBy="habilidad",fetch=FetchType.EAGER)
+	@JsonIgnore
+	@OneToMany(mappedBy="habilidad")
 	private List<Atributos> atributos;
 	
 	@JsonIgnore

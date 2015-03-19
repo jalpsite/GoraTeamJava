@@ -175,13 +175,13 @@ public class PersonaServiceImpl implements PersonaService {
 	public void estadoTelefono(Long idTelefono, String estado) {
 		personaDao.estadoTelefono(idTelefono, estado);
 	}
-
+/*
 	@Override
 	public List<Persona> filtroPersonas(String[] lstCompetencias,
 			String[] lstHabilidades, String[] lstAtributos, int pagina) {
 		return personaDao.filtroPersonas(lstCompetencias, lstHabilidades, lstAtributos, pagina);
 	}
-
+*/
 	@Override
 	public List<Persona> getPersonaXRol(String busqueda, String rol) {
 		return personaDao.getPersonaXRol(busqueda, rol);
@@ -190,6 +190,12 @@ public class PersonaServiceImpl implements PersonaService {
 	@Override
 	public Persona getPersona(Long id) {
 		return personaDao.getPersona(id);
+	}
+
+	@Override
+	public Object filtroPersonas(String competencias,
+			String habilidades, String atributos, int pagina) {
+		return personaDao.filtroPersonas(competencias, habilidades, atributos, pagina);
 	}	
 
 }

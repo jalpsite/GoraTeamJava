@@ -16,5 +16,6 @@ import com.gora.dominio.Habilidad;
 public interface CompetenciaDao extends GenericDao<Competencia> {
 	public List<Habilidad> getHabilidades(Long id);
 	public List<Competencia> getCompetenciasExtracto(Long idPersona);
+	public Competencia getCompetenciaXMatriz(Long idMatriz);
 	
 }

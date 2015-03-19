@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gora.services.ArchivoService;
 import com.gora.services.AtributosService;
 import com.gora.services.CargoService;
+import com.gora.services.CompetenciaService;
 import com.gora.services.ExperienciaService;
 import com.gora.services.FormacionService;
 import com.gora.services.HabilidadService;
@@ -33,6 +34,7 @@ import com.gora.dominio.Experiencia;
 import com.gora.dominio.Formacion;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
+import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
@@ -77,6 +79,9 @@ public class PersonaController {
 	
 	@Autowired
 	MatrizService matrizService;
+	
+	@Autowired
+	CompetenciaService compService;
 	/*
 	 * PERSONA
 	 */
@@ -180,7 +185,7 @@ public class PersonaController {
 			@RequestParam String nombres) {
 		return this.perDatosService.getPersonaByNomApe(nombres);
 	}
-	
+	/*
 	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO, method = RequestMethod.POST)
 	public List<Persona> filtroPersona(
 			@RequestParam(required = false, defaultValue = "") String[] competencias,
@@ -188,7 +193,8 @@ public class PersonaController {
 			@RequestParam(required = false, defaultValue = "") String[] atributos,@PathVariable int pagina) {
 		return perService.filtroPersonas(competencias, habilidades, atributos,pagina);
 
-	}		
+	}
+	*/		
 
 	/*
 	 * UPDATE PERSONA PARTICIONADO
@@ -364,7 +370,10 @@ public class PersonaController {
 			archivo = archivoService.getArchivo(Long.parseLong("0"), "ANONIMO");							
 		}
 		
-		List<PersonaDireccion> listaDirecciones=per.getPersonaDireccions();
+		
+		per.setPersonaTelefonos(perService.getTelefono(per.getIdpersona()));
+		per.setPersonaEmails(perService.getEmail(per.getIdpersona()));
+		List<PersonaDireccion> listaDirecciones=perService.getDireccion(per.getIdpersona());
 		for(PersonaDireccion pd: listaDirecciones){
 			pd.ubigeo=ubigeoService.findById(pd.getIdubigeo());
 		}
@@ -378,11 +387,12 @@ public class PersonaController {
 		per.setExperiencias(listaExperiencia);
 		per.setFormacions(formaServices.getFormacionPersona(per.getIdpersona()));
 		List<Habilidad> listaHabilidad=habilidadService.getHabilidadXPersona(per.getIdpersona());
-		List<Atributos> listaAtributos=atributosService.getAtributosXPersona(per.getIdpersona());
-		per.setMatrices(matrizService.getMatricesXPersona(per.getIdpersona()));		
+		List<Atributos> listaAtributos=atributosService.getAtributosXPersona(per.getIdpersona());		
+		per.setMatrices(matrizService.getMatricesXPersona(per.getIdpersona()));
+		
 		PdfCV pdf=new PdfCV(per,listaHabilidad,listaAtributos,archivo);
 		pdf.generarCV(response);
-			    
+			   
 	}
 	
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_JEFE_PROYECTO, method = RequestMethod.POST)
@@ -392,6 +402,17 @@ public class PersonaController {
 	
 	
 
+	
+	@RequestMapping(value = PersonaRestURIConstant.PERSONA_FILTRO, method = RequestMethod.POST)
+	public Object filtroPersona(
+			@RequestParam(required = false, defaultValue = "") String competencias,
+			@RequestParam(required = false, defaultValue = "") String habilidades,
+			@RequestParam(required = false, defaultValue = "") String atributos,@PathVariable int pagina) {
+		return perService.filtroPersonas(competencias, habilidades, atributos,pagina);
+
+	}	
+	
+	
 }
 
 

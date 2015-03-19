@@ -92,6 +92,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public boolean verificarToken(Long idUsuario, String token) {
 		return usuarioDao.verificarToken(idUsuario, token);
 	}
+
+	@Override
+	public Usuario getUsuarioXPersona(Long idPersona) {
+		return usuarioDao.getUsuarioXPersona(idPersona);
+	}
     
 
 }

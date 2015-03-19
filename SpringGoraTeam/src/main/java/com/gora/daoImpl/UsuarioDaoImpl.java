@@ -2,6 +2,7 @@ package com.gora.daoImpl;
 
 import java.util.Date;
 import java.util.List;
+
 import com.gora.dao.UsuarioDao;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
@@ -144,6 +145,18 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 		}else{
 			return false;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Usuario getUsuarioXPersona(Long idPersona) {
+		Query query=getCurrentSession().createQuery("select a.usuario from Persona a where a.idpersona=:id");
+		query.setParameter("id", idPersona);
+		List<Usuario> lst=query.list();
+		Usuario u=null;
+		if(lst.size()>0)
+			u=lst.get(0);
+		return u;
 	}
 
 }

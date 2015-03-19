@@ -162,4 +162,9 @@ public class UsuarioController {
 			return 0;
 	}
 	
+	@RequestMapping(value = UsuarioRestURIConstant.GET_USUARIO_PERSONA, method = RequestMethod.GET)
+	public Usuario getUsuarioPersona(@PathVariable Long idPersona){				
+		return usuarioService.getUsuarioXPersona(idPersona);
+	}
+	
 }

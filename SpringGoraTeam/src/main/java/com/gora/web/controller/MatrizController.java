@@ -112,6 +112,11 @@ public class MatrizController {
 			res="Matriz deshabilitada";						
 		}
 		return res;
-	}			
+	}
+	
+	@RequestMapping(value=MatrizRestURIConstant.GET_MATRIZ_DETALLES,method = RequestMethod.GET,headers="Accept=application/json")
+	public Object getMatriz(@PathVariable Long idPersona){
+		return this.matriz.getMatriz(idPersona);		
+	}
 	
 }

@@ -51,7 +51,7 @@ public class Persona implements Serializable {
 	
 	private String perfil;
 		
-	//@JsonIgnore
+	@JsonIgnore
 	private Usuario usuario;
 	
 	
@@ -60,13 +60,13 @@ public class Persona implements Serializable {
 	@JsonIgnore
 	private List<Persona> personas;
     
-	//@JsonIgnore
+	@JsonIgnore
 	private List<PersonaDireccion> personaDireccions;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	private List<PersonaEmail> personaEmails;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	private List<PersonaTelefono> personaTelefonos;
 	
 	@JsonIgnore
@@ -75,7 +75,7 @@ public class Persona implements Serializable {
 	@JsonIgnore
 	private List<Formacion> formacions;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	private List<Matriz> matrices;
 	
 	@JsonIgnore
@@ -200,7 +200,7 @@ public class Persona implements Serializable {
 
 
 	//bi-directional many-to-one association to PersonaDireccion
-	@OneToMany(mappedBy="persona", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="persona")
 	public List<PersonaDireccion> getPersonaDireccions() {
 		return this.personaDireccions;
 	}
@@ -225,7 +225,7 @@ public class Persona implements Serializable {
 
 
 	//bi-directional many-to-one association to PersonaEmail
-	@OneToMany(mappedBy="persona" , fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="persona" )
 	public List<PersonaEmail> getPersonaEmails() {
 		return this.personaEmails;
 	}
@@ -251,7 +251,7 @@ public class Persona implements Serializable {
 
 
 	//bi-directional many-to-one association to PersonaEmail
-	@OneToMany(mappedBy="persona", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="persona")
 	public List<PersonaTelefono> getPersonaTelefonos() {
 		return this.personaTelefonos;
 	}
@@ -290,7 +290,7 @@ public class Persona implements Serializable {
 
 
 		//bi-directional many-to-one association to Persona
-		@OneToMany(mappedBy="persona", fetch=FetchType.EAGER)
+		@OneToMany(mappedBy="persona")
 		@JsonManagedReference 
 		public List<Persona> getPersonas() {
 			return this.personas;
@@ -316,7 +316,7 @@ public class Persona implements Serializable {
 
 		
 		//bi-directional many-to-one association to Formacion
-		@OneToMany(mappedBy="persona", fetch=FetchType.EAGER)
+		@OneToMany(mappedBy="persona")
 		public List<Formacion> getFormacions() {
 			return this.formacions;
 		}
@@ -341,7 +341,7 @@ public class Persona implements Serializable {
 		}
 
 		//bi-directional many-to-one association to Experiencia
-		@OneToMany(mappedBy="persona", fetch=FetchType.EAGER)
+		@OneToMany(mappedBy="persona")
 		public List<Experiencia> getExperiencias() {
 			return this.experiencias;
 		}
@@ -367,7 +367,7 @@ public class Persona implements Serializable {
 
 		
 		//bi-directional many-to-one association to Matriz
-		@OneToMany(mappedBy="persona", fetch=FetchType.EAGER)
+		@OneToMany(mappedBy="persona")
 		public List<Matriz> getMatrices() {
 			return this.matrices;
 		}

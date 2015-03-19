@@ -334,8 +334,7 @@ public class PdfCV {
 		}else{
 			PdfPCell cellSinResultados = estiloCelda(2,1);
 			Paragraph textoSinResultados=new Paragraph("No Tiene Formaciones Registradas",subtit);
-			cellSinResultados.addElement(textoSinResultados);
-			//cellSinResultados.setColspan(2);
+			cellSinResultados.addElement(textoSinResultados);			
 			tablaFormacion.addCell(new PdfPCell(cellSinResultados));
 		}		
 						    
@@ -381,8 +380,7 @@ public class PdfCV {
 		}else{
 			PdfPCell cellSinResultados = estiloCelda(2,1);
 			Paragraph textoSinResultados=new Paragraph("No Tiene Experiencias Registradas",subtit);
-			cellSinResultados.addElement(textoSinResultados);
-			//cellSinResultados.setColspan(2);
+			cellSinResultados.addElement(textoSinResultados);			
 			tablaExperiencia.addCell(new PdfPCell(cellSinResultados));
 		}	
 	}
@@ -397,23 +395,23 @@ public class PdfCV {
 		tablaCompetencia.addCell(cabeceraColumna("HABILIDADES"));	
 		tablaCompetencia.addCell(cabeceraColumna("ATRIBUTOS"));
 		
-		if(per.getMatrices().size()>0){
-			for(Matriz matr:per.getMatrices()){
-				
+		if(per.getMatrices().size()>0){			
+			for(Matriz matr:per.getMatrices()){				
 				int contHabilidades=0;				
-				for(Habilidad hab:listaHabilidad){ if(hab.getMatriz().getIdmatriz()==matr.getIdmatriz()) contHabilidades++;}
-				
+				for(Habilidad hab:listaHabilidad){if(hab.getMatriz().getIdmatriz().toString().equals(matr.getIdmatriz().toString())) contHabilidades++;}				
 				PdfPCell colCompetencia = estiloCelda(1,contHabilidades);											
 				Paragraph competencia = new Paragraph(matr.getCompetencia().getDescripcion(),subtit);
 				colCompetencia.addElement(competencia);				
 				tablaCompetencia.addCell(colCompetencia);
 										
-				for(Habilidad hab:listaHabilidad){
-					if(hab.getMatriz().getIdmatriz()==matr.getIdmatriz()){
+				for(Habilidad hab:listaHabilidad){					
+					if(hab.getMatriz().getIdmatriz().toString().equals(matr.getIdmatriz().toString())){						
 						PdfPCell colHabilidad = estiloCelda(1,1);
 						PdfPCell colAtributo = estiloCelda(1,1);
-						List lstAtributos = new List(List.UNORDERED);						
-						for(Atributos attr:listaAtributos){																	
+						List lstAtributos = new List(List.UNORDERED);
+						
+						for(Atributos attr:listaAtributos){	
+							
 							if(attr.getHabilidad().getIdhabilidad().toString().equals(hab.getIdhabilidad().toString())){								
 								lstAtributos.add(new ListItem(parseMayuscula(attr.getAtributo().getDescripcion()),subtit));
 							}							
@@ -474,7 +472,6 @@ public class PdfCV {
 		    if (caracteres[i] == '.' || caracteres[i] == ','|| caracteres[i] == '(')		      
 		      caracteres[i + 1] = Character.toUpperCase(caracteres[i + 1]);
 		return new String(caracteres);
-	}
-	//cellDirecciones.addElement(new LineSeparator(0.5f, 100, null, 0, -5));
+	}	
 	
 }

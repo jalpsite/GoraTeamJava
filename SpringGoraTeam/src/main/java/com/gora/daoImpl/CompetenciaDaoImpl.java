@@ -61,6 +61,19 @@ public class CompetenciaDaoImpl extends GenericDaoImpl<Competencia> implements C
 		}			
 		return res;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Competencia getCompetenciaXMatriz(Long idMatriz) {
+		Query query=getCurrentSession().createQuery("Select a.competencia from Matriz a where a.idmatriz=:id and a.estado='A'");
+		query.setParameter("id", idMatriz);
+		List<Competencia> lst=query.list();
+		Competencia c=null;
+		if(lst.size()>0){
+			c=lst.get(0);
+		}
+		return c;
+	}
 	
 
 }

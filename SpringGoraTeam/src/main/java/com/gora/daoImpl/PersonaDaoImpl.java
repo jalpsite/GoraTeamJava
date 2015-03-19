@@ -234,7 +234,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		query.executeUpdate();
 	}
 
-		
+	/*	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina) {
@@ -296,7 +296,8 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		Query query=getCurrentSession().createQuery(consulta);		
 		return query.list();
 	}
-			
+	*/
+	
 	private String concatenadorLista(List<Long> arr){		
 		String res="";
 		for(int i=0;i<arr.size();i++){
@@ -308,7 +309,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		}			
 		return res;
 	}
-	
+	/*
 	private String concatenador(String[] arr){		
 		String res="";
 		for(int i=0;i<arr.length;i++){
@@ -332,7 +333,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		}			
 		return res;
 	}
-
+*/
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -360,6 +361,56 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 			p=lst.get(0);
 		}
 		return p;				
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object filtroPersonas(String competencias, String habilidades, String atributos, int pagina) {
+		int cantidad=10;		
+		List<Object> listaPersonas=null;						
+		
+		String consulta="select distinct p.idpersona, p.apepat, p.apemat, p.nombres,ha.idhabilidades,ha.descripcion as habilidades,ot.idatributo,ot.descripcion as atributo,t.certificado, c.idcompetencia from persona p "		
+		+"inner join matriz m on m.idpersona=p.idpersona "
+		+"inner join competencia c on c.idcompetencia=m.idcompetencia "
+		+"inner join habilidad h on h.idmatriz=m.idmatriz "
+		+"inner join habilidades ha on ha.idhabilidades=h.idhabilidades "
+		+"inner join atributos t on t.idhabilidad=h.idhabilidad "
+		+"inner join atributo ot on ot.idatributo=t.idatributo "	
+		+"where m.estado='A' ";
+		
+
+			if(!competencias.isEmpty()){				
+				consulta+="and c.idcompetencia="+competencias+" ";																
+			}						
+
+			if(!habilidades.isEmpty()){				
+				consulta+="and ha.idhabilidades="+habilidades+" ";												
+			}
+			
+			if(!atributos.isEmpty()){				
+				consulta+="and ot.idatributo="+atributos+" ";												
+			}	
+			consulta+=" order by p.idpersona";
+			
+		Query query=getCurrentSession().createSQLQuery(consulta);		
+		query.setFirstResult((pagina-1)*cantidad).setMaxResults(cantidad);
+		listaPersonas= query.list();					
+		
+		
+		if(listaPersonas.size()>0){
+			if(cantidad>0){	    	
+		    	int division=listaPersonas.size()/cantidad;	    	    
+		    	Persona p=new Persona();
+		    	if(listaPersonas.size()%10>0){
+		    		division++;
+		    	}
+		    	p.setCodigo(division+""); // cantidad de paginas
+		    	p.setNumerodocidentidad(listaPersonas.size()+""); //Cantidad de resultados
+		    	listaPersonas.add(p);
+		    }	
+		}
+							
+		return listaPersonas;
 	}	
 	
 	

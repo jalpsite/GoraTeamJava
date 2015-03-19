@@ -59,12 +59,15 @@ public interface PersonaService {
 	
 	public Persona updateDatos(int opcion, Persona per);
 	
-	public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina);
+	//public List<Persona> filtroPersonas(String[] lstCompetencias,String[] lstHabilidades, String[] lstAtributos, int pagina);
 	
 	public int validarDNI(String doc);
 	
 	public List<Persona> getPersonaXRol(String busqueda, String rol);
 	
 	public Persona getPersona(Long id) ;
+	
+	
+	public Object filtroPersonas(String competencias, String habilidades, String atributos, int pagina);
 
 }

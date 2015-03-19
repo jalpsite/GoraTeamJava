@@ -64,6 +64,11 @@ public class CompetenciaServiceImpl implements CompetenciaService {
 	public List<Competencia> getCompetenciasExtracto(Long idPersona) {
 		return competenciaDao.getCompetenciasExtracto(idPersona);
 	}
+
+	@Override
+	public Competencia getCompetenciaXMatriz(Long idMatriz) {
+		return competenciaDao.getCompetenciaXMatriz(idMatriz);
+	}
 	
 
 }

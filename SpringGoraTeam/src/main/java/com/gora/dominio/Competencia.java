@@ -77,29 +77,7 @@ public class Competencia implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-/*
-	public List<Habilidad> getHabilidads() {
-		return this.habilidads;
-	}
-
-	public void setHabilidads(List<Habilidad> habilidads) {
-		this.habilidads = habilidads;
-	}
-
-	public Habilidad addHabilidad(Habilidad habilidad) {
-		getHabilidads().add(habilidad);
-		habilidad.setCompetencia(this);
-
-		return habilidad;
-	}
-
-	public Habilidad removeHabilidad(Habilidad habilidad) {
-		getHabilidads().remove(habilidad);
-		habilidad.setCompetencia(null);
-
-		return habilidad;
-	}
-*/
+	
 	@JsonIgnore
 	public List<Matriz> getMatrizs() {
 		return this.matrizs;

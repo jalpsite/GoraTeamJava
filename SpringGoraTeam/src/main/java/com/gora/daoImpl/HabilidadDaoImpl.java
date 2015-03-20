@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gora.dao.HabilidadDao;
 import com.gora.dominio.Atributo;
+import com.gora.dominio.Atributos;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 
@@ -141,6 +142,15 @@ public class HabilidadDaoImpl extends GenericDaoImpl<Habilidad> implements Habil
 		}
 		return h;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Atributos> getAtributosXHabilidad(Long idHabilidad) {
+		Query query=getCurrentSession().createQuery("select a from Atributos a where a.habilidad.idhabilidad=:id");
+		query.setParameter("id", idHabilidad);		    	
+		return query.list();
+	}
+	
         
 }
 

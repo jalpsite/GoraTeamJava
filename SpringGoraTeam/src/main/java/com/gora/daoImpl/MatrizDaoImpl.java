@@ -60,7 +60,7 @@ public class MatrizDaoImpl extends GenericDaoImpl<Matriz> implements MatrizDao {
 
 	@Override
 	public Object getMatriz(Long idPersona) {
-		String q="select ha.idhabilidades, c.descripcion as Competencia, ha.descripcion as habilidad, ot.descripcion as atributo, t.experiencia, t.certificado, t.nom_certificacion, t.fecha_inicio, t.fecha_fin "
+		String q="select ha.idhabilidades, c.descripcion as Competencia, ha.descripcion as habilidad, ot.descripcion as atributo, t.experiencia, t.certificado, t.nom_certificacion, t.fecha_inicio, t.fecha_fin, m.idmatriz "
 				+ "from persona p inner join matriz m on m.idpersona=p.idpersona "
 				+ "inner join competencia c on c.idcompetencia=m.idcompetencia "
 				+ "inner join habilidad h on h.idmatriz=m.idmatriz "
@@ -71,8 +71,7 @@ public class MatrizDaoImpl extends GenericDaoImpl<Matriz> implements MatrizDao {
 		Query query=getCurrentSession().createSQLQuery(q);
 		query.setParameter("id", idPersona);		
 		return query.list();
-	}
-		
+	}		
 
 }
 

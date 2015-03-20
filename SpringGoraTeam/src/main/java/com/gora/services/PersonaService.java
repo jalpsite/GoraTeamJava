@@ -68,6 +68,6 @@ public interface PersonaService {
 	public Persona getPersona(Long id) ;
 	
 	
-	public Object filtroPersonas(String competencias, String habilidades, String atributos, int pagina);
+	public Object filtroPersonas(String competencias, String habilidades, String atributos);
 
 }

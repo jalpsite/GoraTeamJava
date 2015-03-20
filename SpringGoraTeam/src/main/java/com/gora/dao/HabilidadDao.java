@@ -3,6 +3,7 @@ package com.gora.dao;
 import java.util.List;
 
 import com.gora.dominio.Atributo;
+import com.gora.dominio.Atributos;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 
@@ -22,4 +23,5 @@ public interface HabilidadDao extends GenericDao<Habilidad> {
 	public boolean eliminar(Long idHabilidad);
 	public List<Habilidad> getHabilidadXPersona(Long idPersona);
 	public Habilidad getHabilidadXPersonaXComp(Long idPersona, Long idCompetencia, Long idHabilidades);
+	public List<Atributos> getAtributosXHabilidad(Long idHabilidad);
 }

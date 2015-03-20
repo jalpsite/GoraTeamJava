@@ -365,8 +365,7 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object filtroPersonas(String competencias, String habilidades, String atributos, int pagina) {
-		int cantidad=10;		
+	public Object filtroPersonas(String competencias, String habilidades, String atributos) {		
 		List<Object> listaPersonas=null;						
 		
 		String consulta="select distinct p.idpersona, p.apepat, p.apemat, p.nombres,ha.idhabilidades,ha.descripcion as habilidades,ot.idatributo,ot.descripcion as atributo,t.certificado, c.idcompetencia from persona p "		
@@ -392,24 +391,9 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 			}	
 			consulta+=" order by p.idpersona";
 			
-		Query query=getCurrentSession().createSQLQuery(consulta);		
-		query.setFirstResult((pagina-1)*cantidad).setMaxResults(cantidad);
-		listaPersonas= query.list();					
-		
-		
-		if(listaPersonas.size()>0){
-			if(cantidad>0){	    	
-		    	int division=listaPersonas.size()/cantidad;	    	    
-		    	Persona p=new Persona();
-		    	if(listaPersonas.size()%10>0){
-		    		division++;
-		    	}
-		    	p.setCodigo(division+""); // cantidad de paginas
-		    	p.setNumerodocidentidad(listaPersonas.size()+""); //Cantidad de resultados
-		    	listaPersonas.add(p);
-		    }	
-		}
-							
+		Query query=getCurrentSession().createSQLQuery(consulta);				
+		listaPersonas= query.list();							
+								
 		return listaPersonas;
 	}	
 	

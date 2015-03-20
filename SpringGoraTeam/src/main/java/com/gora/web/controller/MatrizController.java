@@ -100,8 +100,8 @@ public class MatrizController {
 		String res="No se pudo deshabilitar Matriz";
 		List<Habilidad> lst=habilidadService.getHabilidadXMatriz(idMatriz);
 		
-		for(Habilidad h:lst){
-			List<Atributos> l=h.getAtributos();
+		for(Habilidad h:lst){			
+			List<Atributos> l=habilidadService.getAtributosXHabilidad(h.getIdhabilidad());
 			for(Atributos a:l){
 				atributosService.eliminar(a.getIdatributos());
 			}

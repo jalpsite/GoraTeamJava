@@ -407,8 +407,8 @@ public class PersonaController {
 	public Object filtroPersona(
 			@RequestParam(required = false, defaultValue = "") String competencias,
 			@RequestParam(required = false, defaultValue = "") String habilidades,
-			@RequestParam(required = false, defaultValue = "") String atributos,@PathVariable int pagina) {
-		return perService.filtroPersonas(competencias, habilidades, atributos,pagina);
+			@RequestParam(required = false, defaultValue = "") String atributos) {
+		return perService.filtroPersonas(competencias, habilidades, atributos);
 
 	}	
 	

@@ -80,7 +80,7 @@ public class AtributosController {
 			attr.setHabilidad(h);
 			attr.setAtributo(atributService.findById(idAtributo));
 			this.atributosService.save(attr);
-			return Integer.parseInt((attr.getIdatributos()).toString());
+			return Integer.parseInt((m.getIdmatriz()).toString());
 		}else{
 			return 0;
 		}					

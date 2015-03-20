@@ -194,8 +194,8 @@ public class PersonaServiceImpl implements PersonaService {
 
 	@Override
 	public Object filtroPersonas(String competencias,
-			String habilidades, String atributos, int pagina) {
-		return personaDao.filtroPersonas(competencias, habilidades, atributos, pagina);
+			String habilidades, String atributos) {
+		return personaDao.filtroPersonas(competencias, habilidades, atributos);
 	}	
 
 }

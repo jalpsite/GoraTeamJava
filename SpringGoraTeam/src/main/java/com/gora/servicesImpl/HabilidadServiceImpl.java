@@ -2,6 +2,7 @@ package com.gora.servicesImpl;
 
 import com.gora.dao.HabilidadDao;
 import com.gora.dominio.Atributo;
+import com.gora.dominio.Atributos;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 import com.gora.services.HabilidadService;
@@ -93,6 +94,11 @@ public class HabilidadServiceImpl implements HabilidadService {
 	public Habilidad getHabilidadXPersonaXComp(Long idPersona,
 			Long idCompetencia, Long idHabilidades) {
 		return habilidadDao.getHabilidadXPersonaXComp(idPersona, idCompetencia,idHabilidades);
+	}
+
+	@Override
+	public List<Atributos> getAtributosXHabilidad(Long idHabilidad) {
+		return habilidadDao.getAtributosXHabilidad(idHabilidad);
 	}
 
 

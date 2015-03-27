@@ -1,5 +1,7 @@
 package com.gora.web.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,7 @@ import com.gora.services.PersonaService;
 import com.gora.services.UbigeoService;
 import com.gora.services.UsuarioService;
 import com.gora.util.PdfCV;
+import com.gora.util.ReporteExcel;
 import com.gora.dominio.Archivo;
 import com.gora.dominio.Atributo;
 import com.gora.dominio.Atributos;
@@ -36,6 +39,7 @@ import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
+import com.gora.dominio.PersonaDatos;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
@@ -410,6 +414,23 @@ public class PersonaController {
 			@RequestParam(required = false, defaultValue = "") String atributos) {
 		return perService.filtroPersonas(competencias, habilidades, atributos);
 
+	}
+	
+	
+	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONAS_EXCEL, method = RequestMethod.GET)
+	public void reporteConsultores(HttpServletResponse response) throws IOException{	
+				
+		List<Persona> lista=perService.findAll();		
+		List<Habilidad> listaHabilidad=habilidadService.findAll();
+		List<Atributos> listaAtributos=atributosService.findAll();
+		List<Matriz> listaMatriz=matrizService.findAll();	
+		
+		System.out.println(lista.size());
+		System.out.println(listaHabilidad.size());
+		System.out.println(listaAtributos.size());
+		System.out.println(listaMatriz.size());
+		ReporteExcel excel=new ReporteExcel(lista,listaMatriz,listaHabilidad,listaAtributos);
+		excel.generarExcel(response);						
 	}	
 	
 	

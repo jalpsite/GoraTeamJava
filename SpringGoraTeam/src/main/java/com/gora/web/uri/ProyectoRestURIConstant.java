@@ -16,5 +16,6 @@ public class ProyectoRestURIConstant {
 	    public static final String GET_ALL_PROYECTO_BUSQUEDA = "/buscar";
 	    
 	    public static final String IMPORT_PROYECTO = "/{idProyecto}/importar";
+	    public static final String GET_PROYECTO_MPP = "/importar";
 	    
 }

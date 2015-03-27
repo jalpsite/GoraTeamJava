@@ -1,7 +1,11 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 
 
@@ -21,7 +25,7 @@ public class Cronograma implements Serializable {
 		sequenceName="cronograma_sequence",
 		allocationSize=1
 	) 
-	private long idcronograma;
+	private Long idcronograma;
 
 	private String descripcion;
 
@@ -29,16 +33,19 @@ public class Cronograma implements Serializable {
 
 	private BigDecimal linea;
 
+	//@JsonIgnore
 	//bi-directional many-to-one association to Etapa
 	@ManyToOne
 	@JoinColumn(name="idetapa")
 	private Etapa etapa;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Proyecto
 	@ManyToOne
 	@JoinColumn(name="idproyecto")
 	private Proyecto proyecto;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Tarea
 	@ManyToOne
 	@JoinColumn(name="idtarea")
@@ -47,11 +54,11 @@ public class Cronograma implements Serializable {
 	public Cronograma() {
 	}
 
-	public long getIdcronograma() {
+	public Long getIdcronograma() {
 		return this.idcronograma;
 	}
 
-	public void setIdcronograma(long idcronograma) {
+	public void setIdcronograma(Long idcronograma) {
 		this.idcronograma = idcronograma;
 	}
 

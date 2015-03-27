@@ -41,18 +41,20 @@ public class Cliente implements Serializable {
 
 	private String telefonocontacto;
 
+	//@JsonIgnore
 	//bi-directional many-to-one association to Ubigeo
 	@ManyToOne
 	@JoinColumn(name="idubigeo")
 	private Ubigeo ubigeo;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Iniciativa
-	@OneToMany(mappedBy="cliente",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="cliente")
 	private List<Iniciativa> iniciativas;
 
 	@JsonIgnore
 	//bi-directional many-to-one association to Proyecto
-	@OneToMany(mappedBy="cliente",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="cliente")
 	private List<Proyecto> proyectos;
 
 	public Cliente() {

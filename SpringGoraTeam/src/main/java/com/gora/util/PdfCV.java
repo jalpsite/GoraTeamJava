@@ -1,5 +1,6 @@
 package com.gora.util;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -25,6 +26,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -53,16 +55,20 @@ public class PdfCV {
 	public void generarCV(HttpServletResponse response){
 
 		Image foto=null;
+		Image logo=null;
 		try {
 			foto=Image.getInstance(archivo.getArchivo());
+			String ruta="http://www.gorasac.com/wp-content/uploads/2013/10/gora-logo1.png";
+			logo=Image.getInstance(new URL(ruta));
 		} catch (Exception e) {			
 		}
+				
 		foto.scaleAbsolute(80, 80);				      
 		
 		Document documento = new Document();
 		try{						
 		    response.setContentType("application/pdf");			    
-		    response.setHeader("Content-Disposition", "attachment;"+"filename="+parseMayuscula(per.getApepat())+parseMayuscula(per.getApemat())+parseMayuscula(per.getNombres())+".pdf");
+		    response.setHeader("Content-Disposition", "attachment;"+"filename="+parseMayuscula(per.getApepat())+parseMayuscula(per.getApemat())+".pdf");
 			PdfWriter.getInstance(documento, response.getOutputStream());
 			documento.open();											
 			
@@ -71,12 +77,15 @@ public class PdfCV {
 			float[] columnWidths = {1f};
 			tabla.setWidths(columnWidths);
 			
+			PdfPTable tablaHorizontal=tabla(1);			 			
+			float[] columnWidths_H = {1f};
+			tablaHorizontal.setWidths(columnWidths_H);
 			
 		    /* DATOS CABECERA */
-		    PdfPTable nombresFoto = tabla(2); 		    		    		    
-		    float[] col = {1.5f,0.5f};
+		    PdfPTable nombresFoto = tabla(3); 		    		    		    
+		    float[] col = {0.3f,1.0f,0.5f};
 		    nombresFoto.setWidths(col);		    		    	  	
-		    datosCabecera(nombresFoto,foto);		    		    					    		    		    		    		    		    
+		    datosCabecera(nombresFoto,foto,logo);		    		    					    		    		    		    		    		    
 		    
 		    		    
 		    /* DATOS PERSONALES */
@@ -104,6 +113,11 @@ public class PdfCV {
 		    tablaCompetencia.setWidths(colsx);			    
 		    competenciaProfesional(tablaCompetencia);
 		    
+		    /* CERTIFICACIONES PROFESIONALES */
+		    PdfPTable tablaCertificaciones = tabla(3); // 		     		   		    		   
+		    float[] colsc = {2.0f, 0.5f, 0.5f};
+		    tablaCertificaciones.setWidths(colsc);			    
+		    certificacionProfesional(tablaCertificaciones);
 		    
 			PdfPCell cabecera = new PdfPCell(nombresFoto);
 			cabecera.setBorderColor(BaseColor.WHITE);			
@@ -117,14 +131,28 @@ public class PdfCV {
 			PdfPCell formaciones = cellMaestra(tablaFormacion);							
 			PdfPCell experiencias = cellMaestra(tablaExperiencia);			
 			PdfPCell competencias = cellMaestra(tablaCompetencia);
+			PdfPCell certificaciones = cellMaestra(tablaCertificaciones);
 			
 			tabla.addCell(cabecera);
 			tabla.addCell(celdaEspacio());
 			tabla.addCell(datosPersonales);			
 			tabla.addCell(formaciones);
 			tabla.addCell(experiencias);
-			tabla.addCell(competencias);
-			documento.add(tabla);			
+			tablaHorizontal.addCell(competencias);
+			/*int cont=0;
+			for(Atributos a:listaAtributos){if (a.getCertificado().equals("S")) cont++;}
+			if(cont>0) tabla.addCell(certificaciones);
+			*/
+			
+			documento.setPageSize(PageSize.A4);
+			documento.newPage();			
+			
+			documento.add(tabla);	
+			
+			documento.setPageSize(PageSize.A4.rotate());
+			documento.newPage();
+			
+			documento.add(tablaHorizontal);
 			
 		}catch(Exception e){
 		    e.printStackTrace();
@@ -180,7 +208,7 @@ public class PdfCV {
 		return tabla;
 	}
 	
-	private void datosCabecera(PdfPTable nombresFoto, Image foto){
+	private void datosCabecera(PdfPTable nombresFoto, Image foto, Image log){
 		PdfPCell cellDatos = new PdfPCell();
 	    cellDatos.setBorderColor(BaseColor.WHITE);		    
 	    cellDatos.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -198,11 +226,18 @@ public class PdfCV {
 	    
 	    PdfPCell cellFoto = new PdfPCell(foto);
 	    cellFoto.setBorderColor(BaseColor.WHITE);
-	    cellFoto.setHorizontalAlignment(Element.ALIGN_RIGHT);
-	    cellFoto.setVerticalAlignment(Element.ALIGN_MIDDLE);	
+	    cellFoto.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellFoto.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	    
+	    PdfPCell cellLogo = new PdfPCell(log);
+	    cellLogo.setBorderColor(BaseColor.WHITE);
+	    cellLogo.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	    cellLogo.setVerticalAlignment(Element.ALIGN_MIDDLE);
 	    	    
-	    nombresFoto.addCell(cellDatos);
+	    
 	    nombresFoto.addCell(cellFoto);
+	    nombresFoto.addCell(cellDatos);
+	    nombresFoto.addCell(cellLogo);
 	}
 	
 	private void datosPersonales(PdfPTable tablaDatos){
@@ -413,12 +448,15 @@ public class PdfCV {
 						for(Atributos attr:listaAtributos){	
 							
 							if(attr.getHabilidad().getIdhabilidad().toString().equals(hab.getIdhabilidad().toString())){								
-								lstAtributos.add(new ListItem(parseMayuscula(attr.getAtributo().getDescripcion()),subtit));
+								lstAtributos.add(new ListItem(attr.getAtributo().getDescripcion(),subtit));
+								colAtributo.addElement(lstAtributos);
+								String t=" año";
+								if(attr.getExperiencia()>1) t=" años";
+								colAtributo.addElement(new Paragraph(parseMayuscula("Experiencia: "+attr.getExperiencia()+t),subtit));
 							}							
 						}						
 						Paragraph habilidad = new Paragraph(hab.getHabilidades().getDescripcion(),subtit);
-						colHabilidad.addElement(habilidad);
-						colAtributo.addElement(lstAtributos);																
+						colHabilidad.addElement(habilidad);			
 						tablaCompetencia.addCell(colHabilidad);
 						tablaCompetencia.addCell(colAtributo);						
 					}					
@@ -432,6 +470,31 @@ public class PdfCV {
 			tablaCompetencia.addCell(new PdfPCell(cellSinResultados));
 		}			
 		
+	}
+	
+	private void certificacionProfesional(PdfPTable tablaCertificacion){
+		PdfPCell cellTituloCertificacion = cabeceraColumna("CERTIFICACIONES PROFESIONALES");
+		cellTituloCertificacion.setColspan(3);					
+		tablaCertificacion.addCell(cellTituloCertificacion);
+		
+		tablaCertificacion.addCell(cabeceraColumna("CERTIFICACION"));
+		tablaCertificacion.addCell(cabeceraColumna("FECHA DE INICIO"));	
+		tablaCertificacion.addCell(cabeceraColumna("FECHA DE VENCIMIENTO"));
+		for(Atributos attr:listaAtributos){
+			if(attr.getCertificado().equals("S")){
+				PdfPCell colCertificado = estiloCelda(1,1);
+				PdfPCell colF_Inicio = estiloCelda(1,1);				
+				PdfPCell colF_Fin = estiloCelda(1,1);
+				colF_Inicio.setHorizontalAlignment(Element.ALIGN_CENTER);
+				colF_Fin.setHorizontalAlignment(Element.ALIGN_CENTER);				
+				colCertificado.addElement(new Paragraph(attr.getNom_certificacion(),subtit));
+				colF_Inicio.addElement(new Paragraph(attr.getFecha_inicio().toString(),subtit));
+				colF_Fin.addElement(new Paragraph(attr.getFecha_fin().toString(),subtit));
+				tablaCertificacion.addCell(colCertificado);
+				tablaCertificacion.addCell(colF_Inicio);
+				tablaCertificacion.addCell(colF_Fin);
+			}
+		}
 	}
 	
 	

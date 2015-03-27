@@ -52,7 +52,7 @@ public class Tarea implements Serializable {
 	private String titulo;
 
 	//bi-directional many-to-one association to Cronograma
-	@OneToMany(mappedBy="tarea",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="tarea")
 	private List<Cronograma> cronogramas;
 
 	//bi-directional many-to-one association to Persona
@@ -66,7 +66,7 @@ public class Tarea implements Serializable {
 	private Tarea tarea1;
 
 	//bi-directional many-to-one association to Tarea
-	@OneToMany(mappedBy="tarea1",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="tarea1")
 	private List<Tarea> tareas1;
 
 	//bi-directional many-to-one association to Tarea
@@ -75,7 +75,7 @@ public class Tarea implements Serializable {
 	private Tarea tarea2;
 
 	//bi-directional many-to-one association to Tarea
-	@OneToMany(mappedBy="tarea2",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="tarea2")
 	private List<Tarea> tareas2;
 
 	@ManyToOne

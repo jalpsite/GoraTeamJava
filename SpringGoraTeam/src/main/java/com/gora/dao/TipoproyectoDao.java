@@ -1,5 +1,7 @@
 package com.gora.dao;
 
+import java.util.List;
+
 import com.gora.dominio.Tipoproyecto;
 
 /**
@@ -11,5 +13,5 @@ import com.gora.dominio.Tipoproyecto;
  */
 
 public interface TipoproyectoDao extends GenericDao<Tipoproyecto> {
-
+	public List<Tipoproyecto> buscarTipoProyecto(String cadena);
 }

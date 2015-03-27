@@ -210,7 +210,18 @@
 		    <version>2.3.1</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>net.sourceforge</groupId>
+			<artifactId>mpxj</artifactId>
+			<version>4.5.0-rc1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.11</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>

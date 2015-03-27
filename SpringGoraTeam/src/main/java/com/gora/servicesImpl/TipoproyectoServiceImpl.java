@@ -7,6 +7,7 @@ import com.gora.services.TipoproyectoService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -52,5 +53,10 @@ public class TipoproyectoServiceImpl implements TipoproyectoService {
         //Hibernate.initialize(tmp.getOrders());
         return tmp;
     }
+
+	@Override
+	public List<Tipoproyecto> buscarTipoProyecto(String cadena) {
+		return tipoproyectoDao.buscarTipoProyecto(cadena);
+	}
 
 }

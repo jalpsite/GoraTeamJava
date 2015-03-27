@@ -28,6 +28,8 @@ public interface MatrizService {
     
     public Matriz getMatrizXPersona(Long idComp, Long idPersona);
     
+    public Matriz getMatrizXPersonaDeshabilitado(Long idComp, Long idPersona);
+    
     public Object getMatriz(Long idPersona);
 
 }

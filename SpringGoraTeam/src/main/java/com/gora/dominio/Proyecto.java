@@ -45,12 +45,12 @@ public class Proyecto implements Serializable {
 
 	@JsonIgnore
 	//bi-directional many-to-one association to Cronograma
-	@OneToMany(mappedBy="proyecto",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="proyecto")
 	private List<Cronograma> cronogramas;
 
 	@JsonIgnore
 	//bi-directional many-to-one association to Evaluacion
-	@OneToMany(mappedBy="proyecto",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="proyecto")
 	private List<Evaluacion> evaluacions;
 
 	//@JsonIgnore
@@ -89,7 +89,7 @@ public class Proyecto implements Serializable {
 	private Equipo Equipo;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="proyecto",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="proyecto")
 	private List<Entregable> entregables;
 	
 	public Proyecto() {

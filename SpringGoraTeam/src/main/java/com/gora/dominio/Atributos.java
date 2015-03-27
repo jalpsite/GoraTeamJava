@@ -41,7 +41,7 @@ public class Atributos implements Serializable {
 	@JoinColumn(name="idhabilidad")
 	private Habilidad habilidad;
 	private String certificado;
-	private String nom_certificacion;
+	private String nom_certificacion;	
 	@Temporal(TemporalType.DATE)	
 	private Date fecha_inicio;
 	@Temporal(TemporalType.DATE)	
@@ -145,7 +145,6 @@ public class Atributos implements Serializable {
 	public void setNom_certificacion(String nom_certificacion) {
 		this.nom_certificacion = nom_certificacion;
 	}
-
 	
 
 }

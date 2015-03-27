@@ -49,12 +49,18 @@ public class MatrizController {
 	
 
 	@RequestMapping(value = MatrizRestURIConstant.CREATE_MATRIZ, method = RequestMethod.POST)	
-	public int Agregar(@ModelAttribute Matriz matr, @PathVariable Long idPersona, @PathVariable Long idCompetencia){
-		Persona per=perService.findById(idPersona);
-		Competencia comp=compService.findById(idCompetencia);
-		matr.setPersona(per);
-		matr.setCompetencia(comp);
-		this.matriz.save(matr);
+	public int Agregar(@ModelAttribute Matriz matr, @PathVariable Long idPersona, @PathVariable Long idCompetencia){				
+		Matriz m=matriz.getMatrizXPersonaDeshabilitado(idCompetencia, idPersona);		
+		if(m!=null){
+			matr=m;
+			matr.setEstado("A");
+		}else{
+			Persona per=perService.findById(idPersona);
+			Competencia comp=compService.findById(idCompetencia);			
+			matr.setPersona(per);
+			matr.setCompetencia(comp);
+		}					
+		this.matriz.update(matr);
 		return Integer.parseInt((matr.getIdmatriz()).toString());
 	}
 	

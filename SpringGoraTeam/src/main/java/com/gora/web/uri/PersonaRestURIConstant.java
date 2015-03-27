@@ -58,7 +58,10 @@ public class PersonaRestURIConstant {
        
     /*	IMPRESION DE CV	 */
     public static final String GET_CV_PERSONA = "/{idPersona}/cv";
-    /*	PEDITCION DE DATOS	*/
+    /*	PETICION DE DATOS	*/
     public static final String GET_PERSONA_JEFE_PROYECTO = "/jefeproyecto";
+    
+    /*	REPORTE DE TODOS LOS CONSULTORES */
+    public static final String GET_PERSONAS_EXCEL = "/reporte";
 }
 

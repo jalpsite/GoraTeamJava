@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -23,12 +25,13 @@ public class Etapa implements Serializable {
 		sequenceName="etapa_sequence",
 		allocationSize=1
 	) 
-	private long idetapa;
+	private Long idetapa;
 
 	private String descripcion;
 
 	private String estado;
 
+	@JsonIgnore
 	//bi-directional many-to-one association to Cronograma
 	@OneToMany(mappedBy="etapa",fetch=FetchType.EAGER)
 	private List<Cronograma> cronogramas;
@@ -36,11 +39,11 @@ public class Etapa implements Serializable {
 	public Etapa() {
 	}
 
-	public long getIdetapa() {
+	public Long getIdetapa() {
 		return this.idetapa;
 	}
 
-	public void setIdetapa(long idetapa) {
+	public void setIdetapa(Long idetapa) {
 		this.idetapa = idetapa;
 	}
 

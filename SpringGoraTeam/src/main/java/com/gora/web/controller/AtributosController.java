@@ -57,15 +57,21 @@ public class AtributosController {
 		
 		Atributos a=atributosService.getAtributosXPersonaXCompXHab(idPersona, idHabilidades, idAtributo);
 		if(a==null){
-			Matriz m=matrizService.getMatrizXPersona(idCompetencia, idPersona);
+			Matriz m=matrizService.getMatrizXPersona(idCompetencia, idPersona);			
 			Persona p=personaService.findById(idPersona);
 			if(m==null){
-				m=new Matriz();
-				m.setPersona(p);
-				m.setCompetencia(compService.findById(idCompetencia));
-				m.setEstado("A");
-				matrizService.save(m);
-			}
+				Matriz ma=matrizService.getMatrizXPersonaDeshabilitado(idCompetencia, idPersona);					
+				if(ma!=null){
+					m=ma;
+					m.setEstado("A");
+				}else{
+					m=new Matriz();
+					m.setPersona(p);
+					m.setCompetencia(compService.findById(idCompetencia));
+					m.setEstado("A");
+				}
+				matrizService.update(m);							
+			}			
 			
 			Habilidad h=habiliService.getHabilidadXPersonaXComp(idPersona, idCompetencia, idHabilidades);
 			

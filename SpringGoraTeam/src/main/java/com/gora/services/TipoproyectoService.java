@@ -22,4 +22,5 @@ public interface TipoproyectoService {
 
     public List<Tipoproyecto> findAll();
 
+    public List<Tipoproyecto> buscarTipoProyecto(String cadena);
 }

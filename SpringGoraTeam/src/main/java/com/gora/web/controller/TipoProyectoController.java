@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.gora.dominio.Tipoproyecto;
 import com.gora.services.TipoproyectoService;
 import com.gora.web.uri.TipoProyectoRestURIConstant;
@@ -42,5 +44,9 @@ public class TipoProyectoController {
 		return tipoProyecto.findAll();		
 	}
 		
+	@RequestMapping(value=TipoProyectoRestURIConstant.BUSCAR_PROYECTO,method = RequestMethod.POST,headers="Accept=application/json")
+	public List<Tipoproyecto> buscarTipoPyoyecto(@RequestParam String descripcion){
+		return tipoProyecto.buscarTipoProyecto(descripcion);	
+	}
 	
 }

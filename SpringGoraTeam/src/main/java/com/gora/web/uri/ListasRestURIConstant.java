@@ -35,7 +35,7 @@ public class ListasRestURIConstant {
 	    //USUARIOS
 	    public static final String GET_ROLES = "/roles";
 	    
-	    //CERTIFICACIONES
-	    public static final String GET_CERTIFICACIONES = "/certificaciones";
+	    //operadores
+	    public static final String GET_OPERADORES = "/operadores";
 	    	    
 }

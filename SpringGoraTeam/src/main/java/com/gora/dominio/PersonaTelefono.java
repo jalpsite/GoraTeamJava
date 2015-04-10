@@ -22,6 +22,7 @@ public class PersonaTelefono implements Serializable {
 	private String estado;
 	private String telefono;
 	private String tipo;
+	private String operador;
 	@JsonIgnore
 	private Persona persona;
 
@@ -77,6 +78,16 @@ public class PersonaTelefono implements Serializable {
 
 	public void setPersona(Persona persona) {
 		this.persona = persona;
+	}
+
+
+	public String getOperador() {
+		return operador;
+	}
+
+
+	public void setOperador(String operador) {
+		this.operador = operador;
 	}
 
 

@@ -196,6 +196,26 @@ public class PersonaServiceImpl implements PersonaService {
 	public Object filtroPersonas(String competencias,
 			String habilidades, String atributos) {
 		return personaDao.filtroPersonas(competencias, habilidades, atributos);
+	}
+
+	@Override
+	public void eliminarDireccion(Long idDireccion) {
+		personaDao.eliminarDireccion(idDireccion);
+	}
+
+	@Override
+	public void eliminarEmail(Long idEmail) {
+		personaDao.eliminarEmail(idEmail);
+	}
+
+	@Override
+	public void eliminarTelefono(Long idTelefono) {
+		personaDao.eliminarTelefono(idTelefono);
+	}
+
+	@Override
+	public void actualizarJefe(Long idPersona, Long idJefe) {
+		personaDao.actualizarJefe(idPersona, idJefe);		
 	}	
 
 }

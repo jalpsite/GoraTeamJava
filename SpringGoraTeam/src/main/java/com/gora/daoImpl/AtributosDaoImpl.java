@@ -29,7 +29,7 @@ public class AtributosDaoImpl extends GenericDaoImpl<Atributos> implements Atrib
 		Query query=getCurrentSession().createQuery("delete from Atributos a where a.habilidad.idhabilidad=:id");
 		query.setParameter("id",idHabilidad);
 		try {
-			query.executeUpdate();
+			query.executeUpdate();			
 		} catch (Exception e) {
 			return false;
 		}

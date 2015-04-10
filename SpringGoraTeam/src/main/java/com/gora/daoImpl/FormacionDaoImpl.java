@@ -27,7 +27,7 @@ public class FormacionDaoImpl extends GenericDaoImpl<Formacion> implements Forma
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Formacion> getFormacionPersona(Long idPersona) {
-		Query query=getCurrentSession().createQuery("select a from Formacion a where a.persona.idpersona=:id");
+		Query query=getCurrentSession().createQuery("select a from Formacion a where a.persona.idpersona=:id order by a.anhoinicio DESC");
 		query.setParameter("id", idPersona);
 		return query.list();
 	}

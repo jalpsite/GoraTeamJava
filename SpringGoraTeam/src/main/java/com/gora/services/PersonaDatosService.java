@@ -27,5 +27,5 @@ public interface PersonaDatosService {
 	
 	public List<Persona> getPersonaByNomApe(String nomApe);
        
-
+	public Object getDatosPrincipales(Long idProyecto,Long idPersona);
 }

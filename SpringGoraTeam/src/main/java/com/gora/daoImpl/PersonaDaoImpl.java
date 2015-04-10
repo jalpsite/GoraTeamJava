@@ -395,7 +395,43 @@ public class PersonaDaoImpl extends GenericDaoImpl<Persona> implements PersonaDa
 		listaPersonas= query.list();							
 								
 		return listaPersonas;
-	}	
+	}
+
+
+	@Override
+	public void eliminarDireccion(Long idDireccion) {
+		Query query=getCurrentSession().createSQLQuery("delete from persona_direccion where idpersonadireccion=:id");
+		query.setParameter("id", idDireccion);
+		query.executeUpdate();
+	}
+
+
+	@Override
+	public void eliminarEmail(Long idEmail) {
+		Query query=getCurrentSession().createSQLQuery("delete from persona_email where idpersonaemail=:id");
+		query.setParameter("id", idEmail);
+		query.executeUpdate();
+	}
+
+
+	@Override
+	public void eliminarTelefono(Long idTelefono) {
+		Query query=getCurrentSession().createSQLQuery("delete from persona_telefono where idpersonatelefono=:id");
+		query.setParameter("id", idTelefono);
+		query.executeUpdate();
+	}
+
+
+	@Override
+	public void actualizarJefe(Long idPersona, Long idJefe) {
+		Query query=getCurrentSession().createSQLQuery("update persona set idpermanager=:idjefe where idpersona=:idpersona");
+		query.setParameter("idjefe", idJefe);
+		query.setParameter("idpersona", idPersona);
+		query.executeUpdate();		
+	}
+
+
+	
 	
 	
 }

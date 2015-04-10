@@ -27,7 +27,7 @@ public class ProyectoDaoImpl extends GenericDaoImpl<Proyecto> implements Proyect
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Proyecto> buscarProyecto(String busqueda) {
-		Query query=getCurrentSession().createQuery("select a from Proyecto a where a.nombre like :cad or a.cliente.nombre like :cad");
+		Query query=getCurrentSession().createQuery("select a from Proyecto a where a.nombre like :cad or a.cliente.nombre like :cad order by a.fechainicio desc");
 		query.setParameter("cad", "%"+busqueda+"%");
 		return query.list();
 	}

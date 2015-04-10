@@ -97,10 +97,17 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.UPDATE_PERSONA, method = RequestMethod.POST)
-	public int updatePersona(@ModelAttribute Persona per, @PathVariable Long idUsuario) {
+	public int updatePersona(@ModelAttribute Persona per, @PathVariable Long idUsuario, @PathVariable Long idPersonaJefe) {
+		if(idPersonaJefe>0)
+			per.setPersona(perService.findById(idPersonaJefe));
 		per.setUsuario(usuarioService.findById(idUsuario));
 		this.perService.update(per);
 		return Integer.parseInt((per.getIdpersona()).toString());
+	}
+	
+	@RequestMapping(value = PersonaRestURIConstant.UPDATE_JEFE, method = RequestMethod.POST)
+	public void updateJefe(@PathVariable Long idPersona, @RequestParam Long jefe) {
+		perService.actualizarJefe(idPersona, jefe);
 	}
 
 	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA, method = RequestMethod.GET, headers = "Accept=application/json")
@@ -135,7 +142,7 @@ public class PersonaController {
 	 * EXTRACCION DE DATOS POR PERSONA
 	 */
 
-	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_JEFE, method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = PersonaRestURIConstant.GET_PERSONA_JEFE, method = RequestMethod.POST, headers = "Accept=application/json")
 	public Persona getJefe(@PathVariable Long id) {
 		Long idPer = perService.getIDJefe(id);
 		if (idPer != 0) {
@@ -352,17 +359,20 @@ public class PersonaController {
 	
 	@RequestMapping(value = PersonaRestURIConstant.DESACTIVAR_ADDRESS, method = RequestMethod.POST)
 	public void desactivarDireccion(@PathVariable Long idDireccion) {
-		perService.estadoDireccion(idDireccion, "D");
+		//perService.estadoDireccion(idDireccion, "D");
+		perService.eliminarDireccion(idDireccion);
 	}
 	
 	@RequestMapping(value = PersonaRestURIConstant.DESACTIVAR_EMAIL, method = RequestMethod.POST)
 	public void desactivarEmail(@PathVariable Long idEmail) {
-		perService.estadoEmail(idEmail, "D");
+		//perService.estadoEmail(idEmail, "D");
+		perService.eliminarEmail(idEmail);
 	}
 	
 	@RequestMapping(value = PersonaRestURIConstant.DESACTIVAR_PHONE, method = RequestMethod.POST)
 	public void desactivarTelefono(@PathVariable Long idTelefono) {
-		perService.estadoTelefono(idTelefono, "D");
+		//perService.estadoTelefono(idTelefono, "D");
+		perService.eliminarTelefono(idTelefono);
 	}	
 		
 	
@@ -432,6 +442,11 @@ public class PersonaController {
 		ReporteExcel excel=new ReporteExcel(lista,listaMatriz,listaHabilidad,listaAtributos);
 		excel.generarExcel(response);						
 	}	
+	
+	@RequestMapping(value = PersonaRestURIConstant.GET_DATOS_CONTACTO, method = RequestMethod.GET)
+	public Object datosContacto(@PathVariable Long idProyecto, @PathVariable Long idPersona){
+		return perDatosService.getDatosPrincipales(idProyecto,idPersona);		
+	}
 	
 	
 }

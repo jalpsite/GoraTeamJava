@@ -26,7 +26,7 @@ public class ExperienciaDaoImpl extends GenericDaoImpl<Experiencia> implements E
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Experiencia> getExperienciasPersona(Long idPersona) {
-		Query query=getCurrentSession().createQuery("select a from Experiencia a where a.persona.idpersona=:id");
+		Query query=getCurrentSession().createQuery("select a from Experiencia a where a.persona.idpersona=:id order by a.anhoinicio DESC");
 		query.setParameter("id", idPersona);
 		return query.list();
 	}

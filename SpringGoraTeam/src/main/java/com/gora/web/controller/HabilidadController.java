@@ -14,6 +14,7 @@ import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
+import com.gora.services.AtributosCertificacionService;
 import com.gora.services.AtributosService;
 import com.gora.services.HabilidadService;
 import com.gora.services.HabilidadesService;
@@ -41,6 +42,9 @@ public class HabilidadController {
 	
 	@Autowired
 	HabilidadesService habiliService;
+	
+	@Autowired
+	AtributosCertificacionService atriCertiService;
 	
 	@RequestMapping(value = HabilidadRestURIConstant.CREATE_HABILIDAD, method = RequestMethod.POST)	
 	public int Agregar(@ModelAttribute Habilidad hab,@PathVariable Long idPersona, @PathVariable Long idMatriz,@PathVariable Long idHabilidades){
@@ -88,10 +92,12 @@ public class HabilidadController {
 	
 	@RequestMapping(value = HabilidadRestURIConstant.DELETE_HABILIDAD, method = RequestMethod.POST)	
 	public void delete(@PathVariable Long idHabilidad){		
-		//eliminar atributos
-		if(atributosService.eliminarXHabilidad(idHabilidad)){							
-			this.habilidadService.eliminar(idHabilidad);
-		}			
+		
+		if(atriCertiService.eliminarCertificacionXHabilidad(idHabilidad)>=0){
+			if(atributosService.eliminarXHabilidad(idHabilidad)){							
+				this.habilidadService.eliminar(idHabilidad);
+			}
+		}				
 	}
 	
 }

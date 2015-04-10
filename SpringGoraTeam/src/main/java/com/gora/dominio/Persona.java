@@ -19,6 +19,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,11 +37,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@SequenceGenerator(name="PERSONA_IDPERSONA_GENERATOR", sequenceName="PERSONA_SEQUENCE")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERSONA_IDPERSONA_GENERATOR")
 	private Long idpersona;
 	private String apemat;
 	private String apepat;
 	private String estado;
 	private String estadocivil;
+	@Temporal(TemporalType.DATE)
 	private Date fechanacimiento;
 	private String nacionalidad;
 	private String nombres;
@@ -51,43 +59,66 @@ public class Persona implements Serializable {
 	
 	private String perfil;
 		
+	
+	//@OneToOne
+	//@JoinColumn(name="idusuario")	
 	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)  
+	@JoinColumn(name="idusuario")
+	@LazyToOne(value = LazyToOneOption.NO_PROXY)
 	private Usuario usuario;
-	
-	
+		
+	//bi-directional many-to-one association to Persona
+	@ManyToOne
+	@JoinColumn(name="idpermanager")
+	@JsonBackReference
 	private Persona persona;
 		
+	//bi-directional many-to-one association to Persona
 	@JsonIgnore
+	@OneToMany(mappedBy="persona")
+	@JsonManagedReference 
 	private List<Persona> personas;
-    
+    	
 	@JsonIgnore
+	//bi-directional many-to-one association to PersonaDireccion
+	@OneToMany(mappedBy="persona")
 	private List<PersonaDireccion> personaDireccions;
 	
 	@JsonIgnore
+	//bi-directional many-to-one association to PersonaEmail
+	@OneToMany(mappedBy="persona")
 	private List<PersonaEmail> personaEmails;
 	
 	@JsonIgnore
+	//bi-directional many-to-one association to PersonaEmail
+	@OneToMany(mappedBy="persona")
 	private List<PersonaTelefono> personaTelefonos;
 	
 	@JsonIgnore
+	//bi-directional many-to-one association to Experiencia
+	@OneToMany(mappedBy="persona")
 	private List<Experiencia> experiencias;
 	
 	@JsonIgnore
+	//bi-directional many-to-one association to Formacion
+	@OneToMany(mappedBy="persona")
 	private List<Formacion> formacions;
 	
 	@JsonIgnore
+	//bi-directional many-to-one association to Matriz
+	@OneToMany(mappedBy="persona")
 	private List<Matriz> matrices;
 	
 	@JsonIgnore
+	@OneToMany(mappedBy="persona",cascade = CascadeType.ALL)	
 	private List<PersonaEquipo> personasequipo;
 	
 	public Persona() {
 	}
 
 
-	@Id
-	@SequenceGenerator(name="PERSONA_IDPERSONA_GENERATOR", sequenceName="PERSONA_SEQUENCE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERSONA_IDPERSONA_GENERATOR")
+	
 	public Long getIdpersona() {
 		return this.idpersona;
 	}
@@ -132,8 +163,6 @@ public class Persona implements Serializable {
 		this.estadocivil = estadocivil;
 	}
 
-
-	@Temporal(TemporalType.DATE)
 	public Date getFechanacimiento() {
 		return this.fechanacimiento;
 	}
@@ -198,9 +227,6 @@ public class Persona implements Serializable {
 		this.tipodocidentidad = tipodocidentidad;
 	}
 
-
-	//bi-directional many-to-one association to PersonaDireccion
-	@OneToMany(mappedBy="persona")
 	public List<PersonaDireccion> getPersonaDireccions() {
 		return this.personaDireccions;
 	}
@@ -222,10 +248,7 @@ public class Persona implements Serializable {
 
 		return personaDireccion;
 	}
-
-
-	//bi-directional many-to-one association to PersonaEmail
-	@OneToMany(mappedBy="persona" )
+	
 	public List<PersonaEmail> getPersonaEmails() {
 		return this.personaEmails;
 	}
@@ -247,11 +270,7 @@ public class Persona implements Serializable {
 
 		return personaEmail;
 	}
-
-
-
-	//bi-directional many-to-one association to PersonaEmail
-	@OneToMany(mappedBy="persona")
+	
 	public List<PersonaTelefono> getPersonaTelefonos() {
 		return this.personaTelefonos;
 	}
@@ -259,7 +278,6 @@ public class Persona implements Serializable {
 	public void setPersonaTelefonos(List<PersonaTelefono> personaTelefonos) {
 		this.personaTelefonos = personaTelefonos;
 	}
-
 
 	public PersonaTelefono addPersonaTelefono(PersonaTelefono personaTelefono) {
 		getPersonaTelefonos().add(personaTelefono);
@@ -276,10 +294,7 @@ public class Persona implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Persona
-		@ManyToOne
-		@JoinColumn(name="idpermanager")
-		@JsonBackReference
+	
 		public Persona getPersona() {
 			return this.persona;
 		}
@@ -287,11 +302,7 @@ public class Persona implements Serializable {
 		public void setPersona(Persona persona) {
 			this.persona = persona;
 		}
-
-
-		//bi-directional many-to-one association to Persona
-		@OneToMany(mappedBy="persona")
-		@JsonManagedReference 
+		
 		public List<Persona> getPersonas() {
 			return this.personas;
 		}
@@ -314,9 +325,7 @@ public class Persona implements Serializable {
 			return persona;
 		}
 
-		
-		//bi-directional many-to-one association to Formacion
-		@OneToMany(mappedBy="persona")
+				
 		public List<Formacion> getFormacions() {
 			return this.formacions;
 		}
@@ -339,9 +348,7 @@ public class Persona implements Serializable {
 
 			return formacion;
 		}
-
-		//bi-directional many-to-one association to Experiencia
-		@OneToMany(mappedBy="persona")
+		
 		public List<Experiencia> getExperiencias() {
 			return this.experiencias;
 		}
@@ -365,9 +372,6 @@ public class Persona implements Serializable {
 			return experiencia;
 		}
 
-		
-		//bi-directional many-to-one association to Matriz
-		@OneToMany(mappedBy="persona")
 		public List<Matriz> getMatrices() {
 			return this.matrices;
 		}
@@ -412,9 +416,6 @@ public class Persona implements Serializable {
 			this.sexo = sexo;
 		}
 
-			
-		@OneToOne
-		@JoinColumn(name="idusuario")			
 		public Usuario getUsuario() {
 			return usuario;
 		}
@@ -424,7 +425,6 @@ public class Persona implements Serializable {
 			this.usuario = usuario;
 		}
 		
-		@OneToMany(mappedBy="persona",cascade = CascadeType.ALL)		
 		public List<PersonaEquipo> getPersonasequipo() {
 			return personasequipo;
 		}
@@ -449,21 +449,6 @@ public class Persona implements Serializable {
 			return matriz;
 		}
 		
-
  
-
-
-
-		
-
-
-
-		
-	
-
-
-	
-			
-		
 
 }

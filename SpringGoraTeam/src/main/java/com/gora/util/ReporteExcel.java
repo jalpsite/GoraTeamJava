@@ -3,6 +3,7 @@ package com.gora.util;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +23,13 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 
 
+
+
 import com.gora.dominio.Atributos;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
+import com.gora.dominio.PersonaEmail;
 
 public class ReporteExcel {
 	private List<Persona> listaPersonas;	
@@ -46,6 +50,7 @@ public class ReporteExcel {
 	
 	public void generarExcel(HttpServletResponse response) throws IOException{
 		
+		//String[] tit_DatosPersonales = { "ID", "APELLIDO PATERNO", "APELLIDO MATERNO", "NOMBRES", "EST. CIVIL", "F. NACIMIENTO", "TIPO", "DOCUMENTO","GENERO","NACIONALIDAD","EMAIL LABORAL"};
 		String[] tit_DatosPersonales = { "ID", "APELLIDO PATERNO", "APELLIDO MATERNO", "NOMBRES", "EST. CIVIL", "F. NACIMIENTO", "TIPO", "DOCUMENTO","GENERO","NACIONALIDAD"};
 		String[] tit_Competencias = { "ID", "COMPETENCIA"};
 		String[] tit_Habilidades = { "ID", "COMPETENCIA", "HABILIDAD"};
@@ -83,6 +88,8 @@ public class ReporteExcel {
         hoja.setColumnWidth(7, 256*15);
         hoja.setColumnWidth(8, 256*15);
         hoja.setColumnWidth(9, 256*40);
+        //
+        hoja.setColumnWidth(10, 256*40);
                 
         
         for(int i=0;i<listaPersonas.size();i++){        	
@@ -100,6 +107,8 @@ public class ReporteExcel {
             Cell cell_genero = fila.createCell(8);
             Cell cell_nacionalidad = fila.createCell(9);
             
+            //Cell cell_email = fila.createCell(10);
+            
             cell_ID.setCellStyle(styles.get("left"));
             cell_ApePat.setCellStyle(styles.get("left"));
             cell_ApeMat.setCellStyle(styles.get("left"));
@@ -110,6 +119,8 @@ public class ReporteExcel {
             cell_num_doc.setCellStyle(styles.get("left"));
             cell_genero.setCellStyle(styles.get("left"));
             cell_nacionalidad.setCellStyle(styles.get("left"));
+            
+            //cell_email.setCellStyle(styles.get("left"));
             
             String fecha="";
             String estadoC="";
@@ -128,6 +139,15 @@ public class ReporteExcel {
             	if(per.getSexo().equals("M")) genero="MASCULINO";
             	else genero="FEMENINO";
             }
+            
+            /*
+            String email="";
+            for(PersonaEmail pe:per.getPersonaEmails()){
+            	if(pe.getTipo().equals("LABORAL"))
+            		email=pe.getEmail();
+            }
+            */
+            
             cell_ID.setCellValue(per.getIdpersona().toString());            
             cell_ApePat.setCellValue(per.getApepat());
             String ape="";
@@ -139,7 +159,9 @@ public class ReporteExcel {
             cell_tipo_doc.setCellValue(per.getTipodocidentidad());
             cell_num_doc.setCellValue(per.getNumerodocidentidad());
             cell_genero.setCellValue(genero);
-            cell_nacionalidad.setCellValue(per.getNacionalidad());                       
+            cell_nacionalidad.setCellValue(per.getNacionalidad());         
+            
+            //cell_email.setCellValue(email);           
         }
         
         /*
@@ -163,12 +185,9 @@ public class ReporteExcel {
         PrintSetup printSetup2 = hoja2.getPrintSetup();
         printSetup2.setLandscape(true);
         
-        hoja2.setAutobreaks(true);
-        //printSetup.setFitHeight((short)1);
-        //printSetup.setFitWidth((short)1);
+        hoja2.setAutobreaks(true);        
         
-        Row headerRow2 = hoja2.createRow(0);
-        //headerRow.setHeightInPoints(12.75f);
+        Row headerRow2 = hoja2.createRow(0);        
         for (int i = 0; i < tit_Competencias.length; i++) {
             Cell cell = headerRow2.createCell(i);
             cell.setCellValue(tit_Competencias[i]); 
@@ -178,13 +197,23 @@ public class ReporteExcel {
         hoja2.setColumnWidth(0, 256*10);
         hoja2.setColumnWidth(1, 256*35);
       
+        List<Matriz> listaMatrizFiltrada=new ArrayList<Matriz>();
+        listaMatrizFiltrada.add(listaMatriz.get(0));
+        for(Matriz m:listaMatriz){
+        	for(Matriz m2:listaMatrizFiltrada){
+        		if(m.getPersona().getIdpersona()!=m2.getPersona().getIdpersona()&& m.getCompetencia().getIdcompetencia()!=m2.getCompetencia().getIdcompetencia()){
+        			listaMatrizFiltrada.add(m);
+        			break;
+        		}
+        	}
+        }
+        
         
         int cont=1;
-        for(int i=0;i<listaMatriz.size();i++){   
+        for(int i=0;i<listaMatrizFiltrada.size();i++){   
         	Matriz m=listaMatriz.get(i);        	
         	if(m.getEstado().equals("A")){
-        		Row fila = hoja2.createRow(cont);
-            	//fila.setHeightInPoints(12.75f);
+        		Row fila = hoja2.createRow(cont);            	
                 Cell cell_ID = fila.createCell(0);                
                 Cell cell_Comp = fila.createCell(1);
                 
@@ -200,18 +229,14 @@ public class ReporteExcel {
         
         
         
-        Sheet hoja3 = libro.createSheet("Habilidades");                
-        //hoja.setFitToPage(true);
+        Sheet hoja3 = libro.createSheet("Habilidades");                        
         hoja3.setHorizontallyCenter(true);
         PrintSetup printSetup3 = hoja3.getPrintSetup();
         printSetup3.setLandscape(true);
         
-        hoja3.setAutobreaks(true);
-        //printSetup.setFitHeight((short)1);
-        //printSetup.setFitWidth((short)1);
+        hoja3.setAutobreaks(true);        
         
-        Row headerRow3 = hoja3.createRow(0);
-        //headerRow.setHeightInPoints(12.75f);
+        Row headerRow3 = hoja3.createRow(0);        
         for (int i = 0; i < tit_Habilidades.length; i++) {
             Cell cell = headerRow3.createCell(i);
             cell.setCellValue(tit_Habilidades[i]);  
@@ -226,8 +251,7 @@ public class ReporteExcel {
         
         for(int i=0;i<listaHabilidad.size();i++){   
         	Habilidad h=listaHabilidad.get(i);        	        	
-        	Row fila = hoja3.createRow(i+1);
-            //fila.setHeightInPoints(12.75f);
+        	Row fila = hoja3.createRow(i+1);            
             Cell cell_ID = fila.createCell(0);            
             Cell cell_Comp = fila.createCell(1);     
             Cell cell_Hab = fila.createCell(2);
@@ -243,18 +267,14 @@ public class ReporteExcel {
         
        
         
-        Sheet hoja4 = libro.createSheet("Atributos");                
-        //hoja.setFitToPage(true);
+        Sheet hoja4 = libro.createSheet("Atributos");                        
         hoja4.setHorizontallyCenter(true);
         PrintSetup printSetup4 = hoja4.getPrintSetup();
         printSetup4.setLandscape(true);
         
-        hoja4.setAutobreaks(true);
-        //printSetup.setFitHeight((short)1);
-        //printSetup.setFitWidth((short)1);
+        hoja4.setAutobreaks(true);        
         
-        Row headerRow4 = hoja4.createRow(0);
-        //headerRow.setHeightInPoints(12.75f);
+        Row headerRow4 = hoja4.createRow(0);        
         for (int i = 0; i < tit_Atributos.length; i++) {
             Cell cell = headerRow4.createCell(i);
             cell.setCellValue(tit_Atributos[i]);  
@@ -271,8 +291,7 @@ public class ReporteExcel {
         System.out.println("antes del for");
         for(int i=0;i<listaAtributos.size();i++){   
         	Atributos a=listaAtributos.get(i);        	        	
-        	Row fila = hoja4.createRow(i+1);
-            //fila.setHeightInPoints(12.75f);
+        	Row fila = hoja4.createRow(i+1);            
             Cell cell_ID = fila.createCell(0);            
             Cell cell_Comp = fila.createCell(1);
             Cell cell_Hab = fila.createCell(2);
@@ -294,10 +313,10 @@ public class ReporteExcel {
             cell_Hab.setCellValue(a.getHabilidad().getHabilidades().getDescripcion());  
             cell_Atri.setCellValue(a.getAtributo().getDescripcion());  
             cell_Anios.setCellValue(a.getExperiencia().toString()+cad);  
-            cell_Certi.setCellValue(a.getNom_certificacion());  
+            cell_Certi.setCellValue("");  
         }
         
-        System.out.println("despues del for");
+        
         
         
         

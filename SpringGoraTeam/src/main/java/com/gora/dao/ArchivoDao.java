@@ -19,5 +19,6 @@ public interface ArchivoDao{
 	public Archivo getArchivoID(Long idArchivo);	
 	public List<Archivo> getArchivosLista(Long idPersona, String tipo, Long idMatriz);	
 	public void eliminarArchivo(Long idArchivo);
+	public List<Archivo> getFotos();
 	
 }

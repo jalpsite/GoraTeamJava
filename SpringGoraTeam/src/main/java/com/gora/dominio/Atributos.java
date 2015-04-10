@@ -2,6 +2,7 @@ package com.gora.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -40,13 +41,12 @@ public class Atributos implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idhabilidad")
 	private Habilidad habilidad;
-	private String certificado;
-	private String nom_certificacion;	
-	@Temporal(TemporalType.DATE)	
-	private Date fecha_inicio;
-	@Temporal(TemporalType.DATE)	
-	private Date fecha_fin;	
+	private String certificado;	
 	private Integer experiencia;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="atributos")
+	private List<AtributosCertificacion> certificaciones;
 	
 	public Atributos() {
 	}
@@ -88,30 +88,6 @@ public class Atributos implements Serializable {
 	}
 
 
-	public Date getFecha_inicio() {
-		return fecha_inicio;
-	}
-
-
-
-	public void setFecha_inicio(Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
-	}
-
-
-
-	public Date getFecha_fin() {
-		return fecha_fin;
-	}
-
-
-
-	public void setFecha_fin(Date fecha_fin) {
-		this.fecha_fin = fecha_fin;
-	}
-
-
-
 	public Integer getExperiencia() {
 		return experiencia;
 	}
@@ -133,18 +109,5 @@ public class Atributos implements Serializable {
 	public void setCertificado(String certificado) {
 		this.certificado = certificado;
 	}
-
-
-
-	public String getNom_certificacion() {
-		return nom_certificacion;
-	}
-
-
-
-	public void setNom_certificacion(String nom_certificacion) {
-		this.nom_certificacion = nom_certificacion;
-	}
-	
 
 }

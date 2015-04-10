@@ -57,6 +57,9 @@ public class ArchivoServiceImpl implements ArchivoService {
 		archivoDao.eliminarArchivo(idArchivo);
 	}
 	
-    
+	@Override
+	public List<Archivo> getFotos() {
+		return archivoDao.getFotos();
+	}
 
 }

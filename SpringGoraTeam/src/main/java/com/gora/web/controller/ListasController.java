@@ -134,8 +134,8 @@ public class ListasController {
 		return listasService.getLista(Long.parseLong("7"));
 	}
 	
-	@RequestMapping(value = ListasRestURIConstant.GET_CERTIFICACIONES, method = RequestMethod.GET,headers="Accept=application/json")
-	public List<Lista> getCertificaciones() {
+	@RequestMapping(value = ListasRestURIConstant.GET_OPERADORES, method = RequestMethod.GET,headers="Accept=application/json")
+	public List<Lista> getOperadores() {
 		return listasService.getLista(Long.parseLong("8"));
 	}
 	

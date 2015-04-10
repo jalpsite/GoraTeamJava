@@ -9,12 +9,14 @@ public class PersonaRestURIConstant {
     public static final String GET_ALL_PERSONA = "/lista";
     public static final String CREATE_PERSONA = "/create"; 
     
+    public static final String UPDATE_JEFE = "/jefe/{idPersona}"; 
+    
     //VALIDACIONES
     public static final String PERSONA_LOGIN = "/login";    
     public static final String PERSONA_VALIDA_DOCUMENTO = "/validadocumento/{doc}";
     
     //UPDATE 
-    public static final String UPDATE_PERSONA = "/update/user/{idUsuario}";
+    public static final String UPDATE_PERSONA = "/update/user/{idUsuario}/{idPersonaJefe}";
     public static final String UPDATE_PERSONA_PART = "/update/{opcion}";
     
     // FILTROS
@@ -63,5 +65,8 @@ public class PersonaRestURIConstant {
     
     /*	REPORTE DE TODOS LOS CONSULTORES */
     public static final String GET_PERSONAS_EXCEL = "/reporte";
+    
+    
+    public static final String GET_DATOS_CONTACTO = "/{idProyecto}/{idPersona}/datoscontacto";
 }
 

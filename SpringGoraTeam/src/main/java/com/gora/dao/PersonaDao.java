@@ -28,18 +28,22 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public void actualizarDireccion(PersonaDireccion perDir);
 	public List<PersonaDireccion> getDireccion(Long id);
 	public void estadoDireccion(Long idDireccion,String estado);
+	public void eliminarDireccion(Long idDireccion);
+	public void actualizarJefe(Long idPersona, Long idJefe);
 	
 	//EMAILS
 	public void agregarEmail(PersonaEmail perEmail);
 	public void actualizarEmail(PersonaEmail perEmail);
 	public List<PersonaEmail> getEmail(Long id);
 	public void estadoEmail(Long idEmail,String estado );
+	public void eliminarEmail(Long idEmail);
 	
 	//TELEFONOS
 	public void agregarTelefono(PersonaTelefono perTelf);
 	public void actualizarTelefono(PersonaTelefono perTelf);		
 	public List<PersonaTelefono> getTelefono(Long id);			
 	public void estadoTelefono(Long idTelefono,String estado);
+	public void eliminarTelefono(Long idTelefono);
 	
 	//EXTRACCION DE DATOS	
 	public Long getIDJefe(Long idPersona);
@@ -62,5 +66,7 @@ public interface PersonaDao extends GenericDao<Persona> {
 	public List<Persona> getPersonaXRol(String busqueda,String rol); 
 	
 	public Persona getPersona(Long id);
+	
+	
 	
 }

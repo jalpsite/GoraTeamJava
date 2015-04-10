@@ -87,10 +87,19 @@ public class Proyecto implements Serializable {
 	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Equipo Equipo;
+		
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="proyecto")
 	private List<Entregable> entregables;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="proyecto")
+	private List<Recursos> recursos;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="proyecto")
+	private List<EquipoRol> rolEquipo;
 	
 	public Proyecto() {
 	}
@@ -241,6 +250,22 @@ public class Proyecto implements Serializable {
 
 	public void setEntregables(List<Entregable> entregables) {
 		this.entregables = entregables;
+	}
+
+	public List<Recursos> getRecursos() {
+		return recursos;
+	}
+
+	public void setRecursos(List<Recursos> recursos) {
+		this.recursos = recursos;
+	}
+
+	public List<EquipoRol> getRolEquipo() {
+		return rolEquipo;
+	}
+
+	public void setRolEquipo(List<EquipoRol> rolEquipo) {
+		this.rolEquipo = rolEquipo;
 	}
 
 }

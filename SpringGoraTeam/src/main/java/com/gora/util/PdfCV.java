@@ -113,11 +113,7 @@ public class PdfCV {
 		    tablaCompetencia.setWidths(colsx);			    
 		    competenciaProfesional(tablaCompetencia);
 		    
-		    /* CERTIFICACIONES PROFESIONALES */
-		    PdfPTable tablaCertificaciones = tabla(3); // 		     		   		    		   
-		    float[] colsc = {2.0f, 0.5f, 0.5f};
-		    tablaCertificaciones.setWidths(colsc);			    
-		    certificacionProfesional(tablaCertificaciones);
+		    
 		    
 			PdfPCell cabecera = new PdfPCell(nombresFoto);
 			cabecera.setBorderColor(BaseColor.WHITE);			
@@ -130,8 +126,7 @@ public class PdfCV {
 			PdfPCell datosPersonales = cellMaestra(tablaDatos);			
 			PdfPCell formaciones = cellMaestra(tablaFormacion);							
 			PdfPCell experiencias = cellMaestra(tablaExperiencia);			
-			PdfPCell competencias = cellMaestra(tablaCompetencia);
-			PdfPCell certificaciones = cellMaestra(tablaCertificaciones);
+			PdfPCell competencias = cellMaestra(tablaCompetencia);			
 			
 			tabla.addCell(cabecera);
 			tabla.addCell(celdaEspacio());
@@ -139,11 +134,7 @@ public class PdfCV {
 			tabla.addCell(formaciones);
 			tabla.addCell(experiencias);
 			tablaHorizontal.addCell(competencias);
-			/*int cont=0;
-			for(Atributos a:listaAtributos){if (a.getCertificado().equals("S")) cont++;}
-			if(cont>0) tabla.addCell(certificaciones);
-			*/
-			
+									
 			documento.setPageSize(PageSize.A4);
 			documento.newPage();			
 			
@@ -280,8 +271,12 @@ public class PdfCV {
 	    List listaTelefonos = new List(List.UNORDERED);	    
 	    if(per.getPersonaTelefonos().size()>0){
 	    	for(PersonaTelefono perTel : per.getPersonaTelefonos() ){
-	    		if(perTel.getEstado().equals("A"))
-	    			listaTelefonos.add(new ListItem(parseMayuscula(perTel.getTelefono()+" ("+perTel.getTipo()+")"),subtit));
+	    		if(perTel.getEstado().equals("A")){
+	    			String ope="";
+	    			if(perTel.getOperador()!=null&&!perTel.getOperador().equals(""))
+	    				ope=" - "+perTel.getOperador();
+	    			listaTelefonos.add(new ListItem(parseMayuscula(perTel.getTelefono()+" ("+perTel.getTipo()+ope+")"),subtit));
+	    		}
 	    	}	    	
 	    }else{
 	    	listaTelefonos.add(new ListItem("No tiene Telefonos Registrados",subtit));
@@ -308,12 +303,15 @@ public class PdfCV {
 	    PdfPCell cellPresentacion = estiloCelda(2,1);		  
 	    Paragraph tituPresentacion = new Paragraph("Presentacion:",subtit);
 	    
-	    Pattern Tags = Pattern.compile("<.+?>");
-	    String pres=parseMayuscula(per.getPresentacion());
-	    Matcher m = Tags.matcher(pres);
-	    pres= m.replaceAll("").replaceAll("\\&.*?\\;", "");
-	    
-	    Paragraph presentacion = new Paragraph(pres,subtit);
+	    String txtPres="";	    
+	    if(per.getPresentacion()!=null && !per.getPresentacion().equals("''") && !per.getPresentacion().equals("")){	    	
+	    	Pattern Tags = Pattern.compile("<.+?>");
+	    	txtPres=parseMayuscula(per.getPresentacion());
+		    Matcher m = Tags.matcher(txtPres);
+		    txtPres= m.replaceAll("").replaceAll("\\&.*?\\;", "");	    	
+	    }
+	    	    	   
+	    Paragraph presentacion = new Paragraph(txtPres,subtit);
 	    cellPresentacion.addElement(tituPresentacion);
 	    cellPresentacion.addElement(presentacion);
 	    tablaDatos.addCell(cellTituloDatos);
@@ -353,10 +351,12 @@ public class PdfCV {
 				if(f.getGrado().getIdgrado()==0){
 					grado=f.getOtrogrado();
 				}
+				String uni=f.getUniversidad().getNombre();
+				if(f.getUniversidad().getNombre().equals("OTRO")) uni=f.getOtrauniversidad();
 				Paragraph anios = new Paragraph(rangoFecha,subtit);
 				Paragraph nivel = new Paragraph(parseMayuscula(f.getNivelestudio()+" - "+grado),subtit);
 				Paragraph carrera = new Paragraph(f.getCarrera().getNombre(),subtit);
-				Paragraph universidad = new Paragraph(parseMayuscula(f.getUniversidad().getNombre()),subtit);
+				Paragraph universidad = new Paragraph(parseMayuscula(uni),subtit);
 				Paragraph descripcion = new Paragraph(parseMayuscula(f.getDescripcion()),subtit);
 				columna1.addElement(anios);
 				columna1.addElement(nivel);
@@ -470,31 +470,6 @@ public class PdfCV {
 			tablaCompetencia.addCell(new PdfPCell(cellSinResultados));
 		}			
 		
-	}
-	
-	private void certificacionProfesional(PdfPTable tablaCertificacion){
-		PdfPCell cellTituloCertificacion = cabeceraColumna("CERTIFICACIONES PROFESIONALES");
-		cellTituloCertificacion.setColspan(3);					
-		tablaCertificacion.addCell(cellTituloCertificacion);
-		
-		tablaCertificacion.addCell(cabeceraColumna("CERTIFICACION"));
-		tablaCertificacion.addCell(cabeceraColumna("FECHA DE INICIO"));	
-		tablaCertificacion.addCell(cabeceraColumna("FECHA DE VENCIMIENTO"));
-		for(Atributos attr:listaAtributos){
-			if(attr.getCertificado().equals("S")){
-				PdfPCell colCertificado = estiloCelda(1,1);
-				PdfPCell colF_Inicio = estiloCelda(1,1);				
-				PdfPCell colF_Fin = estiloCelda(1,1);
-				colF_Inicio.setHorizontalAlignment(Element.ALIGN_CENTER);
-				colF_Fin.setHorizontalAlignment(Element.ALIGN_CENTER);				
-				colCertificado.addElement(new Paragraph(attr.getNom_certificacion(),subtit));
-				colF_Inicio.addElement(new Paragraph(attr.getFecha_inicio().toString(),subtit));
-				colF_Fin.addElement(new Paragraph(attr.getFecha_fin().toString(),subtit));
-				tablaCertificacion.addCell(colCertificado);
-				tablaCertificacion.addCell(colF_Inicio);
-				tablaCertificacion.addCell(colF_Fin);
-			}
-		}
 	}
 	
 	

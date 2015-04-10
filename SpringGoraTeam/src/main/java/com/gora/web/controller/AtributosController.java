@@ -53,7 +53,7 @@ public class AtributosController {
 
 	@RequestMapping(value = AtributosRestURIConstant.CREATE_ATRIBUTOS, method = RequestMethod.POST)	
 	//public int Agregar(@ModelAttribute Atributos attr, @PathVariable Long idHabilidad, @PathVariable Long idAtributo){			
-	public int Agregar(@ModelAttribute Atributos attr, @PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidades, @PathVariable Long idAtributo){
+	public String Agregar(@ModelAttribute Atributos attr, @PathVariable Long idPersona, @PathVariable Long idCompetencia, @PathVariable Long idHabilidades, @PathVariable Long idAtributo){
 		
 		Atributos a=atributosService.getAtributosXPersonaXCompXHab(idPersona, idHabilidades, idAtributo);
 		if(a==null){
@@ -86,9 +86,9 @@ public class AtributosController {
 			attr.setHabilidad(h);
 			attr.setAtributo(atributService.findById(idAtributo));
 			this.atributosService.save(attr);
-			return Integer.parseInt((m.getIdmatriz()).toString());
+			return m.getIdmatriz().toString()+","+attr.getIdatributos().toString();
 		}else{
-			return 0;
+			return "0";
 		}					
 	}
 		

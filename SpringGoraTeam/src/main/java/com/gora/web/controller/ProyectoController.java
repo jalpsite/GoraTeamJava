@@ -34,16 +34,21 @@ import com.gora.dominio.Cronograma;
 import com.gora.dominio.Equipo;
 import com.gora.dominio.Etapa;
 import com.gora.dominio.Persona;
+import com.gora.dominio.PersonaEquipo;
 import com.gora.dominio.Proyecto;
+import com.gora.dominio.Recursos;
 import com.gora.dominio.Tarea;
 import com.gora.services.ClientService;
 import com.gora.services.CronogramaService;
+import com.gora.services.EquipoRolService;
 import com.gora.services.EquipoService;
 import com.gora.services.EtapaService;
 import com.gora.services.IniciativaService;
+import com.gora.services.PersonaEquipoService;
 import com.gora.services.PersonaService;
 import com.gora.services.PortafolioService;
 import com.gora.services.ProyectoService;
+import com.gora.services.RecursosService;
 import com.gora.services.TareaService;
 import com.gora.services.TipoproyectoService;
 import com.gora.util.DojoGanttJSON;
@@ -84,6 +89,19 @@ public class ProyectoController {
 	
 	@Autowired
 	TareaService tareaService;
+	
+	@Autowired
+	PersonaEquipoService perEquipoService;
+	
+	@Autowired
+	RecursosService recursoService;
+	
+	@Autowired
+	CronogramaService cronogramaService;
+	
+	@Autowired
+	EquipoRolService equipoRolService;
+	
 			
 	@RequestMapping(value = ProyectoRestURIConstant.CREATE_PROYECTO, method = RequestMethod.POST)	
 	public int Agregar(@ModelAttribute Proyecto proy,@PathVariable Long idCliente, /*@PathVariable Long idIniciativa, */@PathVariable Long idPersona /*@PathVariable Long idPortafolio*/,@PathVariable Long idTipoProyecto){
@@ -132,6 +150,52 @@ public class ProyectoController {
 		return equipoService.getPersonasEquipo(equipo.getIdequipo());
 	}
 	
+	@RequestMapping(value=ProyectoRestURIConstant.ADD_PERSONA_PROYECTO,method = RequestMethod.POST,headers="Accept=application/json")
+	public Long addPersonaEquipo(@PathVariable Long idProyecto, @PathVariable Long idPersona, @PathVariable Long idRol){		
+		PersonaEquipo per_equi=new PersonaEquipo();
+		per_equi.setPersona(PersonaService.findById(idPersona));
+		per_equi.setEquipo(proyectoService.findById(idProyecto).getEquipo());
+		per_equi.setEquipoRol(equipoRolService.findById(idRol));
+		perEquipoService.save(per_equi);		
+		if(per_equi.getIdpersonaequipo()!=null)
+			return per_equi.getIdpersonaequipo();
+		else
+			return new Long("0"); 
+	}
+	
+	@RequestMapping(value=ProyectoRestURIConstant.CHANGE_ROL_PERSONA_PROYECTO,method = RequestMethod.POST,headers="Accept=application/json")
+	public int changeRolPersonaEquipo(@PathVariable Long idProyecto, @RequestParam Long idpersona, @RequestParam Long idequiporol){		
+		return perEquipoService.cambiarRol(idProyecto, idpersona, idequiporol);
+	}
+	
+	
+	@RequestMapping(value=ProyectoRestURIConstant.DELETE_PERSONA_PROYECTO,method = RequestMethod.POST,headers="Accept=application/json")
+	public int deletePersonaEquipo(@PathVariable Long idProyecto, @PathVariable Long idPersona){		
+		return perEquipoService.quitarPersonaEquipo(idProyecto, idPersona);
+	}
+	
+	
+	@RequestMapping(value=ProyectoRestURIConstant.ADD_RECURSO,method = RequestMethod.POST,headers="Accept=application/json")
+	public Long addRecurso(@ModelAttribute Recursos req, @PathVariable Long idProyecto){		
+		req.setProyecto(proyectoService.findById(idProyecto));
+		recursoService.save(req);
+		if(req.getIdrecurso()!=null)
+			return req.getIdrecurso();
+		else
+			return new Long("0"); 
+	}
+	
+	@RequestMapping(value=ProyectoRestURIConstant.ADD_CRONOGRAMA,method = RequestMethod.POST,headers="Accept=application/json")
+	public Long addCronograma(@ModelAttribute Cronograma cro, @PathVariable Long idProyecto, @PathVariable Long idEtapa){		
+		cro.setProyecto(proyectoService.findById(idProyecto));
+		cro.setEtapa(etapaService.findById(idEtapa));
+		cronogramaService.save(cro);
+		if(cro.getIdcronograma()!=null)
+			return cro.getIdcronograma();
+		else
+			return new Long("0"); 
+	}
+		
 	/*
 	@RequestMapping(value = ProyectoRestURIConstant.IMPORT_PROYECTO, method = RequestMethod.POST,headers = "Accept=application/json")
 	public String importarProyecto(@PathVariable Long idProyecto, @RequestBody  String cadena) {

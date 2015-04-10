@@ -17,4 +17,5 @@ import com.gora.dominio.PersonaDatos;
 public interface PersonaDatosDao extends GenericDao<PersonaDatos> {	
 	public List<Persona> getPersonaByDNI(String dni);	
 	public List<Persona> getPersonaByNomApe(String nomApe);
+	public Object getDatosPrincipales(Long idProyecto,Long idPersona);
 }

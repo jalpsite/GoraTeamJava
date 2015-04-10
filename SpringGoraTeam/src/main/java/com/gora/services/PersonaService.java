@@ -69,5 +69,12 @@ public interface PersonaService {
 	
 	
 	public Object filtroPersonas(String competencias, String habilidades, String atributos);
+	
+	public void eliminarDireccion(Long idDireccion);
+	public void eliminarEmail(Long idEmail);
+	public void eliminarTelefono(Long idTelefono);
+	
+	
+	public void actualizarJefe(Long idPersona, Long idJefe);
 
 }

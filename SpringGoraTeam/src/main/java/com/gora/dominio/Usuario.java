@@ -36,9 +36,11 @@ public class Usuario implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechatoken;
 			
+	
+	//@OneToOne
+	//@PrimaryKeyJoinColumn
 	@JsonIgnore
-	@OneToOne
-	@PrimaryKeyJoinColumn
+	@OneToOne(mappedBy = "usuario")
 	private Persona persona;
 		
 	@JsonIgnore

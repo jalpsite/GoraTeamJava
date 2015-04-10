@@ -59,4 +59,9 @@ public class PersonaDatosServiceImpl implements PersonaDatosService {
 		return personaDao.getPersonaByNomApe(nomApe);
 	}
 
+	@Override
+	public Object getDatosPrincipales(Long idProyecto,Long idPersona) {
+		return personaDao.getDatosPrincipales(idProyecto,idPersona);
+	}
+
 }

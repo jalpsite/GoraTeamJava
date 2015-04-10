@@ -32,14 +32,16 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object login(String correo,String dni) {		
-		Query query=getCurrentSession().createQuery("Select a.idpersona, a.sexo, a.apemat, a.apepat, a.nombres, a.perfil, a.usuario.id from Persona a where a.usuario.pass= :dni and upper(a.usuario.usuario)=:ema and a.usuario.estado='A'");
-		
+		Query query=getCurrentSession().createQuery("Select a.idpersona, a.sexo, a.apemat, a.apepat, a.nombres, a.perfil, a.usuario.id from Persona a where trim(a.usuario.pass)= :dni and trim(upper(a.usuario.usuario))=:ema and a.usuario.estado='A'");		
 		query.setParameter("dni", dni);
 		query.setParameter("ema", correo.toUpperCase());
 		Object per=null;
 		List<Object> lst=query.list();
 		if(lst.size()>0){
 			per=lst.get(0);
+			Query audi=getCurrentSession().createSQLQuery("insert into auditoria(usuario) values(:usuario);");
+			audi.setParameter("usuario", correo);
+			audi.executeUpdate();					
 		}		
 		return per;
 	}

@@ -14,7 +14,6 @@ import com.gora.dominio.AtributosCertificacion;
 import com.gora.services.AtributosCertificacionService;
 import com.gora.services.AtributosService;
 import com.gora.web.uri.AtributosCertificacionRestURIConstant;
-import com.gora.web.uri.AtributosRestURIConstant;
 
 
 @RestController

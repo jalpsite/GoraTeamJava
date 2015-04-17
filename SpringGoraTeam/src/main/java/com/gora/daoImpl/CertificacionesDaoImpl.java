@@ -3,9 +3,8 @@ package com.gora.daoImpl;
 import java.util.List;
 
 import com.gora.dao.CertificacionesDao;
-import com.gora.dao.ClienteDao;
 import com.gora.dominio.Certificaciones;
-import com.gora.dominio.Cliente;
+
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;

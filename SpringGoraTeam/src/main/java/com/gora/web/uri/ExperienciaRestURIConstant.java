@@ -1,7 +1,7 @@
 package com.gora.web.uri;
 
 public class ExperienciaRestURIConstant {
-	public static final String DUMMY_EXPERIENCIA = "/dummy";
+	
     public static final String GET_EXPERIENCIA = "/{id}";
     public static final String GET_ALL_EXPERIENCIA = "/lista";
     public static final String CREATE_EXPERIENCIA = "/create/{idPersona}";

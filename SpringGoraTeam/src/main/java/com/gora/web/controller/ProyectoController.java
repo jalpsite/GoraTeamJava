@@ -3,24 +3,12 @@ package com.gora.web.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.mpxj.ProjectFile;
-import net.sf.mpxj.Relation;
-import net.sf.mpxj.Resource;
-import net.sf.mpxj.ResourceAssignment;
-import net.sf.mpxj.Task;
 import net.sf.mpxj.mpp.MPPReader;
-import net.sf.mpxj.planner.schema.Predecessor;
-import net.sf.mpxj.planner.schema.Predecessors;
 import net.sf.mpxj.reader.ProjectReader;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,12 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gora.dominio.Cronograma;
 import com.gora.dominio.Equipo;
-import com.gora.dominio.Etapa;
 import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaEquipo;
 import com.gora.dominio.Proyecto;
 import com.gora.dominio.Recursos;
-import com.gora.dominio.Tarea;
 import com.gora.services.ClientService;
 import com.gora.services.CronogramaService;
 import com.gora.services.EquipoRolService;
@@ -274,8 +260,8 @@ public class ProyectoController {
 */
 	
 	
-	@RequestMapping(value=ProyectoRestURIConstant.IMPORT_PROYECTO, method=RequestMethod.POST)
-    public String handleFileUpload(@PathVariable Long idProyecto, @RequestParam("file") MultipartFile file){	
+	@RequestMapping(value=ProyectoRestURIConstant.IMPORT_PROYECTO, method=RequestMethod.POST,headers="Accept=application/json")
+    public Object handleFileUpload(@PathVariable Long idProyecto, @RequestParam("file") MultipartFile file){	
 		String name="proyecto.mpp";
 		 if (!file.isEmpty()) {
 	            try {
@@ -294,11 +280,13 @@ public class ProyectoController {
 	                ProjectReader reader = new MPPReader();
 	                ProjectFile project = reader.read(serverFile);
 	                	                
-	                String res=DojoGanttJSON.toJSON(project);
+	                Object res=DojoGanttJSON.toJSON(project);
 	                serverFile.delete();
 	                
 	                
- Proyecto proy=proyectoService.findById(idProyecto);
+	                /*
+	                
+	                Proyecto proy=proyectoService.findById(idProyecto);
 	                
 	                
 	                Object[][] datos=new Object[100][100];
@@ -393,7 +381,7 @@ public class ProyectoController {
 	                		
 	                	}
 	                }	                
-	                
+	                */
 	                return res;	                
 	            } catch (Exception e) {
 	                return "Falla al Subir archivo " + name + " => " + e.getMessage();

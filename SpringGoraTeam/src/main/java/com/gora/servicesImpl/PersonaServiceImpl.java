@@ -8,8 +8,6 @@ import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
-import com.gora.dominio.Usuario;
-import com.gora.dominio.UsuarioRol;
 import com.gora.services.PersonaService;
 
 import org.springframework.beans.factory.annotation.Autowired;

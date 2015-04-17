@@ -1,8 +1,6 @@
 package com.gora.dao;
 
 import java.util.List;
-
-import com.gora.dominio.Atributos;
 import com.gora.dominio.AtributosCertificacion;
 
 /**

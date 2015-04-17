@@ -1,7 +1,6 @@
 package com.gora.web.uri;
 
-public class HabilidadRestURIConstant {
-	public static final String DUMMY_HABILIDAD = "/dummy";
+public class HabilidadRestURIConstant {	
     public static final String GET_HABILIDAD = "/{id}";
     public static final String GET_ALL_HABILIDAD = "/lista";
     public static final String CREATE_HABILIDAD = "/create/{idPersona}/{idMatriz}/{idHabilidades}";

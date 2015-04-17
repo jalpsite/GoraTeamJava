@@ -1,10 +1,7 @@
 package com.gora.servicesImpl;
 
-import com.gora.dao.EvaluacionDao;
 import com.gora.dao.PersonaEquipoDao;
-import com.gora.dominio.Evaluacion;
 import com.gora.dominio.PersonaEquipo;
-import com.gora.services.EvaluacionService;
 import com.gora.services.PersonaEquipoService;
 
 import org.springframework.stereotype.Service;

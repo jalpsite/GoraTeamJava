@@ -1,22 +1,16 @@
 package com.gora.daoImpl;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
+import java.util.List;
 import com.gora.dao.PersonaDao;
 import com.gora.dominio.Atributo;
-import com.gora.dominio.Atributos;
 import com.gora.dominio.Competencia;
-import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
-import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
-import com.gora.dominio.Usuario;
-import com.gora.dominio.UsuarioRol;
+
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;

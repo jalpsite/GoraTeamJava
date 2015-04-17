@@ -10,8 +10,6 @@ import com.gora.dominio.Habilidades;
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
-import com.gora.dominio.Usuario;
-import com.gora.dominio.UsuarioRol;
 
 /**
  * Created by IntelliJ IDEA.

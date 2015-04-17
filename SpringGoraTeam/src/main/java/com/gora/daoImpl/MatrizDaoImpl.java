@@ -3,7 +3,6 @@ package com.gora.daoImpl;
 import java.util.List;
 
 import com.gora.dao.MatrizDao;
-import com.gora.dominio.Competencia;
 import com.gora.dominio.Matriz;
 
 import org.hibernate.Query;

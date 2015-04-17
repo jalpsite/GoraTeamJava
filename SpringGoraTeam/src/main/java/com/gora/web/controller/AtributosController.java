@@ -94,9 +94,8 @@ public class AtributosController {
 		
 	@RequestMapping(value = AtributosRestURIConstant.UPDATE_ATRIBUTOS, method = RequestMethod.POST)	
 	public void Actualizar(@ModelAttribute Atributos attr, @PathVariable Long idAtributo){
-		Atributos atributos=atributosService.findById(attr.getIdatributos());				
-		Atributo atri=atributService.findById(idAtributo);				
-		atributos.setAtributo(atri);
+		Atributos atributos=atributosService.findById(attr.getIdatributos());								
+		atributos.setAtributo(atributService.findById(idAtributo));
 		this.atributosService.update(atributos);		
 	}
 	

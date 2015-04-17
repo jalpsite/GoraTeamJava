@@ -1,7 +1,6 @@
 package com.gora.web.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -39,12 +38,11 @@ import com.gora.dominio.Habilidad;
 import com.gora.dominio.Habilidades;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
-import com.gora.dominio.PersonaDatos;
+
 import com.gora.dominio.PersonaDireccion;
 import com.gora.dominio.PersonaEmail;
 import com.gora.dominio.PersonaTelefono;
-import com.gora.dominio.Usuario;
-import com.gora.dominio.UsuarioRol;
+
 import com.gora.web.uri.PersonaRestURIConstant;
 
 @RestController

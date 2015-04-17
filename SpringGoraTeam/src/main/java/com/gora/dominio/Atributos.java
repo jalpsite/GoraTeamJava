@@ -1,12 +1,8 @@
 package com.gora.dominio;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
-
 import javax.persistence.*;
-
-import org.junit.Ignore;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

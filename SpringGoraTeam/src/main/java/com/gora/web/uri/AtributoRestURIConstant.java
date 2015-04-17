@@ -1,7 +1,6 @@
 package com.gora.web.uri;
 
-public class AtributoRestURIConstant {
-	public static final String DUMMY_ATRIBUTO = "/dummy";
+public class AtributoRestURIConstant {	
     public static final String GET_ATRIBUTO = "/{id}";
     public static final String GET_ALL_ATRIBUTO = "/lista";
     public static final String CREATE_ATRIBUTO = "/create/{idHabilidades}";

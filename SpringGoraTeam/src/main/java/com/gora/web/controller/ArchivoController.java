@@ -1,10 +1,5 @@
 package com.gora.web.controller;
 
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImagingOpException;
 import java.io.ByteArrayInputStream;
@@ -58,7 +53,7 @@ public class ArchivoController {
 			if (thum == null) {
 				thum=new Archivo();
 				thum.setIdpersona(idPersona);
-				thum.setTipo("T");
+				thum.setTipo("THUMB");
 			}
 			
 			BufferedImage scaled = Scalr.resize(ImageIO.read(file.getInputStream()), Scalr.Method.QUALITY, Scalr.Mode.FIT_EXACT,
@@ -176,7 +171,7 @@ public class ArchivoController {
 		archivoService.eliminarArchivo(idArchivo);
 	}
 	
-	
+	/*
 	@RequestMapping(value ="/generar", method = RequestMethod.GET)
 	public void generar() throws IllegalArgumentException, ImagingOpException, IOException{
 		List<Archivo> lst=archivoService.getFotos();
@@ -194,6 +189,7 @@ public class ArchivoController {
 
 		
 	}
+	*/
 		
-		
+	
 }

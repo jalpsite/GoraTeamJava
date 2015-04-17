@@ -1,6 +1,5 @@
 package com.gora.services;
 import com.gora.dominio.Certificaciones;
-import com.gora.dominio.Cliente;
 
 import java.util.List;
 

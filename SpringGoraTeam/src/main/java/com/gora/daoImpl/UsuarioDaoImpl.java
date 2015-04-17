@@ -7,6 +7,7 @@ import com.gora.dao.UsuarioDao;
 import com.gora.dominio.Usuario;
 import com.gora.dominio.UsuarioRol;
 import com.gora.util.Correo;
+import com.gora.util.Seguridad;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -33,7 +34,7 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 	@Override
 	public Object login(String correo,String dni) {		
 		Query query=getCurrentSession().createQuery("Select a.idpersona, a.sexo, a.apemat, a.apepat, a.nombres, a.perfil, a.usuario.id from Persona a where trim(a.usuario.pass)= :dni and trim(upper(a.usuario.usuario))=:ema and a.usuario.estado='A'");		
-		query.setParameter("dni", dni);
+		query.setParameter("dni", Seguridad.Encriptar(dni));
 		query.setParameter("ema", correo.toUpperCase());
 		Object per=null;
 		List<Object> lst=query.list();
@@ -82,8 +83,8 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 	public int cambiarContraseña(Long idUsuario, String oldPass, String newPass) {		
 		Query query=getCurrentSession().createQuery("update Usuario a set a.pass=:newPass where a.id=:id and a.pass=:oldPass");
 		query.setParameter("id", idUsuario);
-		query.setParameter("newPass", newPass);
-		query.setParameter("oldPass", oldPass);
+		query.setParameter("newPass", Seguridad.Encriptar(newPass));
+		query.setParameter("oldPass", Seguridad.Encriptar(oldPass));
 		return query.executeUpdate();					
 	}
 
@@ -124,7 +125,7 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
 		query1.setParameter("token",token);		
 		if(query1.list().size()>0){
 			Query query2=getCurrentSession().createQuery("update Usuario a set a.pass=:newpass, a.token=:token, a.fechatoken=:fecha where a.id=:id");
-			query2.setParameter("newpass",newpass);
+			query2.setParameter("newpass",Seguridad.Encriptar(newpass));
 			query2.setParameter("token",null);
 			query2.setParameter("fecha",null);
 			query2.setParameter("id",idUsuario);

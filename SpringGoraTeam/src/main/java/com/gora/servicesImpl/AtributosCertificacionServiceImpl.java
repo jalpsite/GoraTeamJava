@@ -1,12 +1,8 @@
 package com.gora.servicesImpl;
 
 import com.gora.dao.AtributosCertificacionDao;
-import com.gora.dao.AtributosDao;
-import com.gora.dominio.Atributos;
 import com.gora.dominio.AtributosCertificacion;
 import com.gora.services.AtributosCertificacionService;
-import com.gora.services.AtributosService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

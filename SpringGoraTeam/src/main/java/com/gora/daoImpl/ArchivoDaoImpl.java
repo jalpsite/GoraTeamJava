@@ -89,6 +89,7 @@ public class ArchivoDaoImpl implements ArchivoDao {
 		query.executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Archivo> getFotos() {
 		Query query = sessionFactory.getCurrentSession().createQuery("select a from Archivo a where a.tipo='PF' or a.tipo='ANONIMO'");

@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -20,16 +18,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-
-
-
-
-
 import com.gora.dominio.Atributos;
 import com.gora.dominio.Habilidad;
 import com.gora.dominio.Matriz;
 import com.gora.dominio.Persona;
-import com.gora.dominio.PersonaEmail;
 
 public class ReporteExcel {
 	private List<Persona> listaPersonas;	
